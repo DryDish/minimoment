@@ -20,13 +20,13 @@ for the project according to the requirements described in the final project des
     * stored functions ☑️
     * indexes for faster querying ☑️
     * views ☑️
-    * triggers ❌
+    * triggers ☑
     * events ☑️
     * Write a report which is described below. ❌
 
 **Delivery**
 
-Hand in on Fronter before the deadline (25-03-2022).
+Hand in on Fronter before the deadline (24-03-2022 23:59).
 
 **Artifacts**
 
@@ -34,7 +34,7 @@ Hand in on Fronter before the deadline (25-03-2022).
     * Database creation, including tables, keys, indexes, constraints, and referential integrity checks. ☑️
     * Load of test data ☑️
     * Stored procedures ☑️
-    * Trigger ❌
+    * Trigger ☑
     * Views ☑️
     * Events ☑️
     * A brief installation procedure that specifies how to import the database ina test environment with full operational capabilities ❌
