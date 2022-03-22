@@ -5,7 +5,7 @@ USE `store`;
 
 
 -- --------------------------------------------------------------------
--- Customer Info View
+-- View `customer_info`
 -- --------------------------------------------------------------------
 DROP VIEW IF EXISTS `customer_info`;
 
@@ -24,7 +24,7 @@ FROM `users` INNER JOIN `contact_info` ON `users`.`contact_info_id`=`contact_inf
 
 
 -- --------------------------------------------------------------------
--- Invoice Data View
+-- View `invoice_data`
 -- --------------------------------------------------------------------
 DROP VIEW IF EXISTS `invoice_data`;
 

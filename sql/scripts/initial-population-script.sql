@@ -1,8 +1,11 @@
+-- -----------------------------------------------------
+-- Schema store
+-- -----------------------------------------------------
 USE `store` ;
 
-#
-# Populating table: contact_info
-#
+-- -----------------------------------------------------
+-- Populating table: `contact_info`
+-- -----------------------------------------------------
 
 INSERT INTO `contact_info` (`contact_info_id`, `phone_number`, `country_code`, `city`, `postal_code`, `address_one`, `address_two`) VALUES (1, '+03(3)2949588615', 'osl', 'Mertietown', 'hgop', 'Non provident tempora quia minima dignissimos qui saepe.', 'Labore quidem odit eum quo.');
 INSERT INTO `contact_info` (`contact_info_id`, `phone_number`, `country_code`, `city`, `postal_code`, `address_one`, `address_two`) VALUES (2, '(233)541-7011', 'pkn', 'Luisport', 'bnfz', 'Aspernatur amet quod sunt hic dignissimos.', 'Aut dolorem odio qui magnam est velit.');
@@ -46,17 +49,17 @@ INSERT INTO `contact_info` (`contact_info_id`, `phone_number`, `country_code`, `
 INSERT INTO `contact_info` (`contact_info_id`, `phone_number`, `country_code`, `city`, `postal_code`, `address_one`, `address_two`) VALUES (40, '+48(1)8548794881', 'vqr', 'Port Marvinton', 'aaqu', 'Nihil fugit repudiandae mollitia praesentium.', 'Sed molestiae accusamus aut voluptatem vel.');
 
 
-#
-# Populating table: discount_types
-#
+-- -----------------------------------------------------
+-- Populating table: `discount_types`
+-- -----------------------------------------------------
 
 INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (2, 'fuga');
 INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (1, 'tempore');
 
 
-#
-# Populating table: discount_codes
-#
+-- -----------------------------------------------------
+-- Populating table: `discount_codes`
+-- -----------------------------------------------------
 
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (1, 'est', 1, '27.897', '1986-03-24 21:52:48', '2008-12-21 06:04:46', 34);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (2, 'et', 2, '5107100', '1981-11-28 14:56:59', '2012-11-22 16:39:28', 72);
@@ -80,9 +83,9 @@ INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `v
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (20, 'harum', 2, '38.6111', '1991-03-24 18:52:05', '2015-07-02 22:22:18', 56);
 
 
-#
-# Populating table: sizes
-#
+-- -----------------------------------------------------
+-- Populating table: `sizes`
+-- -----------------------------------------------------
 
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (1, 'optio', 408, 179, '0');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (2, 'vero', 651, 898, '100');
@@ -106,9 +109,9 @@ INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (20, 'pariatur', 828, 848, '464.174');
 
 
-#
-# Populating table: frames
-#
+-- -----------------------------------------------------
+-- Populating table: `frames`
+-- -----------------------------------------------------
 
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (1, 5, 'minima', '1.1', 'reprehenderit', 2);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (2, 1, 'ullam', '1.5', 'quo', 15);
@@ -127,9 +130,9 @@ INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `mat
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (15, 6, 'sapiente', '1.5', 'nihil', 3);
 
 
-#
-# Populating table: paper_types
-#
+-- -----------------------------------------------------
+-- Populating table: `paper_types`
+-- -----------------------------------------------------
 
 INSERT INTO `paper_types` (`paper_type_id`, `name`, `multiplier`, `size_id`, `discount_code_id`) VALUES (1, 'iste', '9.99', 14, 12);
 INSERT INTO `paper_types` (`paper_type_id`, `name`, `multiplier`, `size_id`, `discount_code_id`) VALUES (2, 'id', '9.99', 15, 4);
@@ -143,9 +146,9 @@ INSERT INTO `paper_types` (`paper_type_id`, `name`, `multiplier`, `size_id`, `di
 INSERT INTO `paper_types` (`paper_type_id`, `name`, `multiplier`, `size_id`, `discount_code_id`) VALUES (10, 'error', '9.99', 2, 1);
 
 
-#
-# Populating table: statuses
-#
+-- -----------------------------------------------------
+-- Populating table: `statuses`
+-- -----------------------------------------------------
 
 INSERT INTO `statuses` (`status_id`, `name`) VALUES (8, 'corrupti');
 INSERT INTO `statuses` (`status_id`, `name`) VALUES (9, 'delectus');
@@ -159,9 +162,9 @@ INSERT INTO `statuses` (`status_id`, `name`) VALUES (6, 'rerum');
 INSERT INTO `statuses` (`status_id`, `name`) VALUES (10, 'sit');
 
 
-#
-# Populating table: subscription_types
-#
+-- -----------------------------------------------------
+-- Populating table: `subscription_types`
+-- -----------------------------------------------------
 
 INSERT INTO `subscription_types` (`subscription_type_id`, `name`, `monthly_price`, `image_amount`) VALUES (1, 'voluptatum', '1379.57', 3439780);
 INSERT INTO `subscription_types` (`subscription_type_id`, `name`, `monthly_price`, `image_amount`) VALUES (2, 'corrupti', '108.936', 0);
@@ -170,18 +173,18 @@ INSERT INTO `subscription_types` (`subscription_type_id`, `name`, `monthly_price
 INSERT INTO `subscription_types` (`subscription_type_id`, `name`, `monthly_price`, `image_amount`) VALUES (5, 'quia', '233', 6);
 
 
-#
-# Populating table: roles
-#
+-- -----------------------------------------------------
+-- Populating table: `roles`
+-- -----------------------------------------------------
 
 INSERT INTO `roles` (`roles_id`, `name`) VALUES (3, 'corporis');
 INSERT INTO `roles` (`roles_id`, `name`) VALUES (1, 'expedita');
 INSERT INTO `roles` (`roles_id`, `name`) VALUES (2, 'voluptatem');
 
 
-#
-# Populating table: users
-#
+-- -----------------------------------------------------
+-- Populating table: `users`
+-- -----------------------------------------------------
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (1, 'Keenan', 'Dooley', 'beaulah.o\'reilly', 'c07a6dc4d34e9405a248a27dc87b2e8235b51c30', 36, 3, NULL);
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (2, 'Joana', 'Boyer', 'kbayer', '89ced8ec2c16244161fa8d1e1f2f705ef3247617', 13, 1, NULL);
@@ -205,9 +208,9 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (20, 'Princess', 'West', 'hilma.emard', '7a5062f316c6280aa41a14ba153e5151a005e3f6', 38, 2, NULL);
 
 
-#
-# Populating table: subscriptions
-#
+-- -----------------------------------------------------
+-- Populating table: `subscriptions`
+-- -----------------------------------------------------
 
 INSERT INTO `subscriptions` (`subscription_id`, `user_id`, `subscription_type_id`, `starts_at`, `ends_at`) VALUES (1, 1, 2, '2001-07-10 17:46:42', '1997-09-02 00:54:37');
 INSERT INTO `subscriptions` (`subscription_id`, `user_id`, `subscription_type_id`, `starts_at`, `ends_at`) VALUES (2, 2, 2, '2009-12-10 19:46:15', '2009-08-29 08:17:36');
@@ -231,9 +234,9 @@ INSERT INTO `subscriptions` (`subscription_id`, `user_id`, `subscription_type_id
 INSERT INTO `subscriptions` (`subscription_id`, `user_id`, `subscription_type_id`, `starts_at`, `ends_at`) VALUES (20, 20, 1, '1978-11-05 23:49:29', '2007-01-04 01:19:27');
 
 
-#
-# Populating table: orders
-#
+-- -----------------------------------------------------
+-- Populating table: `orders`
+-- -----------------------------------------------------
 
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (1, 1, 12, 27, 10, '819.701', '423.1', '2022-02-19 16:49:26');
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (2, 10, 20, 25, 1, '4470.9', '140.5', '1992-02-16 12:41:10');
@@ -267,9 +270,9 @@ INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contac
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (30, 7, 13, 35, 10, '5786.53', '388.23', '2001-05-25 06:46:49');
 
 
-#
-# Populating table: invoice
-#
+-- -----------------------------------------------------
+-- Populating table: `invoice`
+-- -----------------------------------------------------
 
 INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (1, 1, '1997-08-15 18:28:38');
 INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (2, 2, '1991-12-28 07:49:16');
@@ -303,9 +306,9 @@ INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (29, 29, '
 INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (30, 30, '1985-08-15 22:16:05');
 
 
-#
-# Populating table: picture_data
-#
+-- -----------------------------------------------------
+-- Populating table: `picture_data`
+-- -----------------------------------------------------
 
 INSERT INTO `picture_data` (`picture_data_id`, `user_id`, `image_url`, `uploaded_at`) VALUES (1, 17, 'http://dooley.com/', '1973-09-09 19:40:23');
 INSERT INTO `picture_data` (`picture_data_id`, `user_id`, `image_url`, `uploaded_at`) VALUES (2, 8, 'http://www.fadeldavis.biz/', '1974-06-04 08:21:32');
@@ -509,9 +512,9 @@ INSERT INTO `picture_data` (`picture_data_id`, `user_id`, `image_url`, `uploaded
 INSERT INTO `picture_data` (`picture_data_id`, `user_id`, `image_url`, `uploaded_at`) VALUES (200, 14, 'http://zulauf.biz/', '1975-07-29 22:15:34');
 
 
-#
-# Populating table: order_items
-#
+-- -----------------------------------------------------
+-- Populating table: `order_items`
+-- -----------------------------------------------------
 
 INSERT INTO `order_items` (`order_item_id`, `picture_data_id`, `paper_type_id`, `frame_id`, `order_id`, `order_item_price`, `price_saved`, `amount`) VALUES (1, 85, 6, 4, 10, '0', '10270', 2);
 INSERT INTO `order_items` (`order_item_id`, `picture_data_id`, `paper_type_id`, `frame_id`, `order_id`, `order_item_price`, `price_saved`, `amount`) VALUES (2, 121, 10, 12, 12, '7.773', '6.35', 47);

@@ -1,5 +1,3 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -8,10 +6,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema store
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `store` ;
-
--- -----------------------------------------------------
--- Schema store
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `store` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 USE `store` ;
 
@@ -27,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `contact_info` (
   `city` VARCHAR(97) NOT NULL,
   `postal_code` VARCHAR(8) NOT NULL,
   `address_one` VARCHAR(255) NOT NULL,
-  `address_two` VARCHAR(255) NULL,
+  `address_two` VARCHAR(255),
   PRIMARY KEY (`contact_info_id`))
 ENGINE = InnoDB;
 
@@ -53,13 +47,13 @@ DROP TABLE IF EXISTS `users` ;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(60) NULL,
-  `last_name` VARCHAR(60) NULL,
+  `first_name` VARCHAR(60),
+  `last_name` VARCHAR(60),
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `contact_info_id` INT NULL,
   `roles_id` INT NOT NULL,
-  `auto_renew` TINYINT(1) NULL,
+  `auto_renew` TINYINT(1),
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_user_contact_info`
     FOREIGN KEY (`contact_info_id`)
@@ -162,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `billing_contact_info_id` INT NOT NULL,
   `status_id` INT NOT NULL,
   `order_price` DECIMAL(15, 2) NOT NULL DEFAULT 0,
-  `total_price_saved` DECIMAL(15, 2) NULL DEFAULT 0,
+  `total_price_saved` DECIMAL(15, 2) DEFAULT 0,
   `created_at` DATETIME NOT NULL,
   PRIMARY KEY (`order_id`),
   CONSTRAINT `fk_order_discount_codes`
@@ -289,7 +283,7 @@ DROP TABLE IF EXISTS `paper_types` ;
 
 CREATE TABLE IF NOT EXISTS `paper_types` (
   `paper_type_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45),
   `multiplier` DECIMAL(3,2) NOT NULL,
   `size_id` INT NOT NULL,
   `discount_code_id` INT,
@@ -323,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   `frame_id` INT NULL,
   `order_id` INT NOT NULL,
   `order_item_price` DECIMAL(15, 2) NOT NULL,
-  `price_saved` DECIMAL(15, 2) NULL,
+  `price_saved` DECIMAL(15, 2),
   `amount` INT NOT NULL,
   PRIMARY KEY (`order_item_id`),
   CONSTRAINT `fk_order_item_picture_data`
