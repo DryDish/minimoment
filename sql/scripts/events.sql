@@ -75,4 +75,4 @@ CREATE EVENT create_monthly_report_test
 		END $$
 DELIMITER ;
 
-SELECT * FROM `monthly_reports`; -- Check out monthly reports.
+-- SELECT * FROM `monthly_reports`; -- Check out monthly reports.

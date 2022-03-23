@@ -25,8 +25,8 @@ END $$
 DELIMITER ;
 
 -- Example usages
-SELECT fn_calculate_total(2,null);
-SELECT fn_calculate_total(100, 50);
+-- SELECT fn_calculate_total(2,null);
+-- SELECT fn_calculate_total(100, 50);
 
 
 -- ----------------------------------------------------------------------------------------------------------------------------------------
@@ -50,6 +50,6 @@ END $$
 DELIMITER ;
 
 -- Example usages
-SELECT fn_calculate_order_item_price(10, 1.5, 20, 1.2, 10);
-SELECT fn_calculate_order_item_price(10, 1.5, 20, null, 10);
-SELECT fn_calculate_order_item_price(10, null, 20, 1.2, 10);
+-- SELECT fn_calculate_order_item_price(10, 1.5, 20, 1.2, 10);
+-- SELECT fn_calculate_order_item_price(10, 1.5, 20, null, 10);
+-- SELECT fn_calculate_order_item_price(10, null, 20, 1.2, 10);
