@@ -37,7 +37,7 @@ Hand in on Fronter before the deadline (24-03-2022 23:59).
     * Trigger ☑
     * Views ☑️
     * Events ☑️
-    * A brief installation procedure that specifies how to import the database ina test environment with full operational capabilities ❌
+    * A [brief installation procedure](./sql-setup.md) that specifies how to import the database ina test environment with full operational capabilities ☑️
 
 
 **Report**
