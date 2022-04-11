@@ -32,13 +32,17 @@ DROP TRIGGER IF EXISTS calculate_order_price$$
 CREATE TRIGGER calculate_order_price BEFORE INSERT ON `order_items`
 	FOR EACH ROW
 		BEGIN
-            -- Calculate order item price
-            CALL get_order_item_price(NEW.`order_item_id`, NEW.`frame_id`, NEW.`paper_type_id`, NEW.`amount`, @order_item_price);
+            -- Calculate order item price.
+            CALL get_order_item_price(NEW.`frame_id`, NEW.`paper_type_id`, NEW.`amount`, @order_item_price);
             SET NEW.`order_item_price` = @order_item_price;
-            -- Reset order items price saved.
-            SET NEW.`price_saved` = 0;
+            -- Calculate order items price saved.
+            CALL get_order_item_price_saved(NEW.`frame_id`, NEW.`paper_type_id`, NEW.`amount`, @order_item_price_saved);
+            SET NEW.`price_saved` = @order_item_price_saved;
 			
-            -- Recalculate order price to account for the new order item.
-			UPDATE `orders` SET `order_price` = `order_price` + @order_item_price WHERE `orders`.`order_id` = NEW.`order_id`;
+            -- Recalculate order price and price saved to account for the new order item.
+			UPDATE `orders` SET 
+				`order_price` = `order_price` + @order_item_price, 
+                `total_price_saved` = `total_price_saved` + @order_item_price_saved
+			WHERE `orders`.`order_id` = NEW.`order_id`;
 		END; $$
 DELIMITER ;
