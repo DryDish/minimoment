@@ -53,8 +53,8 @@ INSERT INTO `contact_info` (`contact_info_id`, `phone_number`, `country_code`, `
 -- Populating table: `discount_types`
 -- -----------------------------------------------------
 
-INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (2, 'fuga');
-INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (1, 'tempore');
+INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (2, 'percent');
+INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (1, 'amount');
 
 
 -- -----------------------------------------------------
@@ -64,7 +64,7 @@ INSERT INTO `discount_types` (`discount_type_id`, `name`) VALUES (1, 'tempore');
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (1, 'est', 1, '27.897', '1986-03-24 21:52:48', '2008-12-21 06:04:46', 34);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (2, 'et', 2, '5107100', '1981-11-28 14:56:59', '2012-11-22 16:39:28', 72);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (3, 'voluptatem', 1, '0', '1979-09-26 08:55:28', '1979-04-01 21:10:06', 6);
-INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (4, 'consequuntur', 2, '296.641', '2020-11-13 04:50:18', '2005-06-21 13:38:56', 51);
+INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (4, 'consequuntur', 2, '0.5', '2020-11-13 04:50:18', '2005-06-21 13:38:56', 51);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (5, 'amet', 1, '15', '1988-11-27 07:41:40', '1972-06-08 23:56:28', 24);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (6, 'commodi', 2, '1', '1977-08-18 20:10:46', '1983-12-28 04:59:47', 54);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (7, 'rerum', 1, '0', '2016-05-12 17:34:25', '1975-08-14 12:55:22', 63);
@@ -77,7 +77,7 @@ INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `v
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (14, 'cupiditate', 2, '22518.2', '1992-09-02 11:05:59', '1976-08-24 11:17:27', 87);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (15, 'suscipit', 1, '1705.5', '2011-08-10 06:22:14', '2009-10-24 19:52:21', 28);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (16, 'dignissimos', 2, '5.78284', '1976-06-26 00:28:06', '1996-01-29 13:41:28', 20);
-INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (17, 'totam', 1, '0', '2003-06-26 00:17:54', '2004-06-14 09:35:51', 85);
+INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (17, 'totam', 1, '25', '2003-06-26 00:17:54', '2004-06-14 09:35:51', 85);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (18, 'eius', 2, '1404', '1971-05-19 17:57:06', '2019-03-23 23:59:43', 81);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (19, 'voluptates', 1, '684272', '1999-01-06 02:42:24', '1975-02-22 22:48:59', 13);
 INSERT INTO `discount_codes` (`discount_code_id`, `name`, `discount_type_id`, `value`, `valid_from`, `valid_to`, `remaining_uses`) VALUES (20, 'harum', 2, '38.6111', '1991-03-24 18:52:05', '2015-07-02 22:22:18', 56);
@@ -94,9 +94,9 @@ INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (5, 'suscipit', 469, 492, '29.9059');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (6, 'rem', 809, 686, '123');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (7, 'facilis', 197, 633, '800');
-INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (8, 'hic', 535, 472, '11');
+INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (8, 'hic', 535, 472, '50');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (9, 'a', 122, 627, '421.8');
-INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (10, 'reprehenderit', 915, 642, '428.36');
+INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (10, 'reprehenderit', 915, 642, '100');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (11, 'aut', 656, 646, '0');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (12, 'sed', 852, 208, '285.74');
 INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES (13, 'hic', 153, 596, '2');
@@ -116,7 +116,7 @@ INSERT INTO `sizes` (`size_id`, `name`, `width_mm`, `height_mm`, `price`) VALUES
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (1, 5, 'minima', '1.1', 'reprehenderit', 2);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (2, 1, 'ullam', '1.5', 'quo', 15);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (3, 3, 'ut', '1.5', 'vitae', 9);
-INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (4, 4, 'nostrum', '1.5', 'deleniti', 10);
+INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (4, 4, 'nostrum', '2', 'deleniti', 10);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (5, 11, 'illum', '1.5', 'est', 6);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (6, 15, 'cum', '1.54', 'error', 8);
 INSERT INTO `frames` (`frame_id`, `discount_code_id`, `name`, `multiplier`, `material`, `size_id`) VALUES (7, 11, 'sequi', '1.5', 'labore', 17);
