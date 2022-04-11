@@ -89,7 +89,7 @@ DELIMITER ;
 -- -------------------------------------------------------------------------------------------------------------------------
 DELIMITER $$
 DROP PROCEDURE IF EXISTS get_order_item_price$$
-CREATE PROCEDURE get_order_item_price(IN `id` INT, IN `frame` INT, IN `paper` INT, IN `amount` DECIMAL(15, 2), OUT `total` DECIMAL(15, 2)) 
+CREATE PROCEDURE get_order_item_price(IN `frame` INT, IN `paper` INT, IN `amount` DECIMAL(15, 2), OUT `total` DECIMAL(15, 2)) 
 BEGIN
 	-- Getting all the needed ids.
     SELECT `size_id` INTO @frame_size_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
