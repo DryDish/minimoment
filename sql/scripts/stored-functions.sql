@@ -62,7 +62,7 @@ DELIMITER $$
 DROP FUNCTION IF EXISTS `fn_calculate_discount`$$
 CREATE FUNCTION `fn_calculate_discount`(
 	`discount_value` DECIMAL(15, 2),
-    `discount_type` VARCHAR(45),
+    `discount_type` ENUM("percent", "amount"),
     `price` DECIMAL(15, 2),
     `amount` INT
 	)

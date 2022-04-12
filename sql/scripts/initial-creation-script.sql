@@ -97,7 +97,7 @@ DROP TABLE IF EXISTS `discount_types` ;
 
 CREATE TABLE IF NOT EXISTS `discount_types` (
   `discount_type_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` ENUM("percent", "amount") NOT NULL,
   PRIMARY KEY (`discount_type_id`))
 ENGINE = InnoDB;
 
