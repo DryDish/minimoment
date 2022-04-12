@@ -21,7 +21,7 @@
 > - The first one is the regular `create_monthly_report`
 > - The second one is the test event which has the same functionality as the first one, but runs every five seconds.\
 >\
-> You can pick both, or just the one you want.
+>  You can pick both, or just the one you want.
 8. Lastly, run the [population script](./sql/scripts/initial-population-script.sql) to fill in the database with test data.
 
 

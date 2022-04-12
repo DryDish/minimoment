@@ -32,9 +32,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `roles` ;
 
 CREATE TABLE IF NOT EXISTS `roles` (
-  `roles_id` INT NOT NULL AUTO_INCREMENT,
+  `role_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`roles_id`))
+  PRIMARY KEY (`role_id`))
 ENGINE = InnoDB;
 
 CREATE UNIQUE INDEX `name_UNIQUE` ON `roles` (`name` ASC) VISIBLE;
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `contact_info_id` INT NULL,
-  `roles_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
   `auto_renew` TINYINT(1),
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_user_contact_info`
@@ -61,15 +61,15 @@ CREATE TABLE IF NOT EXISTS `users` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_roles`
-    FOREIGN KEY (`roles_id`)
-    REFERENCES `roles` (`roles_id`)
+    FOREIGN KEY (`role_id`)
+    REFERENCES `roles` (`role_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_user_contact_info_idx` ON `users` (`contact_info_id` ASC) VISIBLE;
 
-CREATE INDEX `fk_users_roles_idx` ON `users` (`roles_id` ASC) VISIBLE;
+CREATE INDEX `fk_users_role_idx` ON `users` (`role_id` ASC) VISIBLE;
 
 CREATE UNIQUE INDEX `username_UNIQUE` ON `users` (`username` ASC) VISIBLE;
 
@@ -383,3 +383,19 @@ CREATE INDEX `fk_subscription_users_idx` ON `subscriptions` (`user_id` ASC) VISI
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Table `audit_logs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `audit_logs`;
+
+CREATE TABLE audit_logs (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`user` VARCHAR(255) , -- should be: CURRENT_USER()
+    `time` DATETIME DEFAULT NOW(),
+    `table_name` VARCHAR(50),
+    `action_type` ENUM('insert', 'update', 'delete'),
+    `old_row_data` JSON,
+    `new_row_data` JSON,
+    PRIMARY KEY (`id`)
+)

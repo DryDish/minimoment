@@ -119,6 +119,30 @@ DELIMITER ;
 -- CALL get_order_item_price(4, 6, 2, @test_order_item_price); -- Calculate the full price of an order item.
 -- SELECT @test_order_item_price;								   -- Check out the price.
 
+-- ----------------------------------------------------------------------------------------------------------------------------------------
+-- 
+-- ----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP PROCEDURE IF EXISTS log_change$$
+CREATE PROCEDURE log_change(
+		IN `user` VARCHAR(255),
+        IN `table_name` VARCHAR(50),
+        IN `action_type` ENUM('insert', 'update', 'delete'),
+		IN `old_row_data` JSON,
+        IN `new_row_data` JSON
+)
+BEGIN
+	INSERT INTO audit_logs VALUES(
+		DEFAULT,
+        `user`,
+		DEFAULT,
+        `table_name`,
+        `action_type`,
+        `old_row_data`,
+        `new_row_data`
+	);
+END $$
+DELIMITER ;
 
 -- -------------------------------------------------------------------------------------------------------------------------
 -- Procedure `get_order_item_price_saved` -> Calculates the order item full price
