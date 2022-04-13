@@ -25,7 +25,7 @@ DELIMITER ;
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `calculate_order_price` -> * Calculates the price of an order when an order item for it is created. 
 -- 						              * Calculates the price of an order item in case it have been created with a pre-existing value.
---  						          * Resets the money saved on an order item in case it has been created with a pre-existing value.
+--  						          * Calculates the money saved on an order item in case it has been created with a pre-existing value.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 DELIMITER $$
 DROP TRIGGER IF EXISTS calculate_order_price$$
@@ -47,6 +47,7 @@ CREATE TRIGGER calculate_order_price BEFORE INSERT ON `order_items`
 		END; $$
 DELIMITER ;
 
+
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `log_insert_on_roles` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ CREATE TRIGGER log_insert_on_roles BEFORE INSERT ON `roles`
             -- Store data
 			SET new_data = JSON_OBJECT('id', NEW.role_id, 'role', NEW.name);
 			-- Call procedure
-			CALL log_change(CURRENT_USER(), 'roles', 'insert', `old_data`, `new_data`);           
+			CALL insert_log(CURRENT_USER(), 'roles', 'insert', `old_data`, `new_data`);           
 	END; $$
 DELIMITER ;
 
@@ -79,7 +80,7 @@ CREATE TRIGGER log_update_on_roles BEFORE UPDATE ON `roles`FOR EACH ROW
 		SET old_data = JSON_OBJECT('id', OLD.role_id, 'role', OLD.name);
 		SET new_data = JSON_OBJECT('id', NEW.role_id, 'role', NEW.name);
 		-- Call procedure
-		CALL log_change(CURRENT_USER(), 'roles', 'update', `old_data`, `new_data`);           
+		CALL insert_log(CURRENT_USER(), 'roles', 'update', `old_data`, `new_data`);           
 	END; $$
 DELIMITER ;
 
@@ -97,7 +98,7 @@ CREATE TRIGGER log_delete_on_roles BEFORE DELETE ON `roles`FOR EACH ROW
 		-- Store data
 		SET old_data = JSON_OBJECT('id', OLD.role_id, 'role', OLD.name);
 		-- Call procedure
-		CALL log_change(CURRENT_USER(), 'roles', 'delete', `old_data`, `new_data`);           
+		CALL insert_log(CURRENT_USER(), 'roles', 'delete', `old_data`, `new_data`);           
 	END; $$
 DELIMITER ;
 

@@ -91,27 +91,29 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS get_order_item_price$$
 CREATE PROCEDURE get_order_item_price(IN `frame` INT, IN `paper` INT, IN `amount` DECIMAL(15, 2), OUT `total` DECIMAL(15, 2)) 
 BEGIN
-	-- Getting all the needed ids.
-    SELECT `size_id` INTO @frame_size_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
-    SELECT `size_id` INTO @paper_size_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
-    
-    -- Getting all the needed data.
-    -- -> Frame data
-    SELECT `price` INTO @frame_size_price FROM `sizes` WHERE `size_id` = @frame_size_id;
-    SELECT `multiplier` INTO @frame_multiplier FROM `frames` WHERE `frames`.`frame_id` = `frame`;
-    -- -> Paper data
-    SELECT `price` INTO @paper_size_price FROM `sizes` WHERE `size_id` = @paper_size_id;
-    SELECT `multiplier` INTO @paper_multiplier FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
-    
-    SELECT fn_calculate_order_item_price
-    (
-		@frame_size_price, 
-        @frame_multiplier,
-        @paper_size_price,
-        @paper_multiplier,
-        `amount`
-	) 
-    INTO `total`;
+	START TRANSACTION;
+		-- Getting all the needed ids.
+		SELECT `size_id` INTO @frame_size_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
+		SELECT `size_id` INTO @paper_size_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
+		
+		-- Getting all the needed data.
+		-- -> Frame data
+		SELECT `price` INTO @frame_size_price FROM `sizes` WHERE `size_id` = @frame_size_id;
+		SELECT `multiplier` INTO @frame_multiplier FROM `frames` WHERE `frames`.`frame_id` = `frame`;
+		-- -> Paper data
+		SELECT `price` INTO @paper_size_price FROM `sizes` WHERE `size_id` = @paper_size_id;
+		SELECT `multiplier` INTO @paper_multiplier FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
+		
+		SELECT fn_calculate_order_item_price
+		(
+			@frame_size_price, 
+			@frame_multiplier,
+			@paper_size_price,
+			@paper_multiplier,
+			`amount`
+		) 
+		INTO `total`;
+    COMMIT;
 END $$
 DELIMITER ;
 
@@ -119,12 +121,13 @@ DELIMITER ;
 -- CALL get_order_item_price(4, 6, 2, @test_order_item_price); -- Calculate the full price of an order item.
 -- SELECT @test_order_item_price;								   -- Check out the price.
 
+
 -- ----------------------------------------------------------------------------------------------------------------------------------------
--- 
+-- Procedure `insert_log` -> Inserts a log with the provided data
 -- ----------------------------------------------------------------------------------------------------------------------------------------
 DELIMITER $$
-DROP PROCEDURE IF EXISTS log_change$$
-CREATE PROCEDURE log_change(
+DROP PROCEDURE IF EXISTS insert_log$$
+CREATE PROCEDURE insert_log(
 		IN `user` VARCHAR(255),
         IN `table_name` VARCHAR(50),
         IN `action_type` ENUM('insert', 'update', 'delete'),
@@ -144,6 +147,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 -- -------------------------------------------------------------------------------------------------------------------------
 -- Procedure `get_order_item_price_saved` -> Calculates the order item full price
 --                     	*Needs Refactoring*
@@ -152,51 +156,53 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS get_order_item_price_saved$$
 CREATE PROCEDURE get_order_item_price_saved(IN `frame` INT, IN `paper` INT, IN `amount` DECIMAL(15, 2), OUT `saved` DECIMAL(15, 2)) 
 BEGIN
-	-- Getting all the needed ids.
-    SELECT `size_id` INTO @frame_size_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
-    SELECT `discount_code_id` INTO @frame_discount_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
-    SELECT `size_id` INTO @paper_size_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
-    SELECT `discount_code_id` INTO @paper_discount_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
-    
-    -- Getting all the needed data.
-    
-    -- -> Frame data
-    SELECT `price` INTO @frame_size_price FROM `sizes` WHERE `size_id` = @frame_size_id;
-    SELECT `multiplier` INTO @frame_multiplier FROM `frames` WHERE `frames`.`frame_id` = `frame`;
-    -- -> Frame discount
-    SELECT `value` INTO @frame_discount_value FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @frame_discount_id;
-    SELECT `name` INTO @frame_discount_type FROM `discount_types` WHERE `discount_types`.`discount_type_id` = 
-    (
-		SELECT `discount_type_id` FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @frame_discount_id
-	);
-    
-    -- -> Paper data
-    SELECT `price` INTO @paper_size_price FROM `sizes` WHERE `size_id` = @paper_size_id;
-    SELECT `multiplier` INTO @paper_multiplier FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
-    -- -> Paper discount
-    SELECT `value` INTO @paper_discount_value FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @paper_discount_id;
-    SELECT `name` INTO @paper_discount_type FROM `discount_types` WHERE `discount_types`.`discount_type_id` = 
-    (
-		SELECT `discount_type_id` FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @paper_discount_id
-	);
-    
-    -- -> Calculating discounts
-    -- -> Frame
-    SELECT fn_calculate_discount(
-		@frame_discount_value,
-        @frame_discount_type,
-        @frame_size_price * @frame_multiplier,
-        `amount`
-    ) INTO @frame_price_saved;
-    -- -> Paper
-    SELECT fn_calculate_discount(
-		@paper_discount_value,
-        @paper_discount_type,
-        @paper_size_price * @paper_multiplier,
-        `amount`
-    ) INTO @paper_price_saved;
-    
-    SELECT @frame_price_saved + @paper_price_saved INTO `saved`;
+	START TRANSACTION;
+		-- Getting all the needed ids.
+		SELECT `size_id` INTO @frame_size_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
+		SELECT `discount_code_id` INTO @frame_discount_id FROM `frames` WHERE `frames`.`frame_id` = `frame`;
+		SELECT `size_id` INTO @paper_size_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
+		SELECT `discount_code_id` INTO @paper_discount_id FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
+		
+		-- Getting all the needed data.
+		
+		-- -> Frame data
+		SELECT `price` INTO @frame_size_price FROM `sizes` WHERE `size_id` = @frame_size_id;
+		SELECT `multiplier` INTO @frame_multiplier FROM `frames` WHERE `frames`.`frame_id` = `frame`;
+		-- -> Frame discount
+		SELECT `value` INTO @frame_discount_value FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @frame_discount_id;
+		SELECT `name` INTO @frame_discount_type FROM `discount_types` WHERE `discount_types`.`discount_type_id` = 
+		(
+			SELECT `discount_type_id` FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @frame_discount_id
+		);
+		
+		-- -> Paper data
+		SELECT `price` INTO @paper_size_price FROM `sizes` WHERE `size_id` = @paper_size_id;
+		SELECT `multiplier` INTO @paper_multiplier FROM `paper_types` WHERE `paper_types`.`paper_type_id` = `paper`;
+		-- -> Paper discount
+		SELECT `value` INTO @paper_discount_value FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @paper_discount_id;
+		SELECT `name` INTO @paper_discount_type FROM `discount_types` WHERE `discount_types`.`discount_type_id` = 
+		(
+			SELECT `discount_type_id` FROM `discount_codes` WHERE `discount_codes`.`discount_code_id` = @paper_discount_id
+		);
+		
+		-- -> Calculating discounts
+		-- -> Frame
+		SELECT fn_calculate_discount(
+			@frame_discount_value,
+			@frame_discount_type,
+			@frame_size_price * @frame_multiplier,
+			`amount`
+		) INTO @frame_price_saved;
+		-- -> Paper
+		SELECT fn_calculate_discount(
+			@paper_discount_value,
+			@paper_discount_type,
+			@paper_size_price * @paper_multiplier,
+			`amount`
+		) INTO @paper_price_saved;
+		
+		SELECT @frame_price_saved + @paper_price_saved INTO `saved`;
+    COMMIT;
 END $$
 DELIMITER ;
 

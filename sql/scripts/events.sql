@@ -32,17 +32,19 @@ CREATE EVENT create_monthly_report
 	COMMENT 'Creates a new report every month.'
 	DO 
 		BEGIN
-			-- Revenue
-			CALL get_revenue(NOW() - INTERVAL 1 MONTH, NOW(), @monthly_revenue);
-            -- Pictures & Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, true, @products_sold);
-			-- No Pictures & Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, true, @frames_sold);
-			-- Pictures & No Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, false, @pictures_sold);
-			INSERT INTO `monthly_reports` (`revenue`, `total_products_sold`, `frames_sold`, `pictures_sold`) VALUES (
-				@monthly_revenue, @products_sold, @frames_sold, @pictures_sold
-            );
+			START TRANSACTION;
+				-- Revenue
+				CALL get_revenue(NOW() - INTERVAL 1 MONTH, NOW(), @monthly_revenue);
+				-- Pictures & Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, true, @products_sold);
+				-- No Pictures & Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, true, @frames_sold);
+				-- Pictures & No Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, false, @pictures_sold);
+				INSERT INTO `monthly_reports` (`revenue`, `total_products_sold`, `frames_sold`, `pictures_sold`) VALUES (
+					@monthly_revenue, @products_sold, @frames_sold, @pictures_sold
+				);
+			COMMIT;
 		END $$
 DELIMITER ;
 
@@ -61,17 +63,19 @@ CREATE EVENT create_monthly_report_test
 	COMMENT 'Creates a new report every five seconds.'
 	DO 
 		BEGIN
-			-- Revenue
-			CALL get_revenue(NOW() - INTERVAL 1 MONTH, NOW(), @test_monthly_revenue);
-            -- Pictures & Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, true, @test_products_sold);
-			-- No Pictures & Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, true, @test_frames_sold);
-			-- Pictures & No Frames
-			CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, false, @test_pictures_sold);
-			INSERT INTO `monthly_reports` (`revenue`, `total_products_sold`, `frames_sold`, `pictures_sold`) VALUES (
-				@test_monthly_revenue, @test_products_sold,  @test_frames_sold, @test_pictures_sold
-            );
+			START TRANSACTION;
+				-- Revenue
+				CALL get_revenue(NOW() - INTERVAL 1 MONTH, NOW(), @test_monthly_revenue);
+				-- Pictures & Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, true, @test_products_sold);
+				-- No Pictures & Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, true, @test_frames_sold);
+				-- Pictures & No Frames
+				CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, false, @test_pictures_sold);
+				INSERT INTO `monthly_reports` (`revenue`, `total_products_sold`, `frames_sold`, `pictures_sold`) VALUES (
+					@test_monthly_revenue, @test_products_sold,  @test_frames_sold, @test_pictures_sold
+				);
+			COMMIT;
 		END $$
 DELIMITER ;
 
