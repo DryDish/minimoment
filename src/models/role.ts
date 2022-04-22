@@ -20,5 +20,7 @@ export default (sequelize: Sequelize) =>
       sequelize,
       modelName: "Role",
       tableName: "roles",
+      createdAt: false,
+      updatedAt: false
     }
   );
