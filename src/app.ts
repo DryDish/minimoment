@@ -12,9 +12,11 @@ const SERVER_PORT = process.env.SERVER_PORT || 5000;
 mysqlConnect();
 
 // Sync models
-sequelize.sync({ alter: true }).then(() => {
-  console.log("All models synchronized successfully.");
-});
+// TODO: Look into the preffered approach
+// User has no permissions to drop and create tables on schema.
+// sequelize.sync({ alter: true }).then(() => {
+//   console.log("All models synchronized successfully.");
+// });
 
 const app = express();
 

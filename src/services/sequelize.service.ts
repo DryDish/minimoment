@@ -1,16 +1,24 @@
 import { Sequelize } from "sequelize";
 
+// Import Models
+import RoleModel from "../models/role";
+
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
 const USER = process.env.MYSQL_DB_USER || "";
 const PASSWORD = process.env.MYSQL_DB_PASSWORD || "";
 const SCHEMA = process.env.MYSQL_DB_SCHEMA || "";
 
+// Create Sequelize connection
 export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
   host: HOST,
   dialect: "mysql",
 });
 
+// Define all Models
+RoleModel(sequelize);
+
+// Authenticate to the Database
 export const authenticate = async () => {
   try {
     await sequelize.authenticate();

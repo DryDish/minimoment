@@ -1,9 +1,8 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../services/sequelize.service";
+import { DataTypes, Model, Sequelize } from "sequelize";
 
 class Role extends Model {}
 
-Role.init(
+export default (sequelize: Sequelize) => Role.init(
   {
     role_id: {
       type: DataTypes.INTEGER,
