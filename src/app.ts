@@ -5,6 +5,9 @@ import {
   sequelize,
 } from "./services/sequelize.service";
 
+// Import routes
+import RolesRouter from "./routes/roles.routes";
+
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
 
@@ -23,6 +26,8 @@ const app = express();
 app.get("/", (req, res) => {
   res.send({ response: "Hello World!" });
 });
+
+app.use("/roles", RolesRouter);
 
 app.all("*", (req, res) => {
   res.status(400).send("Bad Request");
