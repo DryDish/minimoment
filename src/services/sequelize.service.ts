@@ -6,7 +6,7 @@ const USER = process.env.MYSQL_DB_USER || "";
 const PASSWORD = process.env.MYSQL_DB_PASSWORD || "";
 const SCHEMA = process.env.MYSQL_DB_SCHEMA || "";
 
-const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
+export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
   host: HOST,
   dialect: "mysql",
 });
