@@ -1,8 +1,12 @@
 import "dotenv/config";
 import express from "express";
+import {authenticate as mysqlConnect} from "./services/sequelize.service";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
+
+// Connect to the database
+mysqlConnect();
 
 const app = express();
 
