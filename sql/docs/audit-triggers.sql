@@ -175,6 +175,63 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Picture_Data Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_picture_data` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_picture_data$$
+CREATE TRIGGER log_insert_on_picture_data BEFORE INSERT ON `picture_data`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`picture_data_id`, 'user_id', NEW.`user_id`, 'image_url', NEW.`image_url`, 'uploaded_at', NEW.`uploaded_at`);
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'picture_data', 'insert', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_picture_data` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_picture_data$$
+CREATE TRIGGER log_update_on_picture_data BEFORE UPDATE ON `picture_data`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`picture_data_id`, 'user_id', OLD.`user_id`, 'image_url', OLD.`image_url`, 'uploaded_at', OLD.`uploaded_at`);
+		SET new_data = JSON_OBJECT('id', NEW.`picture_data_id`, 'user_id', NEW.`user_id`, 'image_url', NEW.`image_url`, 'uploaded_at', NEW.`uploaded_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'picture_data', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_picture_data` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_picture_data$$
+CREATE TRIGGER log_delete_on_picture_data BEFORE DELETE ON `picture_data`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`picture_data_id`, 'user_id', OLD.`user_id`, 'image_url', OLD.`image_url`, 'uploaded_at', OLD.`uploaded_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'picture_data', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Statuses Table Audit
