@@ -152,6 +152,68 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Discount_Codes Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_discount_codes` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_discount_codes$$
+CREATE TRIGGER log_insert_on_discount_codes BEFORE INSERT ON `discount_codes`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`discount_code_id`, 'name', NEW.`name`, 'discount_type_id', NEW.`discount_type_id`, 'value', NEW.`value`, 'valid_from', NEW.`valid_from`, 	
+								       'valid_to', NEW.`valid_to`, 'remaining_uses', NEW.`remaining_uses`);  
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'discount_codes', 'insert', `old_data`, `new_data`);   
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_discount_codes` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_discount_codes$$
+CREATE TRIGGER log_update_on_discount_codes BEFORE UPDATE ON `discount_codes`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`discount_code_id`, 'name', OLD.`name`, 'discount_type_id', OLD.`discount_type_id`, 'value', OLD.`value`, 'valid_from', OLD.`valid_from`, 	
+								   'valid_to', OLD.`valid_to`, 'remaining_uses', OLD.`remaining_uses`);
+		SET new_data = JSON_OBJECT('id', NEW.`discount_code_id`, 'name', NEW.`name`, 'discount_type_id', NEW.`discount_type_id`, 'value', NEW.`value`, 'valid_from', NEW.`valid_from`, 	
+								   'valid_to', NEW.`valid_to`, 'remaining_uses', NEW.`remaining_uses`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'discount_codes', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_discount_codes` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_discount_codes$$
+CREATE TRIGGER log_delete_on_discount_codes BEFORE DELETE ON `discount_codes`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`discount_code_id`, 'name', OLD.`name`, 'discount_type_id', OLD.`discount_type_id`, 'value', OLD.`value`, 'valid_from', OLD.`valid_from`, 	
+								   'valid_to', OLD.`valid_to`, 'remaining_uses', OLD.`remaining_uses`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'discount_codes', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Discount_Types Table Audit
