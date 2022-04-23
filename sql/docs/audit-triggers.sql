@@ -538,6 +538,68 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Order_Items Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_order_items` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_order_items$$
+CREATE TRIGGER log_insert_on_order_items BEFORE INSERT ON `order_items`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`frame_id`, 'discount_code_id', NEW.`discount_code_id`, 'name', NEW.`name`, 'multiplier', NEW.`multiplier`, 'material', NEW.`material`, 'size_id', NEW.`size_id`);
+			-- Call procedure
+			SET new_data = JSON_OBJECT('id', NEW.`order_item_id`, 'picture_data_id', NEW.`picture_data_id`, 'paper_type_id', NEW.`paper_type_id`, 'frame_id', NEW.`frame_id`, 'order_id', NEW.`order_id`, 	
+								       'order_item_price', NEW.`order_item_price`, 'price_saved', NEW.`price_saved`, 'amount', NEW.`amount`);          
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_order_items` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_order_items$$
+CREATE TRIGGER log_update_on_order_items BEFORE UPDATE ON `order_items`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`order_item_id`, 'picture_data_id', OLD.`picture_data_id`, 'paper_type_id', OLD.`paper_type_id`, 'frame_id', OLD.`frame_id`, 'order_id', OLD.`order_id`, 	
+								   'order_item_price', OLD.`order_item_price`, 'price_saved', OLD.`price_saved`, 'amount', OLD.`amount`);
+		SET new_data = JSON_OBJECT('id', NEW.`order_item_id`, 'picture_data_id', NEW.`picture_data_id`, 'paper_type_id', NEW.`paper_type_id`, 'frame_id', NEW.`frame_id`, 'order_id', NEW.`order_id`, 	
+								   'order_item_price', NEW.`order_item_price`, 'price_saved', NEW.`price_saved`, 'amount', NEW.`amount`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'order_items', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_order_items` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_order_items$$
+CREATE TRIGGER log_delete_on_order_items BEFORE DELETE ON `order_items`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`order_item_id`, 'picture_data_id', OLD.`picture_data_id`, 'paper_type_id', OLD.`paper_type_id`, 'frame_id', OLD.`frame_id`, 'order_id', OLD.`order_id`, 	
+								   'order_item_price', OLD.`order_item_price`, 'price_saved', OLD.`price_saved`, 'amount', OLD.`amount`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'order_items', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Orders Table Audit
