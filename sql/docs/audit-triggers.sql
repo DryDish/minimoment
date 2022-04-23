@@ -7,7 +7,6 @@ use `store`;
 -- *****************************************************************************************************************************************
 -- Roles Table Audit
 -- *****************************************************************************************************************************************
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `log_insert_on_roles` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
@@ -81,6 +80,9 @@ DELIMITER ;
 -- DELETE FROM audit_logs WHERE table_name LIKE 'roles';
 
 
+
+
+
 -- *****************************************************************************************************************************************
 -- Contact_Info Table Audit
 -- *****************************************************************************************************************************************
@@ -97,10 +99,13 @@ DELIMITER ;
 -- Users Table Audit
 -- *****************************************************************************************************************************************
 
+
+
+
+
 -- *****************************************************************************************************************************************
 -- Sizes Table Audit
 -- *****************************************************************************************************************************************
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `log_insert_on_sizes` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
@@ -157,6 +162,8 @@ CREATE TRIGGER log_delete_on_sizes BEFORE DELETE ON `sizes`FOR EACH ROW
 DELIMITER ;
 
 
+
+
 -- *****************************************************************************************************************************************
 -- Frames Table Audit
 -- *****************************************************************************************************************************************
@@ -172,7 +179,6 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Statuses Table Audit
 -- *****************************************************************************************************************************************
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `log_insert_on_statuses` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
@@ -229,14 +235,74 @@ CREATE TRIGGER log_delete_on_statuses BEFORE DELETE ON `statuses`FOR EACH ROW
 DELIMITER ;
 
 
+
+
+
 -- *****************************************************************************************************************************************
 -- Subscriptions Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_subscriptions` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_subscriptions$$
+CREATE TRIGGER log_insert_on_subscriptions BEFORE INSERT ON `subscriptions`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`subscription_id`, 'user_id', NEW.`user_id`, 'subscription_type_id', NEW.`subscription_type_id`, 'starts_at', NEW.`starts_at`, 'ends_at', NEW.`ends_at`);
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'subscriptions', 'insert', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_subscriptions` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_subscriptions$$
+CREATE TRIGGER log_update_on_subscriptions BEFORE UPDATE ON `subscriptions`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`subscription_id`, 'user_id', OLD.`user_id`, 'subscription_type_id', OLD.`subscription_type_id`, 'starts_at', OLD.`starts_at`, 'ends_at', OLD.`ends_at`);
+		SET new_data = JSON_OBJECT('id', NEW.`subscription_id`, 'user_id', NEW.`user_id`, 'subscription_type_id', NEW.`subscription_type_id`, 'starts_at', NEW.`starts_at`, 'ends_at', NEW.`ends_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'subscriptions', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_subscriptions` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_subscriptions$$
+CREATE TRIGGER log_delete_on_subscriptions BEFORE DELETE ON `subscriptions`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`subscription_id`, 'user_id', OLD.`user_id`, 'subscription_type_id', OLD.`subscription_type_id`, 'starts_at', OLD.`starts_at`, 'ends_at', OLD.`ends_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'subscriptions', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Subscription_Types Table Audit
 -- *****************************************************************************************************************************************
-
 -- -----------------------------------------------------------------------------------------------------------------------------------------
 -- Trigger `log_insert_on_subscription_types` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
 -- -----------------------------------------------------------------------------------------------------------------------------------------
@@ -291,6 +357,9 @@ CREATE TRIGGER log_delete_on_subscription_types BEFORE DELETE ON `subscription_t
 		CALL insert_log(CURRENT_USER(), 'subscription_types', 'delete', `old_data`, `new_data`);           
 	END; $$
 DELIMITER ;
+
+
+
 
 
 -- *****************************************************************************************************************************************
