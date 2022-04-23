@@ -134,7 +134,7 @@ CREATE PROCEDURE insert_log(
         IN `new_row_data` JSON
 )
 BEGIN
-	INSERT INTO audit_logs VALUES(
+	INSERT INTO `audit_logs` VALUES(
 		DEFAULT,
         `user`,
 		DEFAULT,
