@@ -732,3 +732,57 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Monthly_Reports Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_monthly_reports` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_monthly_reports$$
+CREATE TRIGGER log_insert_on_monthly_reports BEFORE INSERT ON `monthly_reports`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`monthly_report_id`, 'created_at', NEW.`created_at`, 'frames_sold', NEW.`frames_sold`, 'pictures_sold', NEW.`pictures_sold`, 'total_products_sold', NEW.`total_products_sold`, 'revenue', NEW.`revenue`);
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'monthly_reports', 'insert', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_monthly_reports` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_monthly_reports$$
+CREATE TRIGGER log_update_on_monthly_reports BEFORE UPDATE ON `monthly_reports`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`monthly_report_id`, 'created_at', OLD.`created_at`, 'frames_sold', OLD.`frames_sold`, 'pictures_sold', OLD.`pictures_sold`, 'total_products_sold', OLD.`total_products_sold`, 'revenue', OLD.`revenue`);
+		SET new_data = JSON_OBJECT('id', NEW.`monthly_report_id`, 'created_at', NEW.`created_at`, 'frames_sold', NEW.`frames_sold`, 'pictures_sold', NEW.`pictures_sold`, 'total_products_sold', NEW.`total_products_sold`, 'revenue', NEW.`revenue`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'monthly_reports', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_monthly_reports` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_monthly_reports$$
+CREATE TRIGGER log_delete_on_monthly_reports BEFORE DELETE ON `monthly_reports`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`monthly_report_id`, 'created_at', OLD.`created_at`, 'frames_sold', OLD.`frames_sold`, 'pictures_sold', OLD.`pictures_sold`, 'total_products_sold', OLD.`total_products_sold`, 'revenue', OLD.`revenue`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'monthly_reports', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
