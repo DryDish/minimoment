@@ -670,6 +670,64 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Invoice Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_invoice` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_invoice$$
+CREATE TRIGGER log_insert_on_invoice BEFORE INSERT ON `invoice`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`invoice_id`, 'order_id', NEW.`order_id`, 'created_at', NEW.`created_at`);
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'invoice', 'insert', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_invoice` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_invoice$$
+CREATE TRIGGER log_update_on_invoice BEFORE UPDATE ON `invoice`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`invoice_id`, 'order_id', OLD.`order_id`, 'created_at', OLD.`created_at`);
+		SET new_data = JSON_OBJECT('id', NEW.`invoice_id`, 'order_id', NEW.`order_id`, 'created_at', NEW.`created_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'invoice', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_invoice` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_invoice$$
+CREATE TRIGGER log_delete_on_invoice BEFORE DELETE ON `invoice`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`invoice_id`, 'order_id', OLD.`order_id`, 'created_at', OLD.`created_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'invoice', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Monthly_Reports Table Audit
