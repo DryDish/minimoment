@@ -167,6 +167,64 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Frames Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_frames` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_frames$$
+CREATE TRIGGER log_insert_on_frames BEFORE INSERT ON `frames`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`frame_id`, 'discount_code_id', NEW.`discount_code_id`, 'name', NEW.`name`, 'multiplier', NEW.`multiplier`, 'material', NEW.`material`, 'size_id', NEW.`size_id`);
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'frames', 'insert', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_frames` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_frames$$
+CREATE TRIGGER log_update_on_frames BEFORE UPDATE ON `frames`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`frame_id`, 'discount_code_id', OLD.`discount_code_id`, 'name', OLD.`name`, 'multiplier', OLD.`multiplier`, 'material', OLD.`material`, 'size_id', OLD.`size_id`);
+		SET new_data = JSON_OBJECT('id', NEW.`frame_id`, 'discount_code_id', NEW.`discount_code_id`, 'name', NEW.`name`, 'multiplier', NEW.`multiplier`, 'material', NEW.`material`, 'size_id', NEW.`size_id`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'frames', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_frames` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_frames$$
+CREATE TRIGGER log_delete_on_frames BEFORE DELETE ON `frames`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`frame_id`, 'discount_code_id', OLD.`discount_code_id`, 'name', OLD.`name`, 'multiplier', OLD.`multiplier`, 'material', OLD.`material`, 'size_id', OLD.`size_id`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'frames', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Paper_Types Table Audit
