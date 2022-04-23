@@ -98,6 +98,64 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Users Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_users` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_users$$
+CREATE TRIGGER log_insert_on_users BEFORE INSERT ON `users`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`user_id`, 'first_name', NEW.`first_name`, 'last_name', NEW.`last_name`, 'username', NEW.`username`, 'password', NEW.`password`, 	
+									   'contact_info_id', NEW.`contact_info_id`, 'role_id', NEW.`role_id`, 'auto_renew', NEW.`auto_renew`);  
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'users', 'insert', `old_data`, `new_data`);   
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_users` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_users$$
+CREATE TRIGGER log_update_on_users BEFORE UPDATE ON `users`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`user_id`, 'first_name', OLD.`first_name`, 'last_name', OLD.`last_name`, 'username', OLD.`username`, 'password', OLD.`password`, 	
+								   'contact_info_id', OLD.`contact_info_id`, 'role_id', OLD.`role_id`, 'auto_renew', OLD.`auto_renew`);
+		SET new_data = JSON_OBJECT('id', NEW.`user_id`, 'first_name', NEW.`first_name`, 'last_name', NEW.`last_name`, 'username', NEW.`username`, 'password', NEW.`password`, 	
+								   'contact_info_id', NEW.`contact_info_id`, 'role_id', NEW.`role_id`, 'auto_renew', NEW.`auto_renew`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'users', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_users` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_users$$
+CREATE TRIGGER log_delete_on_users BEFORE DELETE ON `users`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`user_id`, 'first_name', OLD.`first_name`, 'last_name', OLD.`last_name`, 'username', OLD.`username`, 'password', OLD.`password`, 	
+								   'contact_info_id', OLD.`contact_info_id`, 'role_id', OLD.`role_id`, 'auto_renew', OLD.`auto_renew`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'users', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
 
 
 
