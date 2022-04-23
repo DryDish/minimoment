@@ -86,6 +86,68 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Contact_Info Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_contact_info` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_contact_info$$
+CREATE TRIGGER log_insert_on_contact_info BEFORE INSERT ON `contact_info`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`contact_info_id`, 'phone_number', NEW.`phone_number`, 'country_code', NEW.`country_code`, 'city', NEW.`city`, 'postal_code', NEW.`postal_code`, 	
+								       'address_one', NEW.`address_one`, 'address_two', NEW.`address_two`);  
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'contact_info', 'insert', `old_data`, `new_data`);   
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_contact_info` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_contact_info$$
+CREATE TRIGGER log_update_on_contact_info BEFORE UPDATE ON `contact_info`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`contact_info_id`, 'phone_number', OLD.`phone_number`, 'country_code', OLD.`country_code`, 'city', OLD.`city`, 'postal_code', OLD.`postal_code`, 	
+								   'address_one', OLD.`address_one`, 'address_two', OLD.`address_two`);
+		SET new_data = JSON_OBJECT('id', NEW.`contact_info_id`, 'phone_number', NEW.`phone_number`, 'country_code', NEW.`country_code`, 'city', NEW.`city`, 'postal_code', NEW.`postal_code`, 	
+								   'address_one', NEW.`address_one`, 'address_two', NEW.`address_two`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'contact_info', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_contact_info` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_contact_info$$
+CREATE TRIGGER log_delete_on_contact_info BEFORE DELETE ON `contact_info`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`contact_info_id`, 'phone_number', OLD.`phone_number`, 'country_code', OLD.`country_code`, 'city', OLD.`city`, 'postal_code', OLD.`postal_code`, 	
+								   'address_one', OLD.`address_one`, 'address_two', OLD.`address_two`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'contact_info', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Discount_Codes Table Audit
