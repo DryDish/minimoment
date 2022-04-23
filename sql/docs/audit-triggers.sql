@@ -604,6 +604,68 @@ DELIMITER ;
 -- *****************************************************************************************************************************************
 -- Orders Table Audit
 -- *****************************************************************************************************************************************
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_insert_on_orders` -> Writes to the `audit_logs` table with `log_change()` when a new entry is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_insert_on_orders$$
+CREATE TRIGGER log_insert_on_orders BEFORE INSERT ON `orders`
+	FOR EACH ROW
+		BEGIN
+			-- Define data
+			DECLARE new_data JSON;
+            DECLARE old_data JSON;
+            -- Store data
+			SET new_data = JSON_OBJECT('id', NEW.`order_id`, 'discount_code_id', NEW.`discount_code_id`, 'user_id', NEW.`user_id`, 'billing_contact_info_id', NEW.`billing_contact_info_id`, 'status_id', NEW.`status_id`, 	
+								       'order_price', NEW.`order_price`, 'total_price_saved', NEW.`total_price_saved`, 'created_at', NEW.`created_at`);   
+			-- Call procedure
+			CALL insert_log(CURRENT_USER(), 'orders', 'insert', `old_data`, `new_data`);   
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_update_on_orders` -> Writes to the `audit_logs` table with `log_change()` when an update is made.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_update_on_orders$$
+CREATE TRIGGER log_update_on_orders BEFORE UPDATE ON `orders`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+        SET old_data = JSON_OBJECT('id', OLD.`order_id`, 'discount_code_id', OLD.`discount_code_id`, 'user_id', OLD.`user_id`, 'billing_contact_info_id', OLD.`billing_contact_info_id`, 'status_id', OLD.`status_id`, 	
+								   'order_price', OLD.`order_price`, 'total_price_saved', OLD.`total_price_saved`, 'created_at', OLD.`created_at`);
+		SET new_data = JSON_OBJECT('id', NEW.`order_id`, 'discount_code_id', NEW.`discount_code_id`, 'user_id', NEW.`user_id`, 'billing_contact_info_id', NEW.`billing_contact_info_id`, 'status_id', NEW.`status_id`, 	
+								   'order_price', NEW.`order_price`, 'total_price_saved', NEW.`total_price_saved`, 'created_at', NEW.`created_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'orders', 'update', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- Trigger `log_delete_on_orders` -> Writes to the `audit_logs` table with `log_change()` when an entry is deleted.
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+DROP TRIGGER IF EXISTS log_delete_on_orders$$
+CREATE TRIGGER log_delete_on_orders BEFORE DELETE ON `orders`FOR EACH ROW
+	BEGIN
+		-- Define data
+		DECLARE old_data JSON;
+		DECLARE new_data JSON;
+		-- Store data
+		SET old_data = JSON_OBJECT('id', OLD.`order_id`, 'discount_code_id', OLD.`discount_code_id`, 'user_id', OLD.`user_id`, 'billing_contact_info_id', OLD.`billing_contact_info_id`, 'status_id', OLD.`status_id`, 	
+								   'order_price', OLD.`order_price`, 'total_price_saved', OLD.`total_price_saved`, 'created_at', OLD.`created_at`);
+		-- Call procedure
+		CALL insert_log(CURRENT_USER(), 'orders', 'delete', `old_data`, `new_data`);           
+	END; $$
+DELIMITER ;
+
+
+
+
 
 -- *****************************************************************************************************************************************
 -- Invoice Table Audit
