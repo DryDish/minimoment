@@ -177,35 +177,35 @@ INSERT INTO `subscription_types` (`subscription_type_id`, `name`, `monthly_price
 -- Populating table: `roles`
 -- -----------------------------------------------------
 
-INSERT INTO `roles` (`roles_id`, `name`) VALUES (3, 'corporis');
-INSERT INTO `roles` (`roles_id`, `name`) VALUES (1, 'expedita');
-INSERT INTO `roles` (`roles_id`, `name`) VALUES (2, 'voluptatem');
+INSERT INTO `roles` (`role_id`, `name`) VALUES (3, 'corporis');
+INSERT INTO `roles` (`role_id`, `name`) VALUES (1, 'expedita');
+INSERT INTO `roles` (`role_id`, `name`) VALUES (2, 'voluptatem');
 
 
 -- -----------------------------------------------------
 -- Populating table: `users`
 -- -----------------------------------------------------
 
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (1, 'Keenan', 'Dooley', 'beaulah.o\'reilly', 'c07a6dc4d34e9405a248a27dc87b2e8235b51c30', 36, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (2, 'Joana', 'Boyer', 'kbayer', '89ced8ec2c16244161fa8d1e1f2f705ef3247617', 13, 1, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (3, 'Clay', 'Cummings', 'lonny.becker', '148d9716fea74ee327e901ca8ee2353db18153f6', 10, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (4, 'Octavia', 'Weimann', 'brown.homenick', '577e80bdc9983e8aa38c9a9ea7753d9e3262163a', 25, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (5, 'Cody', 'Smith', 'caesar.stoltenberg', '6ddfe2ae8759d081dc5d8f3c320b0b3567b4cd12', 5, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (6, 'Jaleel', 'Waters', 'liliane.gleason', '8f614742817a495974b4ea8df6f28508f958524e', 32, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (7, 'Haylee', 'Feest', 'joany.champlin', '5dbae22a728bbab6da3392eded2075e85b842e1e', 25, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (8, 'Susanna', 'Rolfson', 'jermaine03', '647bb08e28a1a3704b528f246a5e0b70b9de4fc2', 34, 1, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (9, 'Adaline', 'Denesik', 'bert87', 'e6a15f23cfbc89e776b9d5708f2e23430c1fba99', 17, 1, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (10, 'Beryl', 'Flatley', 'mylene93', '21ee6c7ec59ef27eb92243caefca40edacd95395', 27, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (11, 'Tristian', 'Prohaska', 'gglover', '03f41461eca395f6078e38c4a2bba620960552a6', 17, 1, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (12, 'Greyson', 'Lynch', 'yhayes', 'e198b1a5762992865da6742b399c7ca016a3088c', 10, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (13, 'Thomas', 'Cremin', 'wunsch.flo', '890d76f13bd340e1a1c027cc3a328c7f5c756e38', 27, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (14, 'Florida', 'Bailey', 'gwill', 'e951ea85ee67f3e1676b4ce4f4eed5df1098d090', 19, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (15, 'Arthur', 'Kunze', 'osbaldo32', 'd46e66899da32cd8293216e7069bf5e026db1598', 35, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (16, 'Zola', 'Bauch', 'tania.fahey', '4e642a3ccc19717b45412785e95dbe4e4d6f741f', 22, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (17, 'Jannie', 'Schamberger', 'andreanne16', 'c3098dc2847448ceebca82a891425aec810a879d', 2, 3, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (18, 'Bernardo', 'Ruecker', 'fahey.dasia', '4a3efb9fe8d07047c2002d3df87895ce23e5753b', 2, 1, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (19, 'Lucile', 'Koss', 'xweimann', 'f0314865384d385efea8884039e57d4c428de0e2', 4, 2, NULL);
-INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `roles_id`, `auto_renew`) VALUES (20, 'Princess', 'West', 'hilma.emard', '7a5062f316c6280aa41a14ba153e5151a005e3f6', 38, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (1, 'Keenan', 'Dooley', 'beaulah.o\'reilly', 'c07a6dc4d34e9405a248a27dc87b2e8235b51c30', 36, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (2, 'Joana', 'Boyer', 'kbayer', '89ced8ec2c16244161fa8d1e1f2f705ef3247617', 13, 1, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (3, 'Clay', 'Cummings', 'lonny.becker', '148d9716fea74ee327e901ca8ee2353db18153f6', 10, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (4, 'Octavia', 'Weimann', 'brown.homenick', '577e80bdc9983e8aa38c9a9ea7753d9e3262163a', 25, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (5, 'Cody', 'Smith', 'caesar.stoltenberg', '6ddfe2ae8759d081dc5d8f3c320b0b3567b4cd12', 5, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (6, 'Jaleel', 'Waters', 'liliane.gleason', '8f614742817a495974b4ea8df6f28508f958524e', 32, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (7, 'Haylee', 'Feest', 'joany.champlin', '5dbae22a728bbab6da3392eded2075e85b842e1e', 25, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (8, 'Susanna', 'Rolfson', 'jermaine03', '647bb08e28a1a3704b528f246a5e0b70b9de4fc2', 34, 1, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (9, 'Adaline', 'Denesik', 'bert87', 'e6a15f23cfbc89e776b9d5708f2e23430c1fba99', 17, 1, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (10, 'Beryl', 'Flatley', 'mylene93', '21ee6c7ec59ef27eb92243caefca40edacd95395', 27, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (11, 'Tristian', 'Prohaska', 'gglover', '03f41461eca395f6078e38c4a2bba620960552a6', 17, 1, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (12, 'Greyson', 'Lynch', 'yhayes', 'e198b1a5762992865da6742b399c7ca016a3088c', 10, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (13, 'Thomas', 'Cremin', 'wunsch.flo', '890d76f13bd340e1a1c027cc3a328c7f5c756e38', 27, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (14, 'Florida', 'Bailey', 'gwill', 'e951ea85ee67f3e1676b4ce4f4eed5df1098d090', 19, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (15, 'Arthur', 'Kunze', 'osbaldo32', 'd46e66899da32cd8293216e7069bf5e026db1598', 35, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (16, 'Zola', 'Bauch', 'tania.fahey', '4e642a3ccc19717b45412785e95dbe4e4d6f741f', 22, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (17, 'Jannie', 'Schamberger', 'andreanne16', 'c3098dc2847448ceebca82a891425aec810a879d', 2, 3, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (18, 'Bernardo', 'Ruecker', 'fahey.dasia', '4a3efb9fe8d07047c2002d3df87895ce23e5753b', 2, 1, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (19, 'Lucile', 'Koss', 'xweimann', 'f0314865384d385efea8884039e57d4c428de0e2', 4, 2, NULL);
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password`, `contact_info_id`, `role_id`, `auto_renew`) VALUES (20, 'Princess', 'West', 'hilma.emard', '7a5062f316c6280aa41a14ba153e5151a005e3f6', 38, 2, NULL);
 
 
 -- -----------------------------------------------------
@@ -238,11 +238,11 @@ INSERT INTO `subscriptions` (`subscription_id`, `user_id`, `subscription_type_id
 -- Populating table: `orders`
 -- -----------------------------------------------------
 
-INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (1, 1, 12, 27, 10, '819.701', '423.1', '2022-02-19 16:49:26');
-INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (2, 10, 20, 25, 1, '4470.9', '140.5', '1992-02-16 12:41:10');
-INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (3, 11, 3, 12, 9, '1240.12', '312.62', '2022-02-19 16:49:26');
+INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (1, 1, 12, 27, 10, '819.701', '423.1', '2022-03-19 16:49:26');
+INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (2, 10, 20, 25, 1, '4470.9', '140.5', '1992-03-16 12:41:10');
+INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (3, 11, 3, 12, 9, '1240.12', '312.62', '2022-03-19 16:49:26');
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (4, 20, 7, 28, 5, '2590.32', '100.22', '1988-09-11 10:49:28');
-INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (5, 2, 9, 1, 9, '7251.72', '1438.59', '2022-02-19 16:49:26');
+INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (5, 2, 9, 1, 9, '7251.72', '1438.59', '2022-03-19 16:49:26');
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (6, 9, 11, 33, 4, '537.1', '9.16', '2022-02-19 16:49:26');
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (7, 2, 3, 1, 4, '123.23', '3.29', '1980-11-08 04:39:52');
 INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contact_info_id`, `status_id`, `order_price`, `total_price_saved`, `created_at`) VALUES (8, 20, 18, 28, 10, '2.46', '9.35', '2022-02-19 16:49:26');
