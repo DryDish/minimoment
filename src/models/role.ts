@@ -1,9 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class Role extends Model {
-  declare role_id: number;
-  declare name: string;
-}
+export class Role extends Model {}
 
 export default (sequelize: Sequelize) =>
   Role.init(
