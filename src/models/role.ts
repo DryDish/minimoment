@@ -17,6 +17,7 @@ export default (sequelize: Sequelize) =>
       name: {
         type: DataTypes.STRING(45),
         allowNull: false,
+        unique: true,
       },
     },
     {
