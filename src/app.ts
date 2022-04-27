@@ -8,7 +8,7 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 import AuthRouter from "./routes/auth.routes";
-import DiscountRouter from "./routes/discounts.routes";
+import DiscountTypesRouter from "./routes/discounts-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
 
 // Constants
@@ -30,7 +30,7 @@ app.use(AuthRouter);
 app.use(AuthMiddleware);
 
 app.use("/admin/roles", RolesRouter);
-app.use("/discounts", DiscountRouter);
+app.use("/discounts", DiscountTypesRouter);
 app.use("/contact-info", ContactInfoRouter);
 
 app.all("*", (_, res) => {
