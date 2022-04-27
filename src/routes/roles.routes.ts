@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
   if (result) {
     res.send({ role: result });
   } else {
-    res.status(404).send("Role not found.");
+    res.status(404).send({ error: 404, message: "Role not found." });
   }
 });
 
@@ -43,7 +43,7 @@ router.patch("/:id", async (req, res) => {
 
     res.send({ role: result });
   } else {
-    res.status(404).send("Role not found.");
+    res.status(404).send({ error: 404, message: "Role not found." });
   }
 });
 
@@ -54,9 +54,9 @@ router.delete("/:id", async (req, res) => {
   if (roleToDelete) {
     await roleToDelete.destroy();
 
-    res.send({ message: "Success" });
+    res.send({ message: "Success!" });
   } else {
-    res.status(404).send("Role not found.");
+    res.status(404).send({ error: 404, message: "Role not found." });
   }
 });
 

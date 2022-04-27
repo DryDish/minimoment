@@ -8,7 +8,7 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 import AuthRouter from "./routes/auth.routes";
-import DiscountRouter from "./routes/discounts.routes"
+import DiscountRouter from "./routes/discounts.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;

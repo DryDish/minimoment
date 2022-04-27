@@ -5,16 +5,18 @@ export class Role extends Model {}
 export default (sequelize: Sequelize) => {
   Role.init(
     {
-      role_id: {
+      roleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        field: "role_id",
       },
       name: {
         type: DataTypes.STRING(45),
         allowNull: false,
         unique: true,
+        field: "name",
       },
     },
     {

@@ -5,16 +5,18 @@ export class DiscountType extends Model {}
 export default (sequelize: Sequelize) => {
   DiscountType.init(
     {
-      discount_type_id: {
+      discountTypeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        field: "discount_type_id",
       },
       name: {
         type: DataTypes.STRING(45),
         allowNull: false,
         unique: true,
+        field: "name",
       },
     },
     {
