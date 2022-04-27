@@ -13,6 +13,10 @@ const SCHEMA = process.env.MYSQL_DB_SCHEMA || "";
 export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
   host: HOST,
   dialect: "mysql",
+  define: {
+    timestamps: false,
+  },
+  logging: true,
 });
 
 // Define all Models

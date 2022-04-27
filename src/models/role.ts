@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 
 export class Role extends Model {}
 
-export default (sequelize: Sequelize) =>
+export default (sequelize: Sequelize) => {
   Role.init(
     {
       role_id: {
@@ -19,9 +19,7 @@ export default (sequelize: Sequelize) =>
     },
     {
       sequelize,
-      modelName: "Role",
       tableName: "roles",
-      createdAt: false,
-      updatedAt: false
     }
   );
+};

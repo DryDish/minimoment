@@ -8,6 +8,7 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 import AuthRouter from "./routes/auth.routes";
+import DiscountRouter from "./routes/discounts.routes"
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -28,6 +29,7 @@ app.use(AuthRouter);
 app.use(AuthMiddleware);
 
 app.use("/admin/roles", RolesRouter);
+app.use("/discounts", DiscountRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send("Bad Request");
