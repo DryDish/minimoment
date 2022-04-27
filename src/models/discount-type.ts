@@ -13,7 +13,7 @@ export default (sequelize: Sequelize) => {
         field: "discount_type_id",
       },
       name: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.ENUM('percent', 'amount'),
         allowNull: false,
         unique: true,
         field: "name",
