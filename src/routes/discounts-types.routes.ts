@@ -40,6 +40,21 @@ router.get("/types/:id", async (req, res) => {
   }
 });
 
+router.post("/types/", async (req, res) => {
+  const { name } = req.body;
+  const newDiscountType = DiscountType.build({ name });
 
+  try {
+    await newDiscountType.save();
+    res.status(200).send({ discountType: newDiscountType });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({
+      error: 500,
+      message: "Unable to save new discount type.",
+      description: "'name' must be either 'amount' or 'percent.'",
+    });
+  }
+});
 
 export default router;
