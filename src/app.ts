@@ -8,6 +8,7 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 import AuthRouter from "./routes/auth.routes";
+import DiscountCodesRouter from "./routes/discounts-code.routes";
 import DiscountTypesRouter from "./routes/discounts-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
 
@@ -30,11 +31,12 @@ app.use(AuthRouter);
 app.use(AuthMiddleware);
 
 app.use("/admin/roles", RolesRouter);
-app.use("/discounts", DiscountTypesRouter);
+app.use("/discounts/codes", DiscountCodesRouter);
+app.use("/discounts/types", DiscountTypesRouter);
 app.use("/contact-info", ContactInfoRouter);
 
 app.all("*", (_, res) => {
-  res.status(400).send("Bad Request");
+  res.status(400).send({ error: 400, message: "Bad Request" });
 });
 
 app.listen(SERVER_PORT, () => {

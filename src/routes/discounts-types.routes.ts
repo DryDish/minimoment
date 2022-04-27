@@ -3,13 +3,7 @@ import { DiscountType } from "../models/discount-type";
 
 const router = express.Router();
 
-router.get("/codes", (_, res) => {
-  // TODO - Make Discounts return all its data
-  const discountCodes = ["temp", "data"];
-  res.status(200).json({ discountCodes: discountCodes });
-});
-
-router.get("/types", async (_, res) => {
+router.get("/", async (_, res) => {
   try {
     const discountTypeList = await DiscountType.findAll();
     res.status(200).send({ discountCodeTypes: discountTypeList });
@@ -22,7 +16,7 @@ router.get("/types", async (_, res) => {
   }
 });
 
-router.get("/types/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const discountType = await DiscountType.findByPk(id);
@@ -40,7 +34,7 @@ router.get("/types/:id", async (req, res) => {
   }
 });
 
-router.post("/types/", async (req, res) => {
+router.post("/", async (req, res) => {
   const { name } = req.body;
   const newDiscountType = DiscountType.build({ name });
 
