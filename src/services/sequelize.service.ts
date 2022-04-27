@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 // Import Models
 import RoleModel from "../models/role";
 import DiscountTypeModel from "../models/discount-type";
+import ContactInfoModel from "../models/contact-info";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -23,6 +24,7 @@ export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
 // Define all Models
 RoleModel(sequelize);
 DiscountTypeModel(sequelize);
+ContactInfoModel(sequelize);
 
 // Authenticate to the Database
 export const authenticate = async () => {
