@@ -15,13 +15,6 @@ const SERVER_PORT = process.env.SERVER_PORT || 5000;
 // Connect to the database
 mysqlConnect();
 
-// Sync models
-// TODO: Look into the preferred approach
-// User has no permissions to drop and create tables on schema.
-// sequelize.sync({ alter: true }).then(() => {
-//   console.log("All models synchronized successfully.");
-// });
-
 const app = express();
 
 app.use(express.json());
@@ -34,7 +27,7 @@ app.use(AuthRouter);
 
 app.use(AuthMiddleware);
 
-app.use("/roles", RolesRouter);
+app.use("/admin/roles", RolesRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send("Bad Request");
