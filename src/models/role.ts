@@ -1,5 +1,4 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import internal from "stream";
 
 export class Role extends Model {
   declare role_id: number;
@@ -18,6 +17,7 @@ export default (sequelize: Sequelize) =>
       name: {
         type: DataTypes.STRING(45),
         allowNull: false,
+        unique: true,
       },
     },
     {
