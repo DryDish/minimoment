@@ -1,5 +1,4 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import internal from "stream";
 
 export class Role extends Model {
   declare role_id: number;

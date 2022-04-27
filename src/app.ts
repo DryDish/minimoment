@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import {
   authenticate as mysqlConnect,
-  sequelize,
 } from "./services/sequelize.service";
 
 // Import routes
