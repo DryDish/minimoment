@@ -4,6 +4,9 @@ import {
   authenticate as mysqlConnect,
 } from "./services/sequelize.service";
 
+// Import middleware
+import AuthMiddleware from "./middleware/authenticate.middleware";
+
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 
@@ -27,6 +30,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send({ response: "Hello World!" });
 });
+
+app.use(AuthMiddleware);
 
 app.use("/roles", RolesRouter);
 
