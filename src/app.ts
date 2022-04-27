@@ -28,7 +28,7 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send({ response: "Hello World!" });
 });
 
@@ -66,7 +66,7 @@ app.use(AuthMiddleware);
 
 app.use("/roles", RolesRouter);
 
-app.all("*", (req, res) => {
+app.all("*", (_, res) => {
   res.status(400).send("Bad Request");
 });
 
