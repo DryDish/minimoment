@@ -8,6 +8,7 @@ import ContactInfoModel, {
 } from "../models/contact-info";
 import UserModel, { defineUserAssociations } from "../models/user";
 import StatusModel from "../models/status";
+import SubscriptionTypeModel from "../models/subscription-type";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -31,6 +32,7 @@ RoleModel(sequelize);
 DiscountTypeModel(sequelize);
 ContactInfoModel(sequelize);
 StatusModel(sequelize);
+SubscriptionTypeModel(sequelize);
 
 // Define all Associations
 defineRoleAssociations();

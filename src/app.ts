@@ -12,7 +12,8 @@ import DiscountCodesRouter from "./routes/discounts-code.routes";
 import DiscountTypesRouter from "./routes/discounts-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
 import UsersRouter from "./routes/users.routes";
-import StatusRouter from "./routes/statuses.routes";
+import StatusesRouter from "./routes/statuses.routes";
+import SubscriptionTypesRouter from "./routes/subscription-types.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -33,11 +34,12 @@ app.use(AuthRouter);
 app.use(AuthMiddleware);
 
 app.use("/admin/roles", RolesRouter);
-app.use("/admin/statuses", StatusRouter);
+app.use("/admin/statuses", StatusesRouter);
 app.use("/discounts/codes", DiscountCodesRouter);
 app.use("/discounts/types", DiscountTypesRouter);
 app.use("/contact-info", ContactInfoRouter);
 app.use("/users", UsersRouter);
+app.use("/subscriptions/types", SubscriptionTypesRouter)
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
