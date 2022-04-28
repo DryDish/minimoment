@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Subscription } from "./subscription";
 
 export class SubscriptionType extends Model {}
 
@@ -34,4 +35,14 @@ export default (sequelize: Sequelize) => {
       tableName: "subscription_types",
     }
   );
+};
+
+export const defineSubscriptionTypesAssociations = () => {
+  SubscriptionType.hasMany(Subscription, {
+    foreignKey: {
+      name: "subscriptionTypeId",
+      allowNull: false,
+      field: "subscription_type_id",
+    },
+  });
 };

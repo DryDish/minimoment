@@ -9,7 +9,8 @@ import ContactInfoModel, {
 } from "../models/contact-info";
 import UserModel, { defineUserAssociations } from "../models/user";
 import StatusModel from "../models/status";
-import SubscriptionTypeModel from "../models/subscription-type";
+import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/subscription-type";
+import SubsciptionModel, { defineSubscriptionAssociations } from "../models/subscription";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -35,11 +36,14 @@ DiscountCodeModel(sequelize);
 ContactInfoModel(sequelize);
 StatusModel(sequelize);
 SubscriptionTypeModel(sequelize);
+SubsciptionModel(sequelize);
 
 // Define all Associations
 defineRoleAssociations();
 defineContactInfoAssociations();
 defineUserAssociations();
+defineSubscriptionTypesAssociations();
+defineSubscriptionAssociations();
 
 // Authenticate to the Database
 export const authenticate = async () => {

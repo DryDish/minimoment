@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
 import { Role } from "./role";
+import { Subscription } from "./subscription";
 
 export class User extends Model {}
 
@@ -60,6 +61,13 @@ export const defineUserAssociations = () => {
       name: "contactInfoId",
       allowNull: true,
       field: "contact_info_id",
+    },
+  });
+  User.hasMany(Subscription, {
+    foreignKey: {
+      name: "userId",
+      allowNull: false,
+      field: "user_id",
     },
   });
 };
