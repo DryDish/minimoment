@@ -1,27 +1,27 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class User extends Model {}
+export class Order extends Model {}
 
 export default (sequelize: Sequelize) => {
-    User.init(
+    Order.init(
     {
-        userId: {
+        orderId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            field: "user_id",
+            field: "order_id",
         },
-        userName: {
+        orderName: {
             type: DataTypes.TEXT,
             allowNull: false,
             autoIncrement: true,
             primaryKey: false,
-            field: "user_name",
+            field: "order_name",
         }
     },
     {
         sequelize,
-        tableName: "users",
+        tableName: "orders",
     });
 };
