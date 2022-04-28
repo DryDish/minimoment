@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Order } from "./order";
 
 export class Invoice extends Model {};
 
@@ -28,4 +29,14 @@ export default (sequelize: Sequelize) => {
             tableName: "invoices",
         }
     )
+}
+
+export const defineInvoiceAssociations = () => {
+    Invoice.belongsTo(Order, {
+        foreignKey: {
+            name: "orderId",
+            allowNull: false,
+            field: "order_id",
+        }
+    });
 }
