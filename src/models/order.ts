@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
 import { DiscountCode } from "./discount-code";
+import { Invoice } from "./invoice";
 import { Status } from "./status";
 import { User } from "./user";
 
@@ -88,4 +89,9 @@ export const defineOrderAssociations = () => {
             field: "discount_code_id",
         },
     });
+    Order.hasMany(Invoice, {
+        foreignKey: {
+            
+        }
+    })
 }

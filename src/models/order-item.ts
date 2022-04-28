@@ -56,7 +56,7 @@ export default (sequelize: Sequelize) => {
             sequelize,
             tableName: "order_items",
         },
-    )
+    );
 }
 
 export const defineOrderItemAssociations = () => {
