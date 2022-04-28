@@ -1,4 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { ContactInfo } from "./contact-info";
+import { User } from "./user";
 
 export class Order extends Model {}
 
@@ -19,12 +21,12 @@ export default (sequelize: Sequelize) => {
             },
             userId: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 field: "user_id"
             },
             billingContactInfoId: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 field: "billing_contact_info_id"
             },
             statusId: {
@@ -53,4 +55,21 @@ export default (sequelize: Sequelize) => {
             tableName: "orders",
         }
     )
+}
+
+export const defineOrderAssociations = () => {
+    Order.belongsTo(User, {
+        foreignKey: {
+            name: "userId",
+            allowNull: false,
+            field: "user_id",
+        },
+    });
+    Order.belongsTo(ContactInfo, {
+        foreignKey: {
+            name: "billingContactInfoId",
+            allowNull: false,
+            field: "billing_contact_info_id"
+        },
+    });
 }
