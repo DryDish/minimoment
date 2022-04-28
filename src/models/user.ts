@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
 import { Role } from "./role";
 
-export class Order extends Model {}
+export class User extends Model {}
 
 export default (sequelize: Sequelize) => {
   User.init(
