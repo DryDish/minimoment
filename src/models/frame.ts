@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { DiscountCode } from "./discount-code";
 
 export class Frame extends Model {}; 
 
@@ -43,4 +44,15 @@ export default (sequelize: Sequelize) => {
             tableName: "frames",
         }
     )
+}
+
+export const defineFrameAssociations = () => {
+    Frame.belongsTo(DiscountCode, {
+        foreignKey: {
+            name: "discountCodeId",
+            allowNull: true,
+            field: "discount_code_id",
+        }
+    });
+    // TODO: belongsTo size
 }
