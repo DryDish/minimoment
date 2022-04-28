@@ -11,7 +11,7 @@ router.get("/", async (_, res) => {
     console.error(error);
     res.status(500).send({
       error: 500,
-      message: "Unable to retrieve a list of discount codes.",
+      message: "Unable to retrieve a list of discount code types.",
     });
   }
 });
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
     console.error(error);
     res.status(500).send({
       error: 500,
-      message: "Unable to retrieve discount code.",
+      message: "Unable to retrieve discount code type.",
     });
   }
 });
