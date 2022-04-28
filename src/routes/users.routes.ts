@@ -79,7 +79,7 @@ router.patch("/:id", async (req, res) => {
       contactInfoId,
     });
 
-    res.send({ user: result });
+    res.status(201).send({ user: result });
   } else {
     res.status(404).send({ error: 404, message: "User not found." });
   }
