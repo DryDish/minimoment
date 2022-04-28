@@ -15,6 +15,7 @@ import UsersRouter from "./routes/users.routes";
 import StatusesRouter from "./routes/statuses.routes";
 import SubscriptionTypesRouter from "./routes/subscription-types.routes";
 import SubscriptionsRouter from "./routes/subscriptions.routes";
+import SizesRouter from "./routes/sizes.router";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -42,6 +43,7 @@ app.use("/contact-info", ContactInfoRouter);
 app.use("/users", UsersRouter);
 app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
+app.use("/stock/sizes", SizesRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });

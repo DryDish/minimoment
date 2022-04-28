@@ -14,6 +14,7 @@ import InvoiceModel, { defineInvoiceAssociations } from "../models/invoice";
 import StatusModel from "../models/status";
 import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/subscription-type";
 import SubscriptionModel, { defineSubscriptionAssociations } from "../models/subscription";
+import SizeModel from "../models/size";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -43,6 +44,7 @@ SubscriptionModel(sequelize);
 OrderModel(sequelize);
 OrderItemModel(sequelize);
 InvoiceModel(sequelize);
+SizeModel(sequelize);
 
 // Define all Associations
 defineRoleAssociations();
