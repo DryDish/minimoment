@@ -16,9 +16,9 @@ router.get("/:invoice_id", async (req, res) => {
     const result = await invoices.findByPk(invoice_id);
   
     if (result) {
-      res.send({ invoice: result });
+        res.send({ invoice: result });
     } else {
-      res.status(404).send({ error: 404, message: "Invoice not found." });
+        res.status(404).send({ error: 404, message: "Invoice not found." });
     }
 });
 

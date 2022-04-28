@@ -9,8 +9,12 @@ const users = sequelize.models.User;
 
 router.get("/", async (_, res) => {
   const result = await users.findAll();
-
-  res.send({ users: result });
+  
+  if (result) {
+    res.send({ users: result });
+  } else {
+    res.status(404).send({ error: 404, message: "Users not found." });
+  }
 });
 
 router.get("/:id", async (req, res) => {
