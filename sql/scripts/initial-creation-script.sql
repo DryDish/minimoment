@@ -283,7 +283,7 @@ DROP TABLE IF EXISTS `paper_types` ;
 
 CREATE TABLE IF NOT EXISTS `paper_types` (
   `paper_type_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45),
+  `name` VARCHAR(45) NOT NULL,
   `multiplier` DECIMAL(3,2) NOT NULL,
   `size_id` INT NOT NULL,
   `discount_code_id` INT,
