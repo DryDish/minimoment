@@ -1,6 +1,6 @@
 import express from "express";
 import { sequelize } from "../services/sequelize.service";
-import { Order } from "../models/order";
+import order, { Order } from "../models/order";
 import { Op } from "sequelize/types";
 
 const router = express.Router();
@@ -43,7 +43,7 @@ router.get("/by-user/:userId", async (req, res) => {
 });
 
 // POST create new order
-router.post("/",async (req, res) => {
+router.post("/", async (req, res) => {
     const {
         discountCodeId,
         userId,
@@ -70,7 +70,7 @@ router.post("/",async (req, res) => {
 });
 
 // PATCH update order
-router.patch("/:orderId",async (req, res) => {
+router.patch("/:orderId", async (req, res) => {
     const { orderId } = req.params;
     const {
         discountCodeId,
@@ -100,5 +100,20 @@ router.patch("/:orderId",async (req, res) => {
         res.status(404).send({ error: 404, message: "Order not found." });
     }
 });
+
+// DELETE order
+router.delete("/:orderId", async (req, res) => {
+    const { orderId } = req.params;
+
+    const orderToDelete = await orders.findByPk(orderId);
+
+    if (orderToDelete) {
+        await orderToDelete.destroy();
+
+        res.send({ message: "Success" });
+    } else {
+        res.status(404).send({ error: 404, message: "Order not found." });
+    }
+})
 
 export default router;
