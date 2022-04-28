@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 // Import Models
 import RoleModel, { defineRoleAssociations } from "../models/role";
 import DiscountTypeModel from "../models/discount-type";
+import DiscountCodeModel from "../models/discount-code";
 import ContactInfoModel, {
   defineContactInfoAssociations,
 } from "../models/contact-info";
@@ -30,6 +31,7 @@ export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
 UserModel(sequelize);
 RoleModel(sequelize);
 DiscountTypeModel(sequelize);
+DiscountCodeModel(sequelize);
 ContactInfoModel(sequelize);
 StatusModel(sequelize);
 SubscriptionTypeModel(sequelize);
