@@ -11,6 +11,9 @@ import UserModel, { defineUserAssociations } from "../models/user";
 import OrderModel, { defineOrderAssociations } from "../models/order";
 import OrderItemModel, { defineOrderItemAssociations } from "../models/order-item";
 import InvoiceModel, { defineInvoiceAssociations } from "../models/invoice";
+import PaperTypeModel, { definePaperTypeAssociations } from "../models/paper-type";
+import PictureDataModel, { definePictureDataAssociations } from "../models/picture-data";
+import FrameModel, { defineFrameAssociations } from "../models/frame";
 import StatusModel from "../models/status";
 import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/subscription-type";
 import SubscriptionModel, { defineSubscriptionAssociations } from "../models/subscription";
@@ -45,6 +48,9 @@ SubscriptionModel(sequelize);
 OrderModel(sequelize);
 OrderItemModel(sequelize);
 InvoiceModel(sequelize);
+PaperTypeModel(sequelize);
+PictureDataModel(sequelize);
+FrameModel(sequelize);
 SizeModel(sequelize);
 MonthlyReportModel(sequelize);
 
@@ -58,6 +64,9 @@ defineDiscountCodeAssociation();
 defineOrderAssociations();
 defineOrderItemAssociations();
 defineInvoiceAssociations();
+definePaperTypeAssociations();
+definePictureDataAssociations();
+defineFrameAssociations();
 
 // Authenticate to the Database
 export const authenticate = async () => {
