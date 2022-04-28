@@ -80,5 +80,5 @@ export const defineOrderAssociations = () => {
             field: "status_id",
         },
     });
-    // belongsTo discount
+    // TODO: belongsTo discount
 }

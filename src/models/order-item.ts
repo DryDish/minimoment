@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Order } from "./order";
 
 export class OrderItem extends Model {};
 
@@ -53,4 +54,17 @@ export default (sequelize: Sequelize) => {
             tableName: "order_items",
         }
     )
+}
+
+export const defineOrderItemAssociations = () => {
+    // TODO: belongsTo picture data
+    // TODO: belongsTo Frames
+    // TODO: belongsTo paper Types
+    OrderItem.belongsTo(Order, {
+        foreignKey: {
+            name: "orderId",
+            allowNull: false,
+            field: "order_id",
+        }
+    });
 }
