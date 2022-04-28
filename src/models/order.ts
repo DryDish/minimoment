@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
+import { Status } from "./status";
 import { User } from "./user";
 
 export class Order extends Model {}
@@ -69,9 +70,15 @@ export const defineOrderAssociations = () => {
         foreignKey: {
             name: "billingContactInfoId",
             allowNull: false,
-            field: "billing_contact_info_id"
+            field: "billing_contact_info_id",
+        },
+    });
+    Order.belongsTo(Status, {
+        foreignKey: {
+            name: "statusId",
+            allowNull: false,
+            field: "status_id",
         },
     });
     // belongsTo discount
-    // belongsTo Status
 }
