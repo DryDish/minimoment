@@ -5,13 +5,13 @@ import { Invoice } from "../models/invoice";
 const router = express.Router();
 const invoices = sequelize.models.Invoice;
 
-router.get("/", async (_, res) => {
+router.get("/invoices", async (_, res) => {
     const result = await invoices.findAll();
   
     res.send({ invoices: result });
 });
 
-router.get("/:invoice_id", async (req, res) => {
+router.get("/invoices/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
     const result = await invoices.findByPk(invoice_id);
   
@@ -22,7 +22,7 @@ router.get("/:invoice_id", async (req, res) => {
     }
 });
 
-router.post("/",async (req, res) => {
+router.post("/invoices",async (req, res) => {
     const {
         orderId,
         createdAt,
@@ -38,7 +38,7 @@ router.post("/",async (req, res) => {
     res.status(201).send({ invoice: result });
 });
 
-router.patch("/:invoice_id", async (req, res) => {
+router.patch("/invoices/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
     const {
         orderId,
@@ -59,7 +59,7 @@ router.patch("/:invoice_id", async (req, res) => {
     }
 });
 
-router.delete("/:invoice_id", async (req, res) => {
+router.delete("/invoices/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
     const invoiceToEdit = await invoices.findByPk(invoice_id);
 

@@ -7,14 +7,14 @@ const router = express.Router();
 const orders = sequelize.models.Order;
 
 // GET all orders
-router.get("/",async (_, res) => {
+router.get("/order",async (_, res) => {
     const result = await orders.findAll();
 
     res.send({ orders: result });
 });
 
 // GET by order id
-router.get("/:orderId", async (req, res) => {
+router.get("/order/:orderId", async (req, res) => {
     const { orderId } = req.params;
     const result = await orders.findByPk(orderId);
 
@@ -26,7 +26,7 @@ router.get("/:orderId", async (req, res) => {
 });
 
 // GET order(s) by user id
-router.get("/by-user/:userId", async (req, res) => {
+router.get("/order/by-user/:userId", async (req, res) => {
     const { userId } = req.params;
 
     const result = await orders.findAndCountAll({
@@ -43,7 +43,7 @@ router.get("/by-user/:userId", async (req, res) => {
 });
 
 // POST create new order
-router.post("/", async (req, res) => {
+router.post("/order", async (req, res) => {
     const {
         discountCodeId,
         userId,
@@ -70,7 +70,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH update order
-router.patch("/:orderId", async (req, res) => {
+router.patch("/order/:orderId", async (req, res) => {
     const { orderId } = req.params;
     const {
         discountCodeId,
@@ -102,7 +102,7 @@ router.patch("/:orderId", async (req, res) => {
 });
 
 // DELETE order
-router.delete("/:orderId", async (req, res) => {
+router.delete("/order/:orderId", async (req, res) => {
     const { orderId } = req.params;
 
     const orderToDelete = await orders.findByPk(orderId);

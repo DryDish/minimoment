@@ -4,7 +4,7 @@ import { sequelize } from "../services/sequelize.service";
 const router = express.Router();
 const orderItems = sequelize.models.OrderItem;
 
-router.get("/", async (_, res) => {
+router.get("/order_items", async (_, res) => {
     const result = await orderItems.findAll();
 
     if (result) {
