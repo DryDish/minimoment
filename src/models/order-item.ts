@@ -35,7 +35,7 @@ export default (sequelize: Sequelize) => {
             },
             orderItemPrice: {
                 type: DataTypes.DECIMAL(15, 2),
-                allowNull: true,
+                allowNull: false,
                 field: "order_item_price",
             },
             priceSaved: {
@@ -45,7 +45,7 @@ export default (sequelize: Sequelize) => {
             },
             amount: {
                 type: DataTypes.DECIMAL(15, 2),
-                allowNull: true,
+                allowNull: false,
                 field: "amount",
             }
         },
