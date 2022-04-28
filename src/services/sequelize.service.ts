@@ -8,6 +8,8 @@ import ContactInfoModel, {
   defineContactInfoAssociations,
 } from "../models/contact-info";
 import UserModel, { defineUserAssociations } from "../models/user";
+import OrderModel, { defineOrderAssociations } from "../models/order";
+import OrderItemModel, { defineOrderItemAssociations } from "../models/order-item";
 import StatusModel from "../models/status";
 import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/subscription-type";
 import SubscriptionModel, { defineSubscriptionAssociations } from "../models/subscription";
@@ -37,6 +39,8 @@ ContactInfoModel(sequelize);
 StatusModel(sequelize);
 SubscriptionTypeModel(sequelize);
 SubscriptionModel(sequelize);
+OrderModel(sequelize);
+OrderItemModel(sequelize);
 
 // Define all Associations
 defineRoleAssociations();
@@ -45,6 +49,8 @@ defineUserAssociations();
 defineSubscriptionTypesAssociations();
 defineSubscriptionAssociations();
 defineDiscountCodeAssociation();
+defineOrderAssociations();
+defineOrderItemAssociations();
 
 // Authenticate to the Database
 export const authenticate = async () => {
