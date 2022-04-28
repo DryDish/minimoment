@@ -11,9 +11,10 @@ import AuthRouter from "./routes/auth.routes";
 import DiscountCodesRouter from "./routes/discounts-code.routes";
 import DiscountTypesRouter from "./routes/discounts-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
+import UsersRouter from "./routes/users.routes";
 
 // Constants
-const SERVER_PORT = process.env.SERVER_PORT || 6000;
+const SERVER_PORT = process.env.SERVER_PORT || 5000;
 
 // Connect to the database
 mysqlConnect();
@@ -34,9 +35,10 @@ app.use("/admin/roles", RolesRouter);
 app.use("/discounts/codes", DiscountCodesRouter);
 app.use("/discounts/types", DiscountTypesRouter);
 app.use("/contact-info", ContactInfoRouter);
+app.use("/users", UsersRouter);
 
 app.all("*", (_, res) => {
-  res.status(400).send({ error: 400, message: "Bad Request" });
+  res.status(400).send({ error: 400, message: "Bad Request." });
 });
 
 app.listen(SERVER_PORT, () => {

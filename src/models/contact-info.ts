@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { User } from "./user";
 
 export class ContactInfo extends Model {}
 
@@ -10,12 +11,12 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        field: "contact_info_id"
+        field: "contact_info_id",
       },
       phoneNumber: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        field: "phone_number"
+        field: "phone_number",
       },
       countryCode: {
         type: DataTypes.STRING(3),
@@ -30,16 +31,16 @@ export default (sequelize: Sequelize) => {
       postalCode: {
         type: DataTypes.STRING(8),
         allowNull: false,
-        field: "postal_code"
+        field: "postal_code",
       },
       addressOne: {
         type: DataTypes.STRING(255),
         allowNull: false,
-        field: "address_one"
+        field: "address_one",
       },
       addressTwo: {
         type: DataTypes.STRING(255),
-        field: "address_two"
+        field: "address_two",
       },
     },
     {
@@ -47,4 +48,14 @@ export default (sequelize: Sequelize) => {
       tableName: "contact_info",
     }
   );
+};
+
+export const defineContactInfoAssociations = () => {
+  ContactInfo.hasMany(User, {
+    foreignKey: {
+      name: "contactInfoId",
+      allowNull: true,
+      field: "contact_info_id",
+    },
+  });
 };

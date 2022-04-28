@@ -1,9 +1,12 @@
 import { Sequelize } from "sequelize";
 
 // Import Models
-import RoleModel from "../models/role";
+import RoleModel, { defineRoleAssociations } from "../models/role";
 import DiscountTypeModel from "../models/discount-type";
-import ContactInfoModel from "../models/contact-info";
+import ContactInfoModel, {
+  defineContactInfoAssociations,
+} from "../models/contact-info";
+import UserModel, { defineUserAssociations } from "../models/user";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -22,9 +25,15 @@ export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
 });
 
 // Define all Models
+UserModel(sequelize);
 RoleModel(sequelize);
 DiscountTypeModel(sequelize);
 ContactInfoModel(sequelize);
+
+// Define all Associations
+defineRoleAssociations();
+defineContactInfoAssociations();
+defineUserAssociations();
 
 // Authenticate to the Database
 export const authenticate = async () => {

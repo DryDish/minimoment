@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { User } from "./user";
 
 export class Role extends Model {}
 
@@ -24,4 +25,14 @@ export default (sequelize: Sequelize) => {
       tableName: "roles",
     }
   );
+};
+
+export const defineRoleAssociations = () => {
+  Role.hasMany(User, {
+    foreignKey: {
+      name: "roleId",
+      allowNull: false,
+      field: "role_id",
+    },
+  });
 };
