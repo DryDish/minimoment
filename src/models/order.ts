@@ -2,6 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
 import { DiscountCode } from "./discount-code";
 import { Invoice } from "./invoice";
+import { OrderItem } from "./order-item";
 import { Status } from "./status";
 import { User } from "./user";
 
@@ -91,7 +92,16 @@ export const defineOrderAssociations = () => {
     });
     Order.hasMany(Invoice, {
         foreignKey: {
-            
+            name: "invoiceId",
+            allowNull: false,
+            field: "invoice_id",
         }
-    })
+    });
+    Order.hasMany(OrderItem, {
+        foreignKey: {
+            name: "orderId",
+            allowNull: false,
+            field: "order_id",
+        }
+    });
 }
