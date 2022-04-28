@@ -31,7 +31,7 @@ export default (sequelize: Sequelize) => {
             },
             statusId: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 field: "status_id"
             },
             orderPrice: {
@@ -72,4 +72,6 @@ export const defineOrderAssociations = () => {
             field: "billing_contact_info_id"
         },
     });
+    // belongsTo discount
+    // belongsTo Status
 }
