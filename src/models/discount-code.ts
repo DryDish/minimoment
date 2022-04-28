@@ -1,11 +1,12 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { DiscountType } from "./discount-type";
 
 export class DiscountCode extends Model {}
 
 export default (sequelize: Sequelize) => {
   DiscountCode.init(
     {
-      DiscountCodeId: {
+      discountCodeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -36,7 +37,7 @@ export default (sequelize: Sequelize) => {
       remainingUses: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: "remaining_uses"
+        field: "remaining_uses",
       },
     },
     {
@@ -46,5 +47,12 @@ export default (sequelize: Sequelize) => {
   );
 };
 
-
-// TODO - add relationship to code type
+export const defineDiscountCodeAssociation = () => {
+  DiscountCode.belongsTo(DiscountType, {
+    foreignKey: {
+      name: "discountTypeId",
+      allowNull: false,
+      field: "discount_type_id",
+    },
+  });
+};

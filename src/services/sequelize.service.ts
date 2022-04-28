@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 // Import Models
 import RoleModel, { defineRoleAssociations } from "../models/role";
 import DiscountTypeModel from "../models/discount-type";
-import DiscountCodeModel from "../models/discount-code";
+import DiscountCodeModel, { defineDiscountCodeAssociation } from "../models/discount-code";
 import ContactInfoModel, {
   defineContactInfoAssociations,
 } from "../models/contact-info";
@@ -44,6 +44,7 @@ defineContactInfoAssociations();
 defineUserAssociations();
 defineSubscriptionTypesAssociations();
 defineSubscriptionAssociations();
+defineDiscountCodeAssociation();
 
 // Authenticate to the Database
 export const authenticate = async () => {
