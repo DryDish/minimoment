@@ -64,11 +64,11 @@ router.delete("/:invoice_id", async (req, res) => {
     const invoiceToEdit = await invoices.findByPk(invoice_id);
 
     if (invoiceToEdit) {
-    await invoiceToEdit.destroy();
+        await invoiceToEdit.destroy();
 
-    res.send({ message: "Success!" });
+        res.send({ message: "Success!" });
     } else {
-    res.status(404).send({ error: 404, message: "Invoice not found." });
+        res.status(404).send({ error: 404, message: "Invoice not found." });
     }
 });
 
