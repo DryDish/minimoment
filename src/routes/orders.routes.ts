@@ -1,6 +1,6 @@
 import express from "express";
 import { sequelize } from "../services/sequelize.service";
-import order, { Order } from "../models/order";
+import { Order } from "../models/order";
 import { Op } from "sequelize/types";
 
 const router = express.Router();
@@ -114,6 +114,6 @@ router.delete("/:orderId", async (req, res) => {
     } else {
         res.status(404).send({ error: 404, message: "Order not found." });
     }
-})
+});
 
 export default router;
