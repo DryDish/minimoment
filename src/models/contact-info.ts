@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Order } from "./order";
 import { User } from "./user";
 
 export class ContactInfo extends Model {}
@@ -55,6 +56,13 @@ export const defineContactInfoAssociations = () => {
     foreignKey: {
       name: "contactInfoId",
       allowNull: true,
+      field: "contact_info_id",
+    },
+  });
+  ContactInfo.hasMany(Order, {
+    foreignKey: {
+      name: "contactInfoId",
+      allowNull: false,
       field: "contact_info_id",
     },
   });

@@ -16,19 +16,19 @@ export default (sequelize: Sequelize) => {
             orderId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                field: "order_id"
+                field: "order_id",
             },
             createdAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
-                field: "created_at"
+                field: "created_at",
             }
         },
         {
             sequelize,
             tableName: "invoices",
-        }
-    )
+        },
+    );
 }
 
 export const defineInvoiceAssociations = () => {
@@ -37,6 +37,6 @@ export const defineInvoiceAssociations = () => {
             name: "orderId",
             allowNull: false,
             field: "order_id",
-        }
+        },
     });
 }
