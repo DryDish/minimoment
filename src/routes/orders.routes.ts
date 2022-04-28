@@ -1,19 +1,22 @@
 import express from "express";
 import { sequelize } from "../services/sequelize.service";
 import { Order } from "../models/order";
+import { Op } from "sequelize/types";
 
 const router = express.Router();
 const orders = sequelize.models.Order;
 
+// GET all orders
 router.get("/",async (_, res) => {
     const result = await orders.findAll();
 
     res.send({ orders: result });
 });
 
-router.get("/:id", async (req, res) => {
-    const { id } = req.params;
-    const result = await orders.findByPk(id);
+// GET by order id
+router.get("/:orderId", async (req, res) => {
+    const { orderId } = req.params;
+    const result = await orders.findByPk(orderId);
 
     if (result) {
         res.send({ order: result });
@@ -22,6 +25,24 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// GET order(s) by user id
+router.get("/by-user/:userId", async (req, res) => {
+    const { userId } = req.params;
+
+    const result = await orders.findAndCountAll({
+        where: {
+            userId: {
+                [Op.like]: userId
+            }
+        }
+    });
+
+    if (result) {
+        res.send({ orders: result })
+    }
+});
+
+// POST create new order
 router.post("/",async (req, res) => {
     const {
         discountCodeId,
@@ -48,8 +69,9 @@ router.post("/",async (req, res) => {
     res.status(201).send({ order: result });
 });
 
-router.patch("/:id",async (req, res) => {
-    const { id } = req.params;
+// PATCH update order
+router.patch("/:orderId",async (req, res) => {
+    const { orderId } = req.params;
     const {
         discountCodeId,
         userId,
@@ -60,7 +82,7 @@ router.patch("/:id",async (req, res) => {
         createdAt,
     } = req.body;
 
-    const orderToEdit = await orders.findByPk(id);
+    const orderToEdit = await orders.findByPk(orderId);
 
     if (orderToEdit) {
         const result = await orderToEdit.update({
@@ -73,8 +95,10 @@ router.patch("/:id",async (req, res) => {
             createdAt,
         });
 
-        res.send({ result: result });
+        res.send({ order: result });
     } else {
         res.status(404).send({ error: 404, message: "Order not found." });
     }
-})
+});
+
+export default router;
