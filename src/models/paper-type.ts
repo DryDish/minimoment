@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { DiscountCode } from "./discount-code";
 
 export class PaperType extends Model {};
 
@@ -38,4 +39,15 @@ export default (sequelize: Sequelize) => {
             tableName: "paper_types",
         }
     )
+}
+
+export const definePaperTypeAssociations = () => {
+    PaperType.belongsTo(DiscountCode, {
+        foreignKey: {
+            name: "discountCodeId",
+            allowNull: true,
+            field: "discount_code_id",
+        }
+    });
+    // TODO: belongs to size
 }
