@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { DiscountCode } from "./discount-code";
+import { OrderItem } from "./order-item";
 
 export class PaperType extends Model {};
 
@@ -48,6 +49,13 @@ export const definePaperTypeAssociations = () => {
             allowNull: true,
             field: "discount_code_id",
         }
+    });
+    PaperType.hasMany(OrderItem, {
+        foreignKey: {
+            name: "paperTypeId",
+            allowNull: true,
+            field: "paper_type_id",
+        },
     });
     // TODO: belongs to size
 }
