@@ -37,8 +37,8 @@ export default (sequelize: Sequelize) => {
         {
             sequelize,
             tableName: "paper_types",
-        }
-    )
+        },
+    );
 }
 
 export const definePaperTypeAssociations = () => {

@@ -55,8 +55,8 @@ export default (sequelize: Sequelize) => {
         {
             sequelize,
             tableName: "orders",
-        }
-    )
+        },
+    );
 }
 
 export const defineOrderAssociations = () => {
@@ -86,6 +86,6 @@ export const defineOrderAssociations = () => {
             name: "discountCodeId",
             allowNull: true,
             field: "discount_code_id",
-        }
-    })
+        },
+    });
 }
