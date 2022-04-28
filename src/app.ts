@@ -13,7 +13,7 @@ import DiscountTypesRouter from "./routes/discounts-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
 
 // Constants
-const SERVER_PORT = process.env.SERVER_PORT || 5000;
+const SERVER_PORT = process.env.SERVER_PORT || 6000;
 
 // Connect to the database
 mysqlConnect();
