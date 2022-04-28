@@ -92,7 +92,7 @@ router.delete("/:id", async (req, res) => {
   if (userToDelete) {
     await userToDelete.destroy();
 
-    res.send({ message: "Success!" });
+    res.status(201).send({ message: "Success!" });
   } else {
     res.status(404).send({ error: 404, message: "User not found." });
   }
