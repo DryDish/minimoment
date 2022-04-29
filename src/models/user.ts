@@ -29,6 +29,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING(255),
         allowNull: false,
         field: "username",
+        unique: true
       },
       password: {
         type: DataTypes.STRING(255),
