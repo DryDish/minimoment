@@ -15,7 +15,7 @@ import UsersRouter from "./routes/users.routes";
 import StatusesRouter from "./routes/statuses.routes";
 import SubscriptionTypesRouter from "./routes/subscription-types.routes";
 import SubscriptionsRouter from "./routes/subscriptions.routes";
-import SizesRouter from "./routes/sizes.router";
+import SizesRouter from "./routes/sizes.routes";
 import AccountingRouter from "./routes/accounting.routes";
 import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
