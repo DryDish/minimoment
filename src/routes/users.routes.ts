@@ -42,29 +42,22 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    username,
-    password,
-    autoRenew,
-    roleId,
-    contactInfoId,
-  } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const user = User.build({
-    firstName,
-    lastName,
-    username,
-    password,
-    autoRenew,
-    roleId,
-    contactInfoId,
-  });
+  const user = User.build(requestObject);
 
-  const result = await user.save();
+  try {
+    const result = await user.save();
 
-  res.status(201).send({ user: result });
+    res.status(201).send({ user: result });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      error: 500,
+      message: "Unable to create user account.",
+    });
+  }
 });
 
 router.patch("/:id", async (req, res) => {
@@ -110,5 +103,35 @@ router.delete("/:id", async (req, res) => {
     res.status(404).send({ error: 404, message: "User not found." });
   }
 });
+
+const filterBody = (body: {
+  firstName: any;
+  lastName: any;
+  username: any;
+  password: any;
+  autoRenew: any;
+  roleId: any;
+  contactInfoId: any;
+}) => {
+  const {
+    firstName,
+    lastName,
+    username,
+    password,
+    autoRenew,
+    roleId,
+    contactInfoId,
+  } = body;
+
+  return {
+    firstName,
+    lastName,
+    username,
+    password,
+    autoRenew,
+    roleId,
+    contactInfoId,
+  };
+};
 
 export default router;
