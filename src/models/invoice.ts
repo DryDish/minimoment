@@ -26,7 +26,7 @@ export default (sequelize: Sequelize) => {
         },
         {
             sequelize,
-            tableName: "invoices",
+            tableName: "invoice",
         },
     );
 }
