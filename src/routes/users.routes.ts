@@ -70,7 +70,7 @@ router.patch("/:id", async (req, res) => {
     if (userToEdit) {
       const result = await userToEdit.update(requestObject);
 
-      res.status(201).send({ user: result });
+      res.status(201).send(result);
     } else {
       res.status(404).send({ error: 404, message: "User not found." });
     }
