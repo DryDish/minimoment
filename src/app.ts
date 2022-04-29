@@ -16,7 +16,7 @@ import StatusesRouter from "./routes/statuses.routes";
 import SubscriptionTypesRouter from "./routes/subscription-types.routes";
 import SubscriptionsRouter from "./routes/subscriptions.routes";
 import SizesRouter from "./routes/sizes.router";
-import MonthlyReportsRouter from "./routes/monthly-reports.routes";
+import AccountingRouter from "./routes/accounting.routes";
 import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
 import InvoicesRouter from "./routes/invoices.routes";
@@ -53,7 +53,7 @@ app.use("/stock/paper-types", PaperTypeRouter);
 app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
 app.use("/stock/sizes", SizesRouter);
-app.use("/reports/monthly", MonthlyReportsRouter);
+app.use("/reports", AccountingRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
