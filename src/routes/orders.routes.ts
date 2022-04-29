@@ -40,6 +40,7 @@ router.get("/by-user/:userId", async (req, res) => {
         console.log(error);
     });
 
+    // This returns an object that looks like this => orders: { count: 2, rows: [ order, order ]}
     if (result) {
         res.send({ orders: result })
     }
@@ -100,6 +101,8 @@ router.patch("/:orderId", async (req, res) => {
             orderPrice,
             totalPriceSaved,
             createdAt,
+        }).catch((error) => {
+            console.log(error);
         });
 
         res.send({ order: result });
