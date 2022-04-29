@@ -1,5 +1,4 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { sequelize } from "../services/sequelize.service";
 import { Order } from "./order";
 import { User } from "./user";
 
