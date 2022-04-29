@@ -47,11 +47,13 @@ router.get("/by-user/:userId", async (req, res) => {
 // POST create new order
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
+  console.log(requestObject);
+
   const order = Order.build(requestObject);
 
   try {
-    order.save();
-    res.status(201).send(order);
+    const result = await order.save();
+    res.status(201).send(result);
   } catch (error) {
     sendErrorResponse(res, "Unable to create order.", 500, error);
   }
@@ -101,7 +103,24 @@ const filterBody = (body: {
   totalPriceSaved: any;
   createdAt: any;
 }) => {
-  return body;
+  const {
+    discountCodeId,
+    userId,
+    billingContactInfoId,
+    statusId,
+    orderPrice,
+    totalPriceSaved,
+    createdAt,
+  } = body;
+  return {
+    discountCodeId,
+    userId,
+    billingContactInfoId,
+    statusId,
+    orderPrice,
+    totalPriceSaved,
+    createdAt,
+  };
 };
 
 export default router;

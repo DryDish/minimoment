@@ -82,7 +82,24 @@ const filterBody = (body: {
   roleId: any;
   contactInfoId: any;
 }) => {
-  return body;
+  const {
+    firstName,
+    lastName,
+    username,
+    password,
+    autoRenew,
+    roleId,
+    contactInfoId,
+  } = body;
+  return {
+    firstName,
+    lastName,
+    username,
+    password,
+    autoRenew,
+    roleId,
+    contactInfoId,
+  };
 };
 
 export default router;
