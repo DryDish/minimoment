@@ -1,13 +1,11 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { User } from "../models/user";
 
 const router = express.Router();
-const users = sequelize.models.User;
 
 router.get("/", async (_, res) => {
   try {
-    const result = await users.findAll();
+    const result = await User.findAll();
 
     res.status(200).send(result);
   } catch (error) {
@@ -24,7 +22,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await users.findByPk(id);
+    const result = await User.findByPk(id);
 
     if (result) {
       res.status(200).send(result);
@@ -65,7 +63,7 @@ router.patch("/:id", async (req, res) => {
   const requestObject = filterBody(req.body);
 
   try {
-    const userToEdit = await users.findByPk(id);
+    const userToEdit = await User.findByPk(id);
 
     if (userToEdit) {
       const result = await userToEdit.update(requestObject);
@@ -88,7 +86,7 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const userToDelete = await users.findByPk(id);
+    const userToDelete = await User.findByPk(id);
 
     if (userToDelete) {
       await userToDelete.destroy();
