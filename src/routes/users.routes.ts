@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
   try {
     const result = await user.save();
 
-    res.status(201).send({ user: result });
+    res.status(201).send(result);
   } catch (error) {
     console.error(error);
 
@@ -62,32 +62,25 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const {
-    firstName,
-    lastName,
-    username,
-    password,
-    autoRenew,
-    roleId,
-    contactInfoId,
-  } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const userToEdit = await users.findByPk(id);
+  try {
+    const userToEdit = await users.findByPk(id);
 
-  if (userToEdit) {
-    const result = await userToEdit.update({
-      firstName,
-      lastName,
-      username,
-      password,
-      autoRenew,
-      roleId,
-      contactInfoId,
+    if (userToEdit) {
+      const result = await userToEdit.update(requestObject);
+
+      res.status(201).send({ user: result });
+    } else {
+      res.status(404).send({ error: 404, message: "User not found." });
+    }
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      error: 500,
+      message: "Unable to update user account.",
     });
-
-    res.status(201).send({ user: result });
-  } else {
-    res.status(404).send({ error: 404, message: "User not found." });
   }
 });
 
