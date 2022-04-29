@@ -8,12 +8,17 @@ const users = sequelize.models.User;
 // TODO: add try-catch in case of database errors
 
 router.get("/", async (_, res) => {
-  const result = await users.findAll();
-  
-  if (result) {
-    res.send({ users: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Users not found." });
+  try {
+    const result = await users.findAll();
+
+    res.status(200).send(result);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      error: 500,
+      message: "Unable to retrieve user accounts.",
+    });
   }
 });
 
