@@ -93,13 +93,13 @@ router.delete("/:paper_type_id", async (req, res) => {
     });
   
     if (paperTypeDelete) {
-      await paperTypeDelete.destroy().catch((error) => {
-        console.log(error);
-      });
-  
-      res.status(201).send({ message: "Success!" });
+        await paperTypeDelete.destroy().catch((error) => {
+            console.log(error);
+        });
+
+        res.status(201).send({ message: "Success!" });
     } else {
-      res.status(404).send({ error: 404, message: "Paper type not found." });
+        res.status(404).send({ error: 404, message: "Paper type not found." });
     }
 });
 
