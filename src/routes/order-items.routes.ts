@@ -39,4 +39,24 @@ router.get("/:order_item_id", async (req, res) => {
     }
 });
 
+// GET a list of order_items by user_id
+router.get("/by-user/:user_id", async (req, res) => {
+    const { user_id } = req.params;
+
+    const orderItemList = await orderItems.findAndCountAll({
+        where: {
+            orderId: user_id,
+        },
+    }).catch((error) => {
+        console.log(error);
+    });
+
+    // This returns an object that looks like this => orderItems: { count: 2, rows: [ orderItem, orderItem ]}
+    if (orderItemList) {
+        res.send({ orderItems: orderItemList });
+    } else {
+        res.status(404).send({ error: 404, message: "Order items not found." });
+    }
+});
+
 export default router;
