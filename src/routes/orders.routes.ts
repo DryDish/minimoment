@@ -1,133 +1,107 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { Order } from "../models/order";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const orders = sequelize.models.Order;
 
-// GET all orders
-router.get("/",async (_, res) => {
-    const result = await orders.findAll().catch((error) => {
-        console.log(error);
-    });
-
-    res.send({ orders: result });
+// GET all Order
+router.get("/", async (_, res) => {
+  try {
+    const result = await Order.findAll();
+    res.status(200).send(result);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve orders.", 500, error);
+  }
 });
 
 // GET by order id
-router.get("/:orderId", async (req, res) => {
-    const { orderId } = req.params;
-    const result = await orders.findByPk(orderId).catch((error) => {
-        console.log(error);
-    });
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const result = await Order.findByPk(id);
     if (result) {
-        res.send({ order: result });
+      res.status(200).send(result);
     } else {
-        res.status(404).send({ error: 404, message: "Order not found." });
+      sendErrorResponse(res, "Order not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve order.", 500, error);
+  }
 });
 
 // GET order(s) by user id
 router.get("/by-user/:userId", async (req, res) => {
-    const { userId } = req.params;
+  const { userId } = req.params;
 
-    const result = await orders.findAndCountAll({
-        where: {
-            userId: userId
-        }
-    }).catch((error) => {
-        console.log(error);
+  try {
+    const result = await Order.findAll({
+      where: { userId },
     });
-
-    // This returns an object that looks like this => orders: { count: 2, rows: [ order, order ]}
-    if (result) {
-        res.send({ orders: result })
-    }
+    res.send(result);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve user orders.", 500, error);
+  }
 });
 
 // POST create new order
 router.post("/", async (req, res) => {
-    const {
-        discountCodeId,
-        userId,
-        billingContactInfoId,
-        statusId,
-        orderPrice,
-        totalPriceSaved,
-        createdAt,
-    } = req.body;
+  const requestObject = filterBody(req.body);
+  const order = Order.build(requestObject);
 
-    const order = Order.build({
-        discountCodeId,
-        userId,
-        billingContactInfoId,
-        statusId,
-        orderPrice,
-        totalPriceSaved,
-        createdAt,
-    });
-
-    const result = await order.save().catch((error) => {
-        console.log(error);
-    });
-
-    res.status(201).send({ order: result });
+  try {
+    order.save();
+    res.status(201).send(order);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create order.", 500, error);
+  }
 });
 
 // PATCH update order
-router.patch("/:orderId", async (req, res) => {
-    const { orderId } = req.params;
-    const {
-        discountCodeId,
-        userId,
-        billingContactInfoId,
-        statusId,
-        orderPrice,
-        totalPriceSaved,
-        createdAt,
-    } = req.body;
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const requestObject = filterBody(req.body);
 
-    const orderToEdit = await orders.findByPk(orderId).catch((error) => {
-        console.log(error);
-    });
-
+  try {
+    const orderToEdit = await Order.findByPk(id);
     if (orderToEdit) {
-        const result = await orderToEdit.update({
-            discountCodeId,
-            userId,
-            billingContactInfoId,
-            statusId,
-            orderPrice,
-            totalPriceSaved,
-            createdAt,
-        }).catch((error) => {
-            console.log(error);
-        });
-
-        res.send({ order: result });
+      const updatedOrder = await orderToEdit.update(requestObject);
+      res.status(200).send(updatedOrder);
     } else {
-        res.status(404).send({ error: 404, message: "Order not found." });
+      sendErrorResponse(res, "Order not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update order.", 500, error);
+  }
 });
 
 // DELETE order
-router.delete("/:orderId", async (req, res) => {
-    const { orderId } = req.params;
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
 
-    const orderToDelete = await orders.findByPk(orderId).catch((error) => {
-        console.log(error);
-    });
-
+  try {
+    const orderToDelete = await Order.findByPk(id);
     if (orderToDelete) {
-        await orderToDelete.destroy().catch((error) => {
-            console.log(error);
-        });
-
-        res.send({ message: "Success" });
+      await orderToDelete.destroy();
+      res.status(200).send(orderToDelete);
     } else {
-        res.status(404).send({ error: 404, message: "Order not found." });
+      sendErrorResponse(res, "Order not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to delete order.", 500, error);
+  }
 });
+
+const filterBody = (body: {
+  discountCodeId: any;
+  userId: any;
+  billingContactInfoId: any;
+  statusId: any;
+  orderPrice: any;
+  totalPriceSaved: any;
+  createdAt: any;
+}) => {
+  return body;
+};
 
 export default router;

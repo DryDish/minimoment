@@ -47,8 +47,8 @@ router.patch("/:id", async (req, res) => {
   try {
     const userToEdit = await User.findByPk(id);
     if (userToEdit) {
-      const result = await userToEdit.update(requestObject);
-      res.status(200).send(result);
+      const updatedUser = await userToEdit.update(requestObject);
+      res.status(200).send(updatedUser);
     } else {
       sendErrorResponse(res, "User not found.", 404);
     }
