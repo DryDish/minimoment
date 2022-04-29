@@ -61,9 +61,9 @@ export const defineContactInfoAssociations = () => {
   });
   ContactInfo.hasMany(Order, {
     foreignKey: {
-      name: "contactInfoId",
+      name: "billingContactInfoId",
       allowNull: false,
-      field: "contact_info_id",
+      field: "billing_contact_info_id",
     },
   });
 };

@@ -17,6 +17,7 @@ import SubscriptionTypesRouter from "./routes/subscription-types.routes";
 import SubscriptionsRouter from "./routes/subscriptions.routes";
 import SizesRouter from "./routes/sizes.router";
 import MonthlyReportsRouter from "./routes/monthly-reports.routes";
+import OrderRouter from "./routes/orders.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -42,6 +43,7 @@ app.use("/discounts/codes", DiscountCodesRouter);
 app.use("/discounts/types", DiscountTypesRouter);
 app.use("/contact-info", ContactInfoRouter);
 app.use("/users", UsersRouter);
+app.use("/orders", OrderRouter);
 app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
 app.use("/stock/sizes", SizesRouter);

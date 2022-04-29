@@ -1,22 +1,25 @@
 import express from "express";
 import { sequelize } from "../services/sequelize.service";
 import { Order } from "../models/order";
-import { Op } from "sequelize/types";
 
 const router = express.Router();
 const orders = sequelize.models.Order;
 
 // GET all orders
-router.get("/order",async (_, res) => {
-    const result = await orders.findAll();
+router.get("/",async (_, res) => {
+    const result = await orders.findAll().catch((error) => {
+        console.log(error);
+    });
 
     res.send({ orders: result });
 });
 
 // GET by order id
-router.get("/order/:orderId", async (req, res) => {
+router.get("/:orderId", async (req, res) => {
     const { orderId } = req.params;
-    const result = await orders.findByPk(orderId);
+    const result = await orders.findByPk(orderId).catch((error) => {
+        console.log(error);
+    });
 
     if (result) {
         res.send({ order: result });
@@ -26,15 +29,15 @@ router.get("/order/:orderId", async (req, res) => {
 });
 
 // GET order(s) by user id
-router.get("/order/by-user/:userId", async (req, res) => {
+router.get("/by-user/:userId", async (req, res) => {
     const { userId } = req.params;
 
     const result = await orders.findAndCountAll({
         where: {
-            userId: {
-                [Op.like]: userId
-            }
+            userId: userId
         }
+    }).catch((error) => {
+        console.log(error);
     });
 
     if (result) {
@@ -43,7 +46,7 @@ router.get("/order/by-user/:userId", async (req, res) => {
 });
 
 // POST create new order
-router.post("/order", async (req, res) => {
+router.post("/", async (req, res) => {
     const {
         discountCodeId,
         userId,
@@ -64,13 +67,15 @@ router.post("/order", async (req, res) => {
         createdAt,
     });
 
-    const result = await order.save();
+    const result = await order.save().catch((error) => {
+        console.log(error);
+    });
 
     res.status(201).send({ order: result });
 });
 
 // PATCH update order
-router.patch("/order/:orderId", async (req, res) => {
+router.patch("/:orderId", async (req, res) => {
     const { orderId } = req.params;
     const {
         discountCodeId,
@@ -82,7 +87,9 @@ router.patch("/order/:orderId", async (req, res) => {
         createdAt,
     } = req.body;
 
-    const orderToEdit = await orders.findByPk(orderId);
+    const orderToEdit = await orders.findByPk(orderId).catch((error) => {
+        console.log(error);
+    });
 
     if (orderToEdit) {
         const result = await orderToEdit.update({
@@ -102,13 +109,17 @@ router.patch("/order/:orderId", async (req, res) => {
 });
 
 // DELETE order
-router.delete("/order/:orderId", async (req, res) => {
+router.delete("/:orderId", async (req, res) => {
     const { orderId } = req.params;
 
-    const orderToDelete = await orders.findByPk(orderId);
+    const orderToDelete = await orders.findByPk(orderId).catch((error) => {
+        console.log(error);
+    });
 
     if (orderToDelete) {
-        await orderToDelete.destroy();
+        await orderToDelete.destroy().catch((error) => {
+            console.log(error);
+        });
 
         res.send({ message: "Success" });
     } else {
