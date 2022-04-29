@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { sequelize } from "../services/sequelize.service";
 import { Order } from "./order";
 import { User } from "./user";
 
@@ -41,6 +42,7 @@ export default (sequelize: Sequelize) => {
       },
       addressTwo: {
         type: DataTypes.STRING(255),
+        allowNull: true,
         field: "address_two",
       },
     },

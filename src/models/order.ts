@@ -21,18 +21,18 @@ export default (sequelize: Sequelize) => {
       orderPrice: {
         type: DataTypes.DECIMAL(15, 2),
         allowNull: false,
-        field: "order_price",
         defaultValue: 0,
+        field: "order_price",
       },
       totalPriceSaved: {
         type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
-        field: "total_price_saved",
         defaultValue: 0,
+        field: "total_price_saved",
       },
       createdAt: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
         field: "created_at",
       },
     },
@@ -72,12 +72,11 @@ export const defineOrderAssociations = () => {
       field: "status_id",
     },
   });
-
   Order.hasMany(Invoice, {
     foreignKey: {
-      name: "invoiceId",
+      name: "orderId",
       allowNull: false,
-      field: "invoice_id", 
+      field: "order_id",
     },
   });
   Order.hasMany(OrderItem, {

@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 // Import Models
 import RoleModel, { defineRoleAssociations } from "../models/role";
-import DiscountTypeModel from "../models/discount-type";
+import DiscountTypeModel, { defineDiscountTypeAssociations } from "../models/discount-type";
 import DiscountCodeModel, { defineDiscountCodeAssociation } from "../models/discount-code";
 import ContactInfoModel, {
   defineContactInfoAssociations,
@@ -14,10 +14,10 @@ import InvoiceModel, { defineInvoiceAssociations } from "../models/invoice";
 import PaperTypeModel, { definePaperTypeAssociations } from "../models/paper-type";
 import PictureDataModel, { definePictureDataAssociations } from "../models/picture-data";
 import FrameModel, { defineFrameAssociations } from "../models/frame";
-import StatusModel from "../models/status";
+import StatusModel, { defineStatusAssociations } from "../models/status";
 import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/subscription-type";
 import SubscriptionModel, { defineSubscriptionAssociations } from "../models/subscription";
-import SizeModel from "../models/size";
+import SizeModel, { defineSizeAssociations } from "../models/size";
 import MonthlyReportModel from "../models/monthly-report";
 
 // Constants
@@ -67,6 +67,9 @@ defineInvoiceAssociations();
 definePaperTypeAssociations();
 definePictureDataAssociations();
 defineFrameAssociations();
+defineStatusAssociations();
+defineDiscountTypeAssociations();
+defineSizeAssociations();
 
 // Authenticate to the Database
 export const authenticate = async () => {

@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Order } from "./order";
 
 export class Status extends Model {}
 
@@ -24,4 +25,14 @@ export default (sequelize: Sequelize) => {
       tableName: "statuses",
     }
   );
+};
+
+export const defineStatusAssociations = () => {
+  Status.hasMany(Order, {
+    foreignKey: {
+      name: "statusId",
+      allowNull: false,
+      field: "status_id",
+    },
+  });
 };

@@ -30,8 +30,8 @@ DROP VIEW IF EXISTS `invoice_data`;
 
 CREATE VIEW `invoice_data` AS
     SELECT 
-        `invoice`.`invoice_id`,
-        `invoice`.`created_at`,
+        `invoices`.`invoice_id`,
+        `invoices`.`created_at`,
         `orders`.`order_id`,
         `orders`.`order_price`,
         `orders`.`total_price_saved`,
@@ -55,4 +55,4 @@ CREATE VIEW `invoice_data` AS
         INNER JOIN `discount_codes` ON `orders`.`discount_code_id` = `discount_codes`.`discount_code_id`
         INNER JOIN `customer_info` ON `orders`.`user_id` = `customer_info`.`customer_id`
         INNER JOIN `contact_info` ON `orders`.`billing_contact_info_id` = `contact_info`.`contact_info_id`
-        INNER JOIN `invoice` on `orders`.`order_id` = `invoice`.`order_id`;
+        INNER JOIN `invoices` on `orders`.`order_id` = `invoices`.`order_id`;

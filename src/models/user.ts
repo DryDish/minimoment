@@ -1,5 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { ContactInfo } from "./contact-info";
+import { Order } from "./order";
+import { PictureData } from "./picture-data";
 import { Role } from "./role";
 import { Subscription } from "./subscription";
 
@@ -29,7 +31,7 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING(255),
         allowNull: false,
         field: "username",
-        unique: true
+        unique: true,
       },
       password: {
         type: DataTypes.STRING(255),
@@ -65,6 +67,20 @@ export const defineUserAssociations = () => {
     },
   });
   User.hasMany(Subscription, {
+    foreignKey: {
+      name: "userId",
+      allowNull: false,
+      field: "user_id",
+    },
+  });
+  User.hasMany(PictureData, {
+    foreignKey: {
+      name: "userId",
+      allowNull: false,
+      field: "user_id",
+    },
+  });
+  User.hasMany(Order, {
     foreignKey: {
       name: "userId",
       allowNull: false,

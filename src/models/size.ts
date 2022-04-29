@@ -1,4 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Frame } from "./frame";
+import { PaperType } from "./paper-type";
 
 export class Size extends Model {}
 
@@ -38,4 +40,21 @@ export default (sequelize: Sequelize) => {
       tableName: "sizes",
     }
   );
+};
+
+export const defineSizeAssociations = () => {
+  Size.hasMany(PaperType, {
+    foreignKey: {
+      name: "sizeId",
+      allowNull: false,
+      field: "size_id",
+    },
+  });
+  Size.hasMany(Frame, {
+    foreignKey: {
+      name: "sizeId",
+      allowNull: false,
+      field: "size_id",
+    },
+  });
 };

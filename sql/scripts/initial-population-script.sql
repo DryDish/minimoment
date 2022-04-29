@@ -271,39 +271,39 @@ INSERT INTO `orders` (`order_id`, `discount_code_id`, `user_id`, `billing_contac
 
 
 -- -----------------------------------------------------
--- Populating table: `invoice`
+-- Populating table: `invoices`
 -- -----------------------------------------------------
 
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (1, 1, '1997-08-15 18:28:38');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (2, 2, '1991-12-28 07:49:16');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (3, 3, '2012-11-01 22:22:16');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (4, 4, '2008-05-20 06:31:04');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (5, 5, '1988-06-09 15:58:22');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (6, 6, '2012-01-16 00:28:31');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (7, 7, '1979-03-31 03:15:01');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (8, 8, '1982-02-24 20:26:54');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (9, 9, '2007-02-12 16:13:45');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (10, 10, '2005-04-24 01:39:19');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (11, 11, '2018-12-03 20:22:01');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (12, 12, '2005-04-18 19:07:39');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (13, 13, '1992-07-11 07:51:16');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (14, 14, '1976-05-08 16:25:10');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (15, 15, '1983-10-11 08:34:17');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (16, 16, '2020-02-19 18:34:45');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (17, 17, '1991-08-16 02:23:02');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (18, 18, '2013-03-11 17:21:19');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (19, 19, '2000-01-30 23:49:55');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (20, 20, '1979-06-08 18:40:47');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (21, 21, '2019-06-16 22:32:44');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (22, 22, '1990-11-30 11:14:44');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (23, 23, '1979-03-31 05:54:29');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (24, 24, '2011-04-16 09:45:14');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (25, 25, '1984-10-16 12:46:22');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (26, 26, '1981-04-08 22:56:42');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (27, 27, '1980-07-25 03:44:10');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (28, 28, '1979-03-15 15:10:06');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (29, 29, '1996-10-30 11:29:22');
-INSERT INTO `invoice` (`invoice_id`, `order_id`, `created_at`) VALUES (30, 30, '1985-08-15 22:16:05');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (1, 1, '1997-08-15 18:28:38');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (2, 2, '1991-12-28 07:49:16');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (3, 3, '2012-11-01 22:22:16');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (4, 4, '2008-05-20 06:31:04');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (5, 5, '1988-06-09 15:58:22');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (6, 6, '2012-01-16 00:28:31');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (7, 7, '1979-03-31 03:15:01');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (8, 8, '1982-02-24 20:26:54');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (9, 9, '2007-02-12 16:13:45');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (10, 10, '2005-04-24 01:39:19');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (11, 11, '2018-12-03 20:22:01');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (12, 12, '2005-04-18 19:07:39');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (13, 13, '1992-07-11 07:51:16');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (14, 14, '1976-05-08 16:25:10');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (15, 15, '1983-10-11 08:34:17');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (16, 16, '2020-02-19 18:34:45');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (17, 17, '1991-08-16 02:23:02');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (18, 18, '2013-03-11 17:21:19');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (19, 19, '2000-01-30 23:49:55');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (20, 20, '1979-06-08 18:40:47');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (21, 21, '2019-06-16 22:32:44');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (22, 22, '1990-11-30 11:14:44');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (23, 23, '1979-03-31 05:54:29');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (24, 24, '2011-04-16 09:45:14');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (25, 25, '1984-10-16 12:46:22');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (26, 26, '1981-04-08 22:56:42');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (27, 27, '1980-07-25 03:44:10');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (28, 28, '1979-03-15 15:10:06');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (29, 29, '1996-10-30 11:29:22');
+INSERT INTO `invoices` (`invoice_id`, `order_id`, `created_at`) VALUES (30, 30, '1985-08-15 22:16:05');
 
 
 -- -----------------------------------------------------
