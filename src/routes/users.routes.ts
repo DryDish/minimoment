@@ -1,20 +1,15 @@
 import express from "express";
 import { User } from "../models/user";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
 
 router.get("/", async (_, res) => {
   try {
     const result = await User.findAll();
-
     res.status(200).send(result);
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to retrieve user accounts.",
-    });
+    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
 });
 
@@ -23,19 +18,13 @@ router.get("/:id", async (req, res) => {
 
   try {
     const result = await User.findByPk(id);
-
     if (result) {
       res.status(200).send(result);
     } else {
-      res.status(404).send({ error: 404, message: "User not found." });
+      sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to retrieve user account.",
-    });
+    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
 });
 
@@ -43,18 +32,11 @@ router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
   const user = User.build(requestObject);
-
   try {
     const result = await user.save();
-
     res.status(201).send(result);
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to create user account.",
-    });
+    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
 });
 
@@ -64,21 +46,14 @@ router.patch("/:id", async (req, res) => {
 
   try {
     const userToEdit = await User.findByPk(id);
-
     if (userToEdit) {
       const result = await userToEdit.update(requestObject);
-
-      res.status(201).send(result);
+      res.status(200).send(result);
     } else {
-      res.status(404).send({ error: 404, message: "User not found." });
+      sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to update user account.",
-    });
+    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
 });
 
@@ -87,21 +62,14 @@ router.delete("/:id", async (req, res) => {
 
   try {
     const userToDelete = await User.findByPk(id);
-
     if (userToDelete) {
       await userToDelete.destroy();
-
-      res.status(201).send(userToDelete);
+      res.status(200).send(userToDelete);
     } else {
-      res.status(404).send({ error: 404, message: "User not found." });
+      sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to delete user account.",
-    });
+    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
 });
 
@@ -114,25 +82,7 @@ const filterBody = (body: {
   roleId: any;
   contactInfoId: any;
 }) => {
-  const {
-    firstName,
-    lastName,
-    username,
-    password,
-    autoRenew,
-    roleId,
-    contactInfoId,
-  } = body;
-
-  return {
-    firstName,
-    lastName,
-    username,
-    password,
-    autoRenew,
-    roleId,
-    contactInfoId,
-  };
+  return body;
 };
 
 export default router;
