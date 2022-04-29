@@ -20,6 +20,7 @@ import MonthlyReportsRouter from "./routes/monthly-reports.routes";
 import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
 import InvoicesRouter from "./routes/invoices.routes";
+import PaperTypeRouter from "./routes/paper-types.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -48,6 +49,7 @@ app.use("/users", UsersRouter);
 app.use("/orders", OrderRouter);
 app.use("/order-items", OrderItemsRouter);
 app.use("/invoices", InvoicesRouter);
+app.use("/stock/paper-types", PaperTypeRouter);
 app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
 app.use("/stock/sizes", SizesRouter);
