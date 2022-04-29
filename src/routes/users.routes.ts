@@ -86,14 +86,24 @@ router.patch("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const userToDelete = await users.findByPk(id);
 
-  if (userToDelete) {
-    await userToDelete.destroy();
+  try {
+    const userToDelete = await users.findByPk(id);
 
-    res.status(201).send({ message: "Success!" });
-  } else {
-    res.status(404).send({ error: 404, message: "User not found." });
+    if (userToDelete) {
+      await userToDelete.destroy();
+
+      res.status(201).send({ message: "Success!" });
+    } else {
+      res.status(404).send({ error: 404, message: "User not found." });
+    }
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      error: 500,
+      message: "Unable to delete user account.",
+    });
   }
 });
 
