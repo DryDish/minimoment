@@ -5,15 +5,19 @@ import { Invoice } from "../models/invoice";
 const router = express.Router();
 const invoices = sequelize.models.Invoice;
 
-router.get("/invoices", async (_, res) => {
-    const result = await invoices.findAll();
+router.get("/", async (_, res) => {
+    const result = await invoices.findAll().catch((error) => {
+        console.log(error);
+    });
   
     res.send({ invoices: result });
 });
 
-router.get("/invoices/:invoice_id", async (req, res) => {
+router.get("/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
-    const result = await invoices.findByPk(invoice_id);
+    const result = await invoices.findByPk(invoice_id).catch((error) => {
+        console.log(error);
+    });
   
     if (result) {
         res.send({ invoice: result });
@@ -22,7 +26,7 @@ router.get("/invoices/:invoice_id", async (req, res) => {
     }
 });
 
-router.post("/invoices",async (req, res) => {
+router.post("/",async (req, res) => {
     const {
         orderId,
         createdAt,
@@ -33,24 +37,30 @@ router.post("/invoices",async (req, res) => {
         createdAt,
     });
 
-    const result = await invoice.save();
+    const result = await invoice.save().catch((error) => {
+        console.log(error);
+    });
 
     res.status(201).send({ invoice: result });
 });
 
-router.patch("/invoices/:invoice_id", async (req, res) => {
+router.patch("/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
     const {
         orderId,
         createdAt,
     } = req.body;
   
-    const invoiceToEdit = await invoices.findByPk(invoice_id);
+    const invoiceToEdit = await invoices.findByPk(invoice_id).catch((error) => {
+        console.log(error);
+    });
   
     if (invoiceToEdit) {
         const result = await invoiceToEdit.update({
             orderId,
             createdAt,
+        }).catch((error) => {
+            console.log(error);
         });
   
         res.send({ invoice: result });
@@ -59,12 +69,16 @@ router.patch("/invoices/:invoice_id", async (req, res) => {
     }
 });
 
-router.delete("/invoices/:invoice_id", async (req, res) => {
+router.delete("/:invoice_id", async (req, res) => {
     const { invoice_id } = req.params;
-    const invoiceToEdit = await invoices.findByPk(invoice_id);
+    const invoiceToEdit = await invoices.findByPk(invoice_id).catch((error) => {
+        console.log(error);
+    });
 
     if (invoiceToEdit) {
-        await invoiceToEdit.destroy();
+        await invoiceToEdit.destroy().catch((error) => {
+            console.log(error);
+        });
 
         res.send({ message: "Success!" });
     } else {
