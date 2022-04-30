@@ -12,7 +12,7 @@ router.get("/:id", async (req, res) => {
   try {
     const foundOrderItem = await OrderItem.findByPk(id);
     if (foundOrderItem) {
-      res.status(201).send(foundOrderItem);
+      res.status(200).send(foundOrderItem);
     } else {
       sendErrorResponse(res, "Order item not found.", 404);
     }
