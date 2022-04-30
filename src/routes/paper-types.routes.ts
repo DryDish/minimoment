@@ -1,18 +1,16 @@
 import express from "express";
 import { PaperType } from "../models/paper-type";
-import { sequelize } from "../services/sequelize.service";
 
 const router = express.Router();
-const paperTypes = sequelize.models.PaperType;
 
 // GET all paper_types
 router.get("/", async (_, res) => {
-    const result = await paperTypes.findAll().catch((error) => {
+    const result = await PaperType.findAll().catch((error) => {
         console.log(error);
     });
 
     if (result) {
-        res.send({ paperTypes: result });
+        res.send({ PaperType: result });
     } else {
         res.status(404).send({ error: 404, message: "Paper type not found." });
     }
@@ -22,7 +20,7 @@ router.get("/", async (_, res) => {
 router.get("/:paper_type_id", async (req, res) => {
     const { paper_type_id } = req.params;
 
-    const result = await paperTypes.findByPk(paper_type_id).catch((error) => {
+    const result = await PaperType.findByPk(paper_type_id).catch((error) => {
         console.log(error);
     });
 
@@ -67,7 +65,7 @@ router.patch("/:paper_type_id", async (req, res) => {
         discountCodeId,
     } = req.body;
 
-    const paperTypeToEdit = await paperTypes.findByPk(paper_type_id).catch((error) => {
+    const paperTypeToEdit = await PaperType.findByPk(paper_type_id).catch((error) => {
         console.log(error);
     });
 
@@ -88,7 +86,7 @@ router.patch("/:paper_type_id", async (req, res) => {
 // TODO: This one fails for some reason i expect because of triggers or other
 router.delete("/:paper_type_id", async (req, res) => {
     const { paper_type_id } = req.params;
-    const paperTypeDelete = await paperTypes.findByPk(paper_type_id).catch((error) => {
+    const paperTypeDelete = await PaperType.findByPk(paper_type_id).catch((error) => {
         console.log(error);
     });
   

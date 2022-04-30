@@ -1,85 +1,86 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { Size } from "../models/size";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const sizes = sequelize.models.Size;
-
-// TODO: add try-catch in case of database errors
 
 router.get("/", async (_, res) => {
-  const result = await sizes.findAll();
-
-  res.send({ sizes: result });
+  try {
+    const sizeList = await Size.findAll();
+    res.status(200).send(sizeList);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve sizes.", 500, error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const result = await sizes.findByPk(id);
 
-  if (result) {
-    res.send({ size: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Size not found." });
+  try {
+    const foundSize = await Size.findByPk(id);
+    if (foundSize) {
+      res.status(200).send(foundSize);
+    } else {
+      sendErrorResponse(res, "Size not found", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve sizes.", 500, error);
   }
 });
 
 router.post("/", async (req, res) => {
-  const {
-    name,
-    widthMm,
-    heightMm,
-    price,
-  } = req.body;
+  const requestObject = filterBody(req.body);
+  const size = Size.build(requestObject);
 
-  const size = Size.build({
-    name,
-    widthMm,
-    heightMm,
-    price,
-  });
-
-  const result = await size.save();
-
-  res.status(201).send({ size: result });
+  try {
+    const savedSize = await size.save();
+    res.status(201).send(savedSize);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create size.", 500, error);
+  }
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const {
-    name,
-    widthMm,
-    heightMm,
-    price,
-  } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const sizeToEdit = await sizes.findByPk(id);
-
-  if (sizeToEdit) {
-    const result = await sizeToEdit.update({
-        name,
-        widthMm,
-        heightMm,
-        price,
-    });
-
-    res.send({ size: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Size not found." });
+  try {
+    const sizeToEdit = await Size.findByPk(id);
+    if (sizeToEdit) {
+      const updatedSize = await sizeToEdit.update(requestObject);
+      res.status(200).send(updatedSize);
+    } else {
+      sendErrorResponse(res, "Size not found", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update size.", 500, error);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const sizeToDelete = await sizes.findByPk(id);
 
-  if (sizeToDelete) {
-    await sizeToDelete.destroy();
-
-    res.send({ message: "Success!" });
-  } else {
-    res.status(404).send({ error: 404, message: "Size not found." });
+  try {
+    const sizeToDelete = await Size.findByPk(id);
+    if (sizeToDelete) {
+      await sizeToDelete.destroy();
+      res.status(200).send(sizeToDelete);
+    } else {
+      sendErrorResponse(res, "Size not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to delete size.");
   }
 });
+
+const filterBody = (body: {
+  name: any;
+  widthMm: any;
+  heightMm: any;
+  price: any;
+}) => {
+  const { name, widthMm, heightMm, price } = body;
+  return { name, widthMm, heightMm, price };
+};
 
 export default router;
