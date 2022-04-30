@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.get("/", async (_, res) => {
   try {
-    const result = await User.findAll();
-    res.status(200).send(result);
+    const userList = await User.findAll();
+    res.status(200).send(userList);
   } catch (error) {
     sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
@@ -17,9 +17,9 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await User.findByPk(id);
-    if (result) {
-      res.status(200).send(result);
+    const foundUser = await User.findByPk(id);
+    if (foundUser) {
+      res.status(200).send(foundUser);
     } else {
       sendErrorResponse(res, "User not found.", 404);
     }
@@ -31,10 +31,10 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
-  const user = User.build(requestObject);
+  const newUser = User.build(requestObject);
   try {
-    const result = await user.save();
-    res.status(201).send(result);
+    const savedUser = await newUser.save();
+    res.status(201).send(savedUser);
   } catch (error) {
     sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
   }
