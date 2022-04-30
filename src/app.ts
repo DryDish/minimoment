@@ -8,8 +8,8 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 // Import routes
 import RolesRouter from "./routes/roles.routes";
 import AuthRouter from "./routes/auth.routes";
-import DiscountCodesRouter from "./routes/discounts-codes.routes";
-import DiscountTypesRouter from "./routes/discounts-types.routes";
+import DiscountCodesRouter from "./routes/discount-codes.routes";
+import DiscountTypesRouter from "./routes/discount-types.routes";
 import ContactInfoRouter from "./routes/contact-info.routes";
 import UsersRouter from "./routes/users.routes";
 import StatusesRouter from "./routes/statuses.routes";
