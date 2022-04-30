@@ -1,63 +1,81 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { Status } from "../models/status";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const statuses = sequelize.models.Status;
-
-// TODO: add try-catch in case of database errors
 
 router.get("/", async (_, res) => {
-  const result = await statuses.findAll();
-
-  res.send({ statuses: result });
+  try {
+    const statusList = await Status.findAll();
+    res.status(200).send(statusList);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve statuses.", 500, error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const result = await statuses.findByPk(id);
 
-  if (result) {
-    res.send({ status: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Status not found." });
+  try {
+    const foundStatus = await Status.findByPk(id);
+    if (foundStatus) {
+      res.status(200).send(foundStatus);
+    } else {
+      sendErrorResponse(res, "Status not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve status.", 500, error);
   }
 });
 
 router.post("/", async (req, res) => {
-  const status = Status.build({ name: req.body.name });
+  const requestObject = filterBody(req.body);
 
-  const result = await status.save();
-
-  res.status(201).send({ status: result });
+  const status = Status.build(requestObject);
+  try {
+    const savedUser = await status.save();
+    res.status(201).send(savedUser);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create status.", 500, error);
+  }
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const statusToEdit = await statuses.findByPk(id);
+  const requestObject = filterBody(req.body);
 
-  if (statusToEdit) {
-    const result = await statusToEdit.update({
-      name: req.body.name,
-    });
-
-    res.send({ status: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Status not found." });
+  try {
+    const statusToEdit = await Status.findByPk(id);
+    if (statusToEdit) {
+      const updatedStatus = await statusToEdit.update(requestObject);
+      res.status(200).send(updatedStatus);
+    } else {
+      sendErrorResponse(res, "Status not found", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update status.", 500, error);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const statusToDelete = await statuses.findByPk(id);
 
-  if (statusToDelete) {
-    await statusToDelete.destroy();
-
-    res.send({ message: "Success!" });
-  } else {
-    res.status(404).send({ error: 404, message: "Status not found." });
+  try {
+    const statusToDelete = await Status.findByPk(id);
+    if (statusToDelete) {
+      await statusToDelete.destroy();
+      res.status(200).send(statusToDelete);
+    } else {
+      sendErrorResponse(res, "Status not found", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to delete status.", 500, error);
   }
 });
+
+const filterBody = (body: { name: any }) => {
+  const { name } = body;
+  return { name };
+};
 
 export default router;
