@@ -67,7 +67,7 @@ router.delete("/:id", async (req, res) => {
       await contactInfoToDelete.destroy();
       res.status(200).send(contactInfoToDelete);
     } else {
-      res.status(404).send("Contact Info not found.");
+      sendErrorResponse(res, "Contact info not found.", 404);
     }
   } catch (error) {
     sendErrorResponse(res, "Unable to delete contact info.", 500, error);
