@@ -64,7 +64,7 @@ router.delete("/:id", async (req, res) => {
     const roleToDelete = await Role.findByPk(id);
     if (roleToDelete) {
       await roleToDelete.destroy();
-      res.send(roleToDelete);
+      res.status(200).send(roleToDelete);
     } else {
       sendErrorResponse(res, "Role not found.", 404);
     }
