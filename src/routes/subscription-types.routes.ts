@@ -1,77 +1,94 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { SubscriptionType } from "../models/subscription-type";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const subscriptionTypes = sequelize.models.SubscriptionType;
-
-// TODO: add try-catch in case of database errors
 
 router.get("/", async (_, res) => {
-  const result = await subscriptionTypes.findAll();
-
-  res.send({ subscriptionTypes: result });
+  try {
+    const subscriptionTypeList = await SubscriptionType.findAll();
+    res.status(200).send(subscriptionTypeList);
+  } catch (error) {
+    sendErrorResponse(
+      res,
+      "Unable to retrieve subscription types.",
+      500,
+      error
+    );
+  }
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const result = await subscriptionTypes.findByPk(id);
 
-  if (result) {
-    res.send({ subscriptionType: result });
-  } else {
-    res
-      .status(404)
-      .send({ error: 404, message: "Subscription Type not found." });
+  try {
+    const foundSubscriptionType = await SubscriptionType.findByPk(id);
+    if (foundSubscriptionType) {
+      res.status(200).send(foundSubscriptionType);
+    } else {
+      sendErrorResponse(res, "Subscription Type not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve subscription type.", 500, error);
   }
 });
 
 router.post("/", async (req, res) => {
-  const { name, monthlyPrice, imageAmount } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const subscriptionType = SubscriptionType.build({
-    name,
-    monthlyPrice,
-    imageAmount,
-  });
+  const subscriptionType = SubscriptionType.build(requestObject);
 
-  const result = await subscriptionType.save();
-
-  res.status(201).send({ subscriptionType: result });
+  try {
+    const savedSubscriptionType = await subscriptionType.save();
+    res.status(201).send(savedSubscriptionType);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create subscription type.", 500, error);
+  }
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, monthlyPrice, imageAmount } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const subscriptionTypeToEdit = await subscriptionTypes.findByPk(id);
-
-  if (subscriptionTypeToEdit) {
-    const result = await subscriptionTypeToEdit.update({
-      name,
-      monthlyPrice,
-      imageAmount,
-    });
-
-    res.send({ subscriptionType: result });
-  } else {
-    res
-      .status(404)
-      .send({ error: 404, message: "Subscription Type not found." });
+  try {
+    const subscriptionTypeToEdit = await SubscriptionType.findByPk(id);
+    if (subscriptionTypeToEdit) {
+      const updatedSubscriptionType = await subscriptionTypeToEdit.update(
+        requestObject
+      );
+      res.status(200).send(updatedSubscriptionType);
+    } else {
+      sendErrorResponse(res, "Subscription Type not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update subscription type.", 500, error);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const subscriptionTypeToDelete = await subscriptionTypes.findByPk(id);
 
-  if (subscriptionTypeToDelete) {
-    await subscriptionTypeToDelete.destroy();
+  try {
+    const subscriptionTypeToDelete = await SubscriptionType.findByPk(id);
 
-    res.send({ message: "Success!" });
-  } else {
-    res.status(404).send({ error: 404, message: "Subscription Type not found." });
+    if (subscriptionTypeToDelete) {
+      await subscriptionTypeToDelete.destroy();
+      res.status(200).send(subscriptionTypeToDelete);
+    } else {
+      sendErrorResponse(res, "Subscription Type not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to delete subscription type.", 500, error);
   }
 });
+
+const filterBody = (body: {
+  name: any;
+  monthlyPrice: any;
+  imageAmount: any;
+}) => {
+  const { name, monthlyPrice, imageAmount } = body;
+  return { name, monthlyPrice, imageAmount };
+};
 
 export default router;
