@@ -111,7 +111,7 @@ router.delete("/:order_item_id", async (req, res) => {
       sendErrorResponse(res, "Order item not found.", 404);
     }
   } catch (error) {
-    sendErrorResponse(res, "Unable to update order item.", 500, error);
+    sendErrorResponse(res, "Unable to delete order item.", 500, error);
   }
 });
 

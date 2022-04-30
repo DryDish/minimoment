@@ -9,7 +9,7 @@ router.get("/", async (_, res) => {
     const userList = await User.findAll();
     res.status(200).send(userList);
   } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
+    sendErrorResponse(res, "Unable to retrieve users.", 500, error);
   }
 });
 
@@ -24,19 +24,19 @@ router.get("/:id", async (req, res) => {
       sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
+    sendErrorResponse(res, "Unable to retrieve user.", 500, error);
   }
 });
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
-  const newUser = User.build(requestObject);
+  const user = User.build(requestObject);
   try {
-    const savedUser = await newUser.save();
+    const savedUser = await user.save();
     res.status(201).send(savedUser);
   } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
+    sendErrorResponse(res, "Unable to create user.", 500, error);
   }
 });
 
@@ -53,7 +53,7 @@ router.patch("/:id", async (req, res) => {
       sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
+    sendErrorResponse(res, "Unable to update user.", 500, error);
   }
 });
 
@@ -69,7 +69,7 @@ router.delete("/:id", async (req, res) => {
       sendErrorResponse(res, "User not found.", 404);
     }
   } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user accounts.", 500, error);
+    sendErrorResponse(res, "Unable to delete user.", 500, error);
   }
 });
 

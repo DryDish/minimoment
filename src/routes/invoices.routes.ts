@@ -1,89 +1,81 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { Invoice } from "../models/invoice";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const invoices = sequelize.models.Invoice;
 
 router.get("/", async (_, res) => {
-    const result = await invoices.findAll().catch((error) => {
-        console.log(error);
-    });
-  
-    res.send({ invoices: result });
+  try {
+    const invoiceList = await Invoice.findAll();
+    res.status(200).send(invoiceList);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve invoices.", 500, error);
+  }
 });
 
-router.get("/:invoice_id", async (req, res) => {
-    const { invoice_id } = req.params;
-    const result = await invoices.findByPk(invoice_id).catch((error) => {
-        console.log(error);
-    });
-  
-    if (result) {
-        res.send({ invoice: result });
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const foundInvoice = await Invoice.findByPk(id);
+    if (foundInvoice) {
+      res.status(200).send(foundInvoice);
     } else {
-        res.status(404).send({ error: 404, message: "Invoice not found." });
+      sendErrorResponse(res, "Invoice not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve invoice.", 500, error);
+  }
 });
 
-router.post("/",async (req, res) => {
-    const {
-        orderId,
-        createdAt,
-    } = req.body;
+router.post("/", async (req, res) => {
+  const requestObject = filterBody(req.body);
 
-    const invoice = Invoice.build({
-        orderId,
-        createdAt,
-    });
-
-    const result = await invoice.save().catch((error) => {
-        console.log(error);
-    });
-
-    res.status(201).send({ invoice: result });
+  const invoice = Invoice.build(requestObject);
+  try {
+    const savedInvoice = await invoice.save();
+    res.status(201).send(savedInvoice);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create invoice.", 500, error);
+  }
 });
 
-router.patch("/:invoice_id", async (req, res) => {
-    const { invoice_id } = req.params;
-    const {
-        orderId,
-        createdAt,
-    } = req.body;
-  
-    const invoiceToEdit = await invoices.findByPk(invoice_id).catch((error) => {
-        console.log(error);
-    });
-  
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const requestObject = filterBody(req.body);
+
+  try {
+    const invoiceToEdit = await Invoice.findByPk(id);
     if (invoiceToEdit) {
-        const result = await invoiceToEdit.update({
-            orderId,
-            createdAt,
-        }).catch((error) => {
-            console.log(error);
-        });
-  
-        res.send({ invoice: result });
+      const updatedInvoice = await invoiceToEdit.update(requestObject);
+      res.status(200).send(updatedInvoice);
     } else {
-        res.status(404).send({ error: 404, message: "invoice not found." });
+      sendErrorResponse(res, "Invoice not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update invoice.", 500, error);
+  }
 });
 
-router.delete("/:invoice_id", async (req, res) => {
-    const { invoice_id } = req.params;
-    const invoiceToEdit = await invoices.findByPk(invoice_id).catch((error) => {
-        console.log(error);
-    });
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
 
-    if (invoiceToEdit) {
-        await invoiceToEdit.destroy().catch((error) => {
-            console.log(error);
-        });
-
-        res.send({ message: "Success!" });
+  try {
+    const invoiceToDelete = await Invoice.findByPk(id);
+    if (invoiceToDelete) {
+      await invoiceToDelete.destroy();
+      res.status(200).send(invoiceToDelete);
     } else {
-        res.status(404).send({ error: 404, message: "Invoice not found." });
+      sendErrorResponse(res, "Invoice not found.", 404);
     }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update invoice.", 500, error);
+  }
 });
+
+const filterBody = (body: { orderId: any; createdAt: any }) => {
+  const { orderId, createdAt } = body;
+  return { orderId, createdAt };
+};
 
 export default router;
