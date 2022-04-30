@@ -7,8 +7,8 @@ const router = express.Router();
 // GET all Order
 router.get("/", async (_, res) => {
   try {
-    const result = await Order.findAll();
-    res.status(200).send(result);
+    const orderList = await Order.findAll();
+    res.status(200).send(orderList);
   } catch (error) {
     sendErrorResponse(res, "Unable to retrieve orders.", 500, error);
   }
@@ -19,9 +19,9 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await Order.findByPk(id);
-    if (result) {
-      res.status(200).send(result);
+    const foundOrder = await Order.findByPk(id);
+    if (foundOrder) {
+      res.status(200).send(foundOrder);
     } else {
       sendErrorResponse(res, "Order not found.", 404);
     }
@@ -35,10 +35,10 @@ router.get("/by-user/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const result = await Order.findAll({
+    const orderList = await Order.findAll({
       where: { userId },
     });
-    res.send(result);
+    res.send(orderList);
   } catch (error) {
     sendErrorResponse(res, "Unable to retrieve user orders.", 500, error);
   }
@@ -47,13 +47,11 @@ router.get("/by-user/:userId", async (req, res) => {
 // POST create new order
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-  console.log(requestObject);
-
   const order = Order.build(requestObject);
 
   try {
-    const result = await order.save();
-    res.status(201).send(result);
+    const savedOrder = await order.save();
+    res.status(201).send(savedOrder);
   } catch (error) {
     sendErrorResponse(res, "Unable to create order.", 500, error);
   }
