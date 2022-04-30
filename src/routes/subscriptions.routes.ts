@@ -1,77 +1,104 @@
 import express from "express";
-import { sequelize } from "../services/sequelize.service";
 import { Subscription } from "../models/subscription";
+import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
-const subscriptions = sequelize.models.Subscription;
-
-// TODO: add try-catch in case of database errors
 
 router.get("/", async (_, res) => {
-  const result = await subscriptions.findAll();
-
-  res.send({ subscriptions: result });
+  try {
+    const subscriptionList = await Subscription.findAll();
+    res.status(200).send(subscriptionList);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve subscriptions.", 500, error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const result = await subscriptions.findByPk(id);
 
-  if (result) {
-    res.send({ subscription: result });
-  } else {
-    res.status(404).send({ error: 404, message: "Subscription not found." });
+  try {
+    const foundSubscription = await Subscription.findByPk(id);
+    if (foundSubscription) {
+      res.status(200).send(foundSubscription);
+    } else {
+      res.status(404).send({ error: 404, message: "Subscription not found." });
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to retrieve subscription.", 500, error);
+  }
+});
+
+router.get("/by-user/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const subscriptionList = await Subscription.findAll({ where: { userId } });
+    res.status(200).send(subscriptionList);
+  } catch (error) {
+    sendErrorResponse(
+      res,
+      "Unable to retrieve subscriptions by user id.",
+      500,
+      error
+    );
   }
 });
 
 router.post("/", async (req, res) => {
-  const { userId, subscriptionTypeId, startsAt, endsAt } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const subscription = Subscription.build({
-    userId,
-    subscriptionTypeId,
-    startsAt,
-    endsAt,
-  });
-
-  const result = await subscription.save();
-
-  res.status(201).send({ subscription: result });
+  const subscription = Subscription.build(requestObject);
+  try {
+    const savedSubscription = await subscription.save();
+    res.status(201).send(savedSubscription);
+  } catch (error) {
+    sendErrorResponse(res, "Unable to create subscription.", 500, error);
+  }
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const { userId, subscriptionTypeId, startsAt, endsAt } = req.body;
+  const requestObject = filterBody(req.body);
 
-  const subscriptionToEdit = await subscriptions.findByPk(id);
-
-  if (subscriptionToEdit) {
-    const result = await subscriptionToEdit.update({
-      userId,
-      subscriptionTypeId,
-      startsAt,
-      endsAt,
-    });
-
-    res.send({ subscription: result });
-  } else {
-    res
-      .status(404)
-      .send({ error: 404, message: "Subscription not found." });
+  try {
+    const subscriptionToEdit = await Subscription.findByPk(id);
+    if (subscriptionToEdit) {
+      const updatedSubscription = await subscriptionToEdit.update(
+        requestObject
+      );
+      res.status(200).send(updatedSubscription);
+    } else {
+      sendErrorResponse(res, "Subscription not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to update subscription.", 500, error);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const subscriptionToDelete = await subscriptions.findByPk(id);
 
-  if (subscriptionToDelete) {
-    await subscriptionToDelete.destroy();
-
-    res.send({ message: "Success!" });
-  } else {
-    res.status(404).send({ error: 404, message: "Subscription not found." });
+  try {
+    const subscriptionToDelete = await Subscription.findByPk(id);
+    if (subscriptionToDelete) {
+      await subscriptionToDelete.destroy();
+      res.status(200).send(subscriptionToDelete);
+    } else {
+      sendErrorResponse(res, "Subscription not found.", 404);
+    }
+  } catch (error) {
+    sendErrorResponse(res, "Unable to delete subscription.", 500, error);
   }
 });
+
+const filterBody = (body: {
+  userId: any;
+  subscriptionTypeId: any;
+  startsAt: any;
+  endsAt: any;
+}) => {
+  const { userId, subscriptionTypeId, startsAt, endsAt } = body;
+  return { userId, subscriptionTypeId, startsAt, endsAt };
+};
 
 export default router;
