@@ -26,4 +26,14 @@
 8. Once everything is done, the audit triggers can be created by running the [audit-triggers.sql](./sql/scripts/audit-triggers.sql) script.
 9. Lastly, run the [population script](./sql/scripts/initial-population-script.sql) to fill in the database with test data.
 
+## Using the API with the populated users
 
+In order to easily use the `/login` endpoint, all of the populated users have a hashed password of `1234`.
+This means that the `/login` route can be used with the following body:
+```json
+{
+    "username": "<Any of the populated user's username; ex: admin>",
+    "password": 1234
+}
+```
+The token is valid for `24 hours` after this.
