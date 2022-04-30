@@ -10,9 +10,9 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await OrderItem.findByPk(id);
-    if (result) {
-      res.status(201).send(result);
+    const foundOrderItem = await OrderItem.findByPk(id);
+    if (foundOrderItem) {
+      res.status(201).send(foundOrderItem);
     } else {
       sendErrorResponse(res, "Order item not found.", 404);
     }
@@ -45,17 +45,17 @@ router.get("/by-user/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const orders = await Order.findAll({ where: { userId } });
-    const orderItems: OrderItem[] = [];
+    const orderList = await Order.findAll({ where: { userId } });
+    const orderItemList: OrderItem[] = [];
 
-    for (const order of orders) {
-      orderItems.push(
+    for (const order of orderList) {
+      orderItemList.push(
         ...(await OrderItem.findAll({
           where: { orderId: order.getDataValue("orderId") },
         }))
       );
     }
-    res.status(200).send(orderItems);
+    res.status(200).send(orderItemList);
   } catch (error) {
     sendErrorResponse(
       res,
