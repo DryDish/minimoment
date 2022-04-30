@@ -21,6 +21,7 @@ import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
 import InvoicesRouter from "./routes/invoices.routes";
 import PaperTypeRouter from "./routes/paper-types.routes";
+import PictureRouter from "./routes/pictures.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -54,6 +55,7 @@ app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
 app.use("/stock/sizes", SizesRouter);
 app.use("/reports", AccountingRouter);
+app.use("/pictures", PictureRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
