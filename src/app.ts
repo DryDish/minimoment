@@ -20,8 +20,9 @@ import AccountingRouter from "./routes/accounting.routes";
 import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
 import InvoicesRouter from "./routes/invoices.routes";
-import PaperTypeRouter from "./routes/paper-types.routes";
-import PictureRouter from "./routes/pictures.routes";
+import PaperTypesRouter from "./routes/paper-types.routes";
+import FramesRouter from "./routes/frames.routes"
+import PicturesRouter from "./routes/pictures.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -50,12 +51,13 @@ app.use("/users", UsersRouter);
 app.use("/orders", OrderRouter);
 app.use("/order-items", OrderItemsRouter);
 app.use("/invoices", InvoicesRouter);
-app.use("/stock/paper-types", PaperTypeRouter);
+app.use("/stock/sizes", SizesRouter);
+app.use("/stock/paper-types", PaperTypesRouter);
+app.use("/stock/frames", FramesRouter);
 app.use("/subscriptions/types", SubscriptionTypesRouter);
 app.use("/subscriptions", SubscriptionsRouter);
-app.use("/stock/sizes", SizesRouter);
 app.use("/reports", AccountingRouter);
-app.use("/pictures", PictureRouter);
+app.use("/pictures", PicturesRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
