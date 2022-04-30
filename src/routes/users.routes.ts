@@ -1,4 +1,6 @@
 import express from "express";
+import bcrypt from "bcrypt";
+
 import { User } from "../models/user";
 import { sendErrorResponse } from "../utils/responses.util";
 
@@ -29,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const requestObject = filterBody(req.body);
+  const requestObject = await filterBody(req.body);
 
   const user = User.build(requestObject);
   try {
@@ -42,7 +44,7 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const requestObject = filterBody(req.body);
+  const requestObject = await filterBody(req.body);
 
   try {
     const userToEdit = await User.findByPk(id);
@@ -73,7 +75,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-const filterBody = (body: {
+const filterBody = async (body: {
   firstName: any;
   lastName: any;
   username: any;
@@ -91,11 +93,13 @@ const filterBody = (body: {
     roleId,
     contactInfoId,
   } = body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   return {
     firstName,
     lastName,
     username,
-    password,
+    password: hashedPassword,
     autoRenew,
     roleId,
     contactInfoId,
