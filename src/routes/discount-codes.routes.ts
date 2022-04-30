@@ -1,20 +1,15 @@
 import express from "express";
 import { DiscountCode } from "../models/discount-code";
+import { sendErrorResponse } from "../utils/responses.util";
 
 export const router = express.Router();
 
 router.get("/", async (_, res) => {
   try {
-    const discountCodes = await DiscountCode.findAll();
-
-    res.status(200).json({ discountCodes });
+    const discountCodeList = await DiscountCode.findAll();
+    res.status(200).send(discountCodeList);
   } catch (error) {
-    console.log(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to retrieve a list of discount codes.",
-    });
+    sendErrorResponse(res, "Unable to retrieve discount codes.", 500, error);
   }
 });
 
@@ -22,19 +17,15 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const discountCode = await DiscountCode.findByPk(id);
+    const foundDiscountCode = await DiscountCode.findByPk(id);
 
-    if (discountCode === null) {
-      res.status(404).send({ error: 404, message: "Not found." });
+    if (foundDiscountCode) {
+      res.status(200).send(foundDiscountCode);
     } else {
-      res.status(200).send({ discountCode });
+      sendErrorResponse(res, "Discount code not found.", 404);
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).send({
-      error: 500,
-      message: "Unable to retrieve the discount code.",
-    });
+    sendErrorResponse(res, "Unable to retrieve discount code.", 500, error);
   }
 });
 
@@ -42,18 +33,11 @@ router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
   const discountCode = DiscountCode.build(requestObject);
-
   try {
-    await discountCode.save();
-
-    res.status(200).send({ discountCode });
+    const savedDiscountCode = await discountCode.save();
+    res.status(200).send(savedDiscountCode);
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to save new discount.",
-    });
+    sendErrorResponse(res, "Unable to create discount code.", 500, error);
   }
 });
 
@@ -61,46 +45,34 @@ router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  const discountCode = await DiscountCode.findByPk(id);
-  if (!discountCode) {
-    res.status(404).send({ error: 404, message: "Not found." });
-    return;
-  }
-
   try {
-    await discountCode.update(requestObject);
-
-    res.status(200).send({ discountCode });
+    const discountCodeToEdit = await DiscountCode.findByPk(id);
+    if (discountCodeToEdit) {
+      const updatedDiscountCode = await discountCodeToEdit.update(
+        requestObject
+      );
+      res.status(200).send(updatedDiscountCode);
+    } else {
+      sendErrorResponse(res, "Discount code not found.", 404);
+    }
   } catch (error) {
-    console.error(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to save new discount.",
-    });
+    sendErrorResponse(res, "Unable to update discount code.", 500, error);
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  const discountCode = await DiscountCode.findByPk(id);
-
-  if (!discountCode) {
-    res.status(404).send({ error: 404, message: "Not found." });
-    return;
-  }
-
   try {
-    await discountCode.destroy();
-    res.status(200).send({ deleted: discountCode });
+    const discountCodeToDelete = await DiscountCode.findByPk(id);
+    if (discountCodeToDelete) {
+      await discountCodeToDelete.destroy();
+      res.status(200).send(discountCodeToDelete);
+    } else {
+      sendErrorResponse(res, "Discount code not found.", 404);
+    }
   } catch (error) {
-    console.log(error);
-
-    res.status(500).send({
-      error: 500,
-      message: "Unable to delete the discount type.",
-    });
+    sendErrorResponse(res, "Unable to delete discount code.", 500, error);
   }
 });
 
@@ -110,19 +82,11 @@ const filterBody = (body: {
   validFrom: any;
   validTo: any;
   remainingUses: any;
-  discountCodeId: any;
+  discountTypeId: any;
 }) => {
-  const { name, value, validFrom, validTo, remainingUses, discountCodeId } =
+  const { name, value, validFrom, validTo, remainingUses, discountTypeId } =
     body;
-
-  return {
-    name,
-    value,
-    validFrom,
-    validTo,
-    remainingUses,
-    discountCodeId,
-  };
+  return { name, value, validFrom, validTo, remainingUses, discountTypeId };
 };
 
 export default router;
