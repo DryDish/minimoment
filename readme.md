@@ -4,7 +4,7 @@ index:  ❌ = Missing, ☑️ = Done
 
 # Setup
 
-Create a `.env` file following the structure provided in the `.env.example`. 
+Create a `.env` file following the structure provided in the `.env.template`. 
 Install the dependencies with `npm install`, and use the `npm start` command to run the app.
 
 # Mandatory assignment part 1
