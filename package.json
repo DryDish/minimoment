@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node ./src/app.ts",
+    "start": "npx tsc && node build/app.js",
     "dev": "nodemon ./src/app.ts"
   },
   "devDependencies": {

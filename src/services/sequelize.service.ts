@@ -1,7 +1,5 @@
 import { Sequelize } from "sequelize";
-
-// Import Models
-import RoleModel from "../models/role";
+import modelLoader from "../utils/model-loader";
 
 // Constants
 const HOST = process.env.MYSQL_DB_HOST || "localhost";
@@ -13,17 +11,20 @@ const SCHEMA = process.env.MYSQL_DB_SCHEMA || "";
 export const sequelize = new Sequelize(SCHEMA, USER, PASSWORD, {
   host: HOST,
   dialect: "mysql",
+  define: {
+    timestamps: false,
+  },
+  logging: console.log,
 });
 
-// Define all Models
-RoleModel(sequelize);
+modelLoader(sequelize);
 
 // Authenticate to the Database
 export const authenticate = async () => {
   try {
     await sequelize.authenticate();
     console.log(
-      `Connected to the database at: ${HOST}/${SCHEMA} with user: ${USER}`
+      `Connected to the database at: ${HOST}/${SCHEMA} with user: ${USER}.`
     );
   } catch (error) {
     console.error(

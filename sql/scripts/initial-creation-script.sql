@@ -191,23 +191,23 @@ CREATE INDEX `fk_orders_statuses_idx` ON `orders` (`status_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `invoice`
+-- Table `invoices`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `invoice` ;
+DROP TABLE IF EXISTS `invoices` ;
 
-CREATE TABLE IF NOT EXISTS `invoice` (
+CREATE TABLE IF NOT EXISTS `invoices` (
   `invoice_id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT NOT NULL,
   `created_at` DATETIME NOT NULL,
   PRIMARY KEY (`invoice_id`),
-  CONSTRAINT `fk_invoice_orders`
+  CONSTRAINT `fk_invoices_orders`
     FOREIGN KEY (`order_id`)
     REFERENCES `orders` (`order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_invoice_orders_idx` ON `invoice` (`order_id` ASC) VISIBLE;
+CREATE INDEX `fk_invoices_orders_idx` ON `invoices` (`order_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -283,7 +283,7 @@ DROP TABLE IF EXISTS `paper_types` ;
 
 CREATE TABLE IF NOT EXISTS `paper_types` (
   `paper_type_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45),
+  `name` VARCHAR(45) NOT NULL,
   `multiplier` DECIMAL(3,2) NOT NULL,
   `size_id` INT NOT NULL,
   `discount_code_id` INT,
