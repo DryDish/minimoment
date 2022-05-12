@@ -1,77 +1,43 @@
 import express from "express";
 import { ContactInfo } from "../models/mysql/contact-info";
-import { sendErrorResponse } from "../utils/responses.util";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const ContactInfoService = new GenericService(ContactInfo);
 
 router.get("/", async (_, res) => {
-  try {
-    const contactInfoList = await ContactInfo.findAll();
-    res.send(contactInfoList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve contact info.", 500, error);
-  }
+  const result = await ContactInfoService.findAll();
+  resultHandler("Contact Info", result, res);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundContactInfo = await ContactInfo.findByPk(id);
-
-    if (foundContactInfo) {
-      res.send(foundContactInfo);
-    } else {
-      sendErrorResponse(res, "Contact info not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve contact info.", 500, error);
-  }
+  const result = await ContactInfoService.findOne(id);
+  resultHandler("Contact Info", result, res);
 });
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-  const info = ContactInfo.build(requestObject);
 
-  try {
-    const savedContactInfo = await info.save();
-    res.status(201).send(savedContactInfo);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create contact info.", 500, error);
-  }
+  const result = await ContactInfoService.create(requestObject);
+  resultHandler("Contact Info", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const contactInfoToEdit = await ContactInfo.findByPk(id);
-    if (contactInfoToEdit) {
-      const updatedContactInfo = await contactInfoToEdit.update(requestObject);
-      res.status(200).send(updatedContactInfo);
-    } else {
-      sendErrorResponse(res, "Contact info not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update contact info.", 500, error);
-  }
+  const result = await ContactInfoService.update(id, requestObject);
+  resultHandler("Contact Info", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const contactInfoToDelete = await ContactInfo.findByPk(id);
-    if (contactInfoToDelete) {
-      await contactInfoToDelete.destroy();
-      res.status(200).send(contactInfoToDelete);
-    } else {
-      sendErrorResponse(res, "Contact info not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete contact info.", 500, error);
-  }
+  const result = await ContactInfoService.delete(id);
+  resultHandler("Contact Info", result, res);
 });
 
 const filterBody = (body: {

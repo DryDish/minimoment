@@ -1,86 +1,45 @@
 import express from "express";
 import { PictureData } from "../models/mysql/picture-data";
-import { sendErrorResponse } from "../utils/responses.util";
+import { PictureDataService } from "../services/mysql/picture-data.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const pictureDataService = new PictureDataService(PictureData);
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundPictureData = await PictureData.findByPk(id);
-    if (foundPictureData) {
-      res.status(200).send(foundPictureData);
-    } else {
-      sendErrorResponse(res, "Picture data not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve picture data.", 500, error);
-  }
+  const result = await pictureDataService.findOne(id);
+  resultHandler("Pictures", result, res);
 });
 
 router.get("/by-user/:userId", async (req, res) => {
   const { userId } = req.params;
 
-  try {
-    const pictureDataList = await PictureData.findAll({
-      where: { userId },
-    });
-    res.status(200).send(pictureDataList);
-  } catch (error) {
-    sendErrorResponse(
-      res,
-      "Unable to retrieve picture data by user.",
-      500,
-      error
-    );
-  }
+  const result = await pictureDataService.findByUserId(userId);
+  resultHandler("Pictures by user id", result, res);
 });
 
 router.post("/", async (req, res) => {
-  const requestBody = filterBody(req.body);
+  const requestObject = filterBody(req.body);
 
-  const pictureData = PictureData.build(requestBody);
-  try {
-    const savedPictureData = await pictureData.save();
-    res.status(201).send(savedPictureData);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to save picture data.", 500, error);
-  }
+  const result = await pictureDataService.create(requestObject);
+  resultHandler("Picture", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const requestBody = filterBody(req.body);
+  const requestObject = filterBody(req.body);
 
-  try {
-    const pictureDataToEdit = await PictureData.findByPk(id);
-    if (pictureDataToEdit) {
-      const updatedPictureData = await pictureDataToEdit.update(requestBody);
-      res.status(200).send(updatedPictureData);
-    } else {
-      sendErrorResponse(res, "Picture data not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update picture data.", 500, error);
-  }
+  const result = await pictureDataService.update(id, requestObject);
+  resultHandler("Picture", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const pictureToDelete = await PictureData.findByPk(id);
-
-    if (pictureToDelete) {
-      await pictureToDelete.destroy();
-      res.status(200).send(pictureToDelete);
-    } else {
-      sendErrorResponse(res, "Picture data not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete picture data.", 500, error);
-  }
+  const result = await pictureDataService.delete(id);
+  resultHandler("Picture", result, res);
 });
 
 const filterBody = (body: { userId: any; imageUrl: any; uploadedAt: any }) => {

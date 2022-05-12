@@ -3,8 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { User } from "../models/mysql/user";
-import { sendErrorResponse } from "../utils/responses.util";
 import { Role } from "../models/mysql/role";
+import { resultHandler } from "../utils/response-handler.utils";
+import { CustomResult, StatusCode } from "../utils/custom-result.utils";
 
 // Constants
 const SECRET_KEY = process.env.AUTH_SECRET_KEY || "";
@@ -16,13 +17,13 @@ router.post("/login", async (req, res) => {
 
   const user = await getUser(res, username);
   if (!user) {
-    sendErrorResponse(res, "Unauthorized.", 401);
+    resultHandler("", new CustomResult(StatusCode.Unauthorized), res);
     return;
   }
 
   bcrypt.compare(password, user.getDataValue("password"), (error, same) => {
     if (error || !same) {
-      sendErrorResponse(res, "Unauthorized.", 401);
+      resultHandler("", new CustomResult(StatusCode.Unauthorized), res);
       return;
     }
 
@@ -32,12 +33,14 @@ router.post("/login", async (req, res) => {
       { expiresIn: "24h" },
       (e: Error | null, token: string | undefined) => {
         if (e) {
-          sendErrorResponse(res, "Internal server error.", 500, e);
-        } else
-          res.status(200).send({
+          resultHandler("", new CustomResult(StatusCode.ServerError), res);
+        } else {
+          const result = new CustomResult(StatusCode.Success, {
             user: { username },
             token,
           });
+          resultHandler("", result, res);
+        }
       }
     );
   });
@@ -48,13 +51,13 @@ router.post("/register", async (req, res) => {
 
   const user = await getUser(res, username);
   if (user) {
-    sendErrorResponse(res, "Internal server error.", 500);
+    resultHandler("", new CustomResult(StatusCode.ServerError), res);
     return;
   }
 
   const role = await getRole(res, "user");
   if (!role) {
-    sendErrorResponse(res, "Internal server error.", 500);
+    resultHandler("", new CustomResult(StatusCode.ServerError), res);
     return;
   }
 
@@ -68,7 +71,7 @@ router.post("/register", async (req, res) => {
     const registeredUser = await userToRegister.save();
     res.status(201).send(registeredUser);
   } catch (error) {
-    sendErrorResponse(res, "Internal server error.", 500, error);
+    resultHandler("", new CustomResult(StatusCode.ServerError), res);
   }
 });
 
@@ -79,7 +82,6 @@ const getUser = async (
   try {
     return await User.findOne({ where: { username } });
   } catch (error) {
-    sendErrorResponse(res, "Internal server error.", 500, error);
     return null;
   }
 };
@@ -88,7 +90,6 @@ const getRole = async (res: Response, role: string): Promise<Role | null> => {
   try {
     return await Role.findOne({ where: { name: role } });
   } catch (error) {
-    sendErrorResponse(res, "Internal server error.", 500, error);
     return null;
   }
 };

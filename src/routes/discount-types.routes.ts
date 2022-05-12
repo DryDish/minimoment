@@ -1,78 +1,43 @@
 import express from "express";
 import { DiscountType } from "../models/mysql/discount-type";
-import { sendErrorResponse } from "../utils/responses.util";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const DiscountTypeService = new GenericService(DiscountType);
 
 router.get("/", async (_, res) => {
-  try {
-    const discountTypeList = await DiscountType.findAll();
-    res.status(200).send(discountTypeList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve discount types.", 500, error);
-  }
+  const result = await DiscountTypeService.findAll();
+  resultHandler("Discount Types", result, res);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundDiscountType = await DiscountType.findByPk(id);
-    if (foundDiscountType) {
-      res.status(200).send(foundDiscountType);
-    } else {
-      sendErrorResponse(res, "Discount type not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve discount type.", 500, error);
-  }
+  const result = await DiscountTypeService.findOne(id);
+  resultHandler("Discount Type", result, res);
 });
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
-  const discountType = DiscountType.build(requestObject);
-  try {
-    const savedDiscountType = await discountType.save();
-    res.status(201).send(savedDiscountType);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create discount type.", 500, error);
-  }
+  const result = await DiscountTypeService.create(requestObject);
+  resultHandler("Discount Type", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const discountTypeToEdit = await DiscountType.findByPk(id);
-    if (discountTypeToEdit) {
-      const updatedDiscountType = await discountTypeToEdit.update(
-        requestObject
-      );
-      res.status(200).send(updatedDiscountType);
-    } else {
-      sendErrorResponse(res, "Discount type not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to edit discount type.", 500, error);
-  }
+  const result = await DiscountTypeService.update(id, requestObject);
+  resultHandler("Discount Type", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const discountTypeToDelete = await DiscountType.findByPk(id);
-    if (discountTypeToDelete) {
-      await discountTypeToDelete.destroy();
-      res.status(200).send(discountTypeToDelete);
-    } else {
-      sendErrorResponse(res, "Discount type not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete discount type.", 500, error);
-  }
+  const result = await DiscountTypeService.delete(id);
+  resultHandler("Discount Type", result, res);
 });
 
 const filterBody = (body: { name: any }) => {

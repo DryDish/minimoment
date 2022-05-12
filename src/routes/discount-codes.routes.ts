@@ -1,79 +1,43 @@
 import express from "express";
 import { DiscountCode } from "../models/mysql/discount-code";
-import { sendErrorResponse } from "../utils/responses.util";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 export const router = express.Router();
+const DiscountCodesService = new GenericService(DiscountCode);
 
 router.get("/", async (_, res) => {
-  try {
-    const discountCodeList = await DiscountCode.findAll();
-    res.status(200).send(discountCodeList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve discount codes.", 500, error);
-  }
+  const result = await DiscountCodesService.findAll();
+  resultHandler("Discounts", result, res);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundDiscountCode = await DiscountCode.findByPk(id);
-
-    if (foundDiscountCode) {
-      res.status(200).send(foundDiscountCode);
-    } else {
-      sendErrorResponse(res, "Discount code not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve discount code.", 500, error);
-  }
+  const result = await DiscountCodesService.findOne(id);
+  resultHandler("Discount", result, res);
 });
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
 
-  const discountCode = DiscountCode.build(requestObject);
-  try {
-    const savedDiscountCode = await discountCode.save();
-    res.status(200).send(savedDiscountCode);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create discount code.", 500, error);
-  }
+  const result = await DiscountCodesService.create(requestObject);
+  resultHandler("Discount", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const discountCodeToEdit = await DiscountCode.findByPk(id);
-    if (discountCodeToEdit) {
-      const updatedDiscountCode = await discountCodeToEdit.update(
-        requestObject
-      );
-      res.status(200).send(updatedDiscountCode);
-    } else {
-      sendErrorResponse(res, "Discount code not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update discount code.", 500, error);
-  }
+  const result = await DiscountCodesService.update(id, requestObject);
+  resultHandler("Discount", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const discountCodeToDelete = await DiscountCode.findByPk(id);
-    if (discountCodeToDelete) {
-      await discountCodeToDelete.destroy();
-      res.status(200).send(discountCodeToDelete);
-    } else {
-      sendErrorResponse(res, "Discount code not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete discount code.", 500, error);
-  }
+  const result = await DiscountCodesService.delete(id);
+  resultHandler("Discount", result, res);
 });
 
 const filterBody = (body: {
