@@ -398,4 +398,4 @@ CREATE TABLE audit_logs (
     `old_row_data` JSON,
     `new_row_data` JSON,
     PRIMARY KEY (`id`)
-)
+);
