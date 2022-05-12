@@ -1,5 +1,5 @@
 import express from "express";
-import { MonthlyReport } from "../models/monthly-report";
+import { MonthlyReport } from "../models/mysql/monthly-report";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

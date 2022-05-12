@@ -2,9 +2,9 @@ import express, { Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { User } from "../models/user";
+import { User } from "../models/mysql/user";
 import { sendErrorResponse } from "../utils/responses.util";
-import { Role } from "../models/role";
+import { Role } from "../models/mysql/role";
 
 // Constants
 const SECRET_KEY = process.env.AUTH_SECRET_KEY || "";

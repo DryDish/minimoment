@@ -1,5 +1,5 @@
 import express from "express";
-import { DiscountCode } from "../models/discount-code";
+import { DiscountCode } from "../models/mysql/discount-code";
 import { sendErrorResponse } from "../utils/responses.util";
 
 export const router = express.Router();

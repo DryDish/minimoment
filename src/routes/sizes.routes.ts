@@ -1,5 +1,5 @@
 import express from "express";
-import { Size } from "../models/size";
+import { Size } from "../models/mysql/size";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

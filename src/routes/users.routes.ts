@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 
-import { User } from "../models/user";
+import { User } from "../models/mysql/user";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

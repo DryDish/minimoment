@@ -15,6 +15,7 @@ export default (req: Request, res: Response, next: NextFunction): void => {
     jwt.verify(token, SECRET_KEY, (error, _) => {
       if (error) {
         sendErrorResponse(res, "Forbidden.", 403);
+        return;
       }
       next();
     });

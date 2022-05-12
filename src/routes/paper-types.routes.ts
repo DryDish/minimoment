@@ -1,5 +1,5 @@
 import express from "express";
-import { PaperType } from "../models/paper-type";
+import { PaperType } from "../models/mysql/paper-type";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

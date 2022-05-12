@@ -1,5 +1,5 @@
 import express from "express";
-import { Status } from "../models/status";
+import { Status } from "../models/mysql/status";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

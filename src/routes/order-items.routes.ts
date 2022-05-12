@@ -1,6 +1,6 @@
 import express from "express";
-import { Order } from "../models/order";
-import { OrderItem } from "../models/order-item";
+import { Order } from "../models/mysql/order";
+import { OrderItem } from "../models/mysql/order-item";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

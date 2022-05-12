@@ -1,5 +1,5 @@
 import express from "express";
-import { Invoice } from "../models/invoice";
+import { Invoice } from "../models/mysql/invoice";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

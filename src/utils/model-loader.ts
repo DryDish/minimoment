@@ -1,38 +1,22 @@
 // Import Models
-import RoleModel, { defineRoleAssociations } from "../models/role";
-import DiscountTypeModel, {
-  defineDiscountTypeAssociations,
-} from "../models/discount-type";
-import DiscountCodeModel, {
-  defineDiscountCodeAssociation,
-} from "../models/discount-code";
-import ContactInfoModel, {
-  defineContactInfoAssociations,
-} from "../models/contact-info";
-import UserModel, { defineUserAssociations } from "../models/user";
-import OrderModel, { defineOrderAssociations } from "../models/order";
-import OrderItemModel, {
-  defineOrderItemAssociations,
-} from "../models/order-item";
-import InvoiceModel, { defineInvoiceAssociations } from "../models/invoice";
-import PaperTypeModel, {
-  definePaperTypeAssociations,
-} from "../models/paper-type";
-import PictureDataModel, {
-  definePictureDataAssociations,
-} from "../models/picture-data";
-import FrameModel, { defineFrameAssociations } from "../models/frame";
-import StatusModel, { defineStatusAssociations } from "../models/status";
-import SubscriptionTypeModel, {
-  defineSubscriptionTypesAssociations,
-} from "../models/subscription-type";
-import SubscriptionModel, {
-  defineSubscriptionAssociations,
-} from "../models/subscription";
-import SizeModel, { defineSizeAssociations } from "../models/size";
-import MonthlyReportModel from "../models/monthly-report";
-
 import { Sequelize } from "sequelize/types";
+import ContactInfoModel, { defineContactInfoAssociations } from "../models/mysql/contact-info";
+import DiscountCodeModel, { defineDiscountCodeAssociation } from "../models/mysql/discount-code";
+import DiscountTypeModel, { defineDiscountTypeAssociations } from "../models/mysql/discount-type";
+import FrameModel, { defineFrameAssociations } from "../models/mysql/frame";
+import InvoiceModel, { defineInvoiceAssociations } from "../models/mysql/invoice";
+import OrderModel, { defineOrderAssociations } from "../models/mysql/order";
+import OrderItemModel, { defineOrderItemAssociations } from "../models/mysql/order-item";
+import PaperTypeModel, { definePaperTypeAssociations } from "../models/mysql/paper-type";
+import PictureDataModel, { definePictureDataAssociations } from "../models/mysql/picture-data";
+import RoleModel, { defineRoleAssociations } from "../models/mysql/role";
+import SizeModel, { defineSizeAssociations } from "../models/mysql/size";
+import StatusModel, { defineStatusAssociations } from "../models/mysql/status";
+import SubscriptionModel, { defineSubscriptionAssociations } from "../models/mysql/subscription";
+import SubscriptionTypeModel, { defineSubscriptionTypesAssociations } from "../models/mysql/subscription-type";
+import UserModel, { defineUserAssociations } from "../models/mysql/user";
+import MonthlyReportModel from "../models/mysql/monthly-report";
+
 /**
  * Simple function to call, in the right order, all the models that
  * sequelize needs.

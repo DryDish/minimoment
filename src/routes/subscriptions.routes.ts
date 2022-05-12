@@ -1,5 +1,5 @@
 import express from "express";
-import { Subscription } from "../models/subscription";
+import { Subscription } from "../models/mysql/subscription";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();

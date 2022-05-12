@@ -1,5 +1,5 @@
 import express from "express";
-import { ContactInfo } from "../models/contact-info";
+import { ContactInfo } from "../models/mysql/contact-info";
 import { sendErrorResponse } from "../utils/responses.util";
 
 const router = express.Router();
