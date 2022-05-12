@@ -1,6 +1,6 @@
 import express from "express";
 import { Size } from "../models/mysql/size";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

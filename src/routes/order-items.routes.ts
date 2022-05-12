@@ -1,7 +1,7 @@
 import express from "express";
 import { Order } from "../models/mysql/order";
 import { OrderItem } from "../models/mysql/order-item";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

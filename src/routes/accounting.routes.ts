@@ -1,6 +1,6 @@
 import express from "express";
 import { MonthlyReport } from "../models/mysql/monthly-report";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

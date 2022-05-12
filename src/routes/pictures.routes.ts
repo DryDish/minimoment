@@ -1,6 +1,6 @@
 import express from "express";
 import { PictureData } from "../models/mysql/picture-data";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

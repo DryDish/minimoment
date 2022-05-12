@@ -1,6 +1,6 @@
 import express from "express";
 import { SubscriptionType } from "../models/mysql/subscription-type";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

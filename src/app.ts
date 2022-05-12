@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import { authenticate as mysqlConnect } from "./services/sequelize.service";
+import "./config/sequelize.config";
 
 // Import middleware
 import AuthMiddleware from "./middleware/authenticate.middleware";
@@ -21,14 +21,11 @@ import OrderRouter from "./routes/orders.routes";
 import OrderItemsRouter from "./routes/order-items.routes";
 import InvoicesRouter from "./routes/invoices.routes";
 import PaperTypesRouter from "./routes/paper-types.routes";
-import FramesRouter from "./routes/frames.routes"
+import FramesRouter from "./routes/frames.routes";
 import PicturesRouter from "./routes/pictures.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
-
-// Connect to the database
-mysqlConnect();
 
 const app = express();
 

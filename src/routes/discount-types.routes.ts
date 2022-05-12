@@ -1,6 +1,6 @@
 import express from "express";
 import { DiscountType } from "../models/mysql/discount-type";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 

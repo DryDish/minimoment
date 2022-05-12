@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 
 import { User } from "../models/mysql/user";
-import { sendErrorResponse } from "../utils/responses.util";
+import { sendErrorResponse } from "../utils/responses.utils";
 
 const router = express.Router();
 
