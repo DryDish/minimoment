@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_user_contact_info_idx` ON `users` (`contact_info_id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `fk_user_contact_info_idx` ON `users` (`contact_info_id` ASC) VISIBLE;
 
 CREATE INDEX `fk_users_role_idx` ON `users` (`role_id` ASC) VISIBLE;
 
@@ -398,4 +398,4 @@ CREATE TABLE audit_logs (
     `old_row_data` JSON,
     `new_row_data` JSON,
     PRIMARY KEY (`id`)
-)
+);
