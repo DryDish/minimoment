@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import "./config/sequelize.config";
+import "./config/mongoose.config";
 
 // Import middleware
 import AuthMiddleware from "./middleware/authenticate.middleware";
