@@ -6,7 +6,7 @@ export class PictureDataService extends GenericService<PictureData> {
   constructor(protected model: any) {
     super(model);
   }
-  
+
   async findAll(): Promise<CustomResult<PictureData[]>> {
       return new CustomResult(StatusCode.Forbidden)
   }

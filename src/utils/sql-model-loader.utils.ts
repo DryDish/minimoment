@@ -20,7 +20,7 @@ import MonthlyReportModel from "../models/mysql/monthly-report";
 /**
  * Simple function to call, in the right order, all the models that
  * sequelize needs.
- * 
+ *
  * @param sequelize - An initialized sequelize instance
  */
 const loadDbModels = (sequelize: Sequelize) => {
