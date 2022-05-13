@@ -1,78 +1,44 @@
 import express from "express";
 import bcrypt from "bcrypt";
-
 import { User } from "../models/mysql/user";
-import { sendErrorResponse } from "../utils/responses.utils";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const userService = new GenericService(User);
 
 router.get("/", async (_, res) => {
-  try {
-    const userList = await User.findAll();
-    res.status(200).send(userList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve users.", 500, error);
-  }
+  const result = await userService.findAll();
+  resultHandler("Users", result, res);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundUser = await User.findByPk(id);
-    if (foundUser) {
-      res.status(200).send(foundUser);
-    } else {
-      sendErrorResponse(res, "User not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user.", 500, error);
-  }
+  const result = await userService.findOne(id);
+  resultHandler("User", result, res);
 });
 
 router.post("/", async (req, res) => {
-  const requestObject = await filterBody(req.body);
+  const requestObject = filterBody(req.body);
 
-  const user = User.build(requestObject);
-  try {
-    const savedUser = await user.save();
-    res.status(201).send(savedUser);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create user.", 500, error);
-  }
+  const result = await userService.create(requestObject);
+  resultHandler("User", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const requestObject = await filterBody(req.body);
+  const requestObject = filterBody(req.body);
 
-  try {
-    const userToEdit = await User.findByPk(id);
-    if (userToEdit) {
-      const updatedUser = await userToEdit.update(requestObject);
-      res.status(200).send(updatedUser);
-    } else {
-      sendErrorResponse(res, "User not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update user.", 500, error);
-  }
+  const result = await userService.update(id, requestObject);
+  resultHandler("User", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const userToDelete = await User.findByPk(id);
-    if (userToDelete) {
-      await userToDelete.destroy();
-      res.status(200).send(userToDelete);
-    } else {
-      sendErrorResponse(res, "User not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete user.", 500, error);
-  }
+  const result = await userService.delete(id);
+  resultHandler("User", result, res);
 });
 
 const filterBody = async (body: {

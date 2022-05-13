@@ -1,76 +1,43 @@
 import express from "express";
 import { Size } from "../models/mysql/size";
-import { sendErrorResponse } from "../utils/responses.utils";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const sizeService = new GenericService(Size);
 
 router.get("/", async (_, res) => {
-  try {
-    const sizeList = await Size.findAll();
-    res.status(200).send(sizeList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve sizes.", 500, error);
-  }
+  const result = await sizeService.findAll();
+  resultHandler("Sizes", result, res);
 });
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundSize = await Size.findByPk(id);
-    if (foundSize) {
-      res.status(200).send(foundSize);
-    } else {
-      sendErrorResponse(res, "Size not found", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve sizes.", 500, error);
-  }
+  const result = await sizeService.findOne(id);
+  resultHandler("Size", result, res);
 });
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-  const size = Size.build(requestObject);
 
-  try {
-    const savedSize = await size.save();
-    res.status(201).send(savedSize);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create size.", 500, error);
-  }
+  const result = await sizeService.create(requestObject);
+  resultHandler("Size", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const sizeToEdit = await Size.findByPk(id);
-    if (sizeToEdit) {
-      const updatedSize = await sizeToEdit.update(requestObject);
-      res.status(200).send(updatedSize);
-    } else {
-      sendErrorResponse(res, "Size not found", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update size.", 500, error);
-  }
+  const result = await sizeService.update(id, requestObject);
+  resultHandler("Size", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const sizeToDelete = await Size.findByPk(id);
-    if (sizeToDelete) {
-      await sizeToDelete.destroy();
-      res.status(200).send(sizeToDelete);
-    } else {
-      sendErrorResponse(res, "Size not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete size.");
-  }
+  const result = await sizeService.delete(id);
+  resultHandler("Size", result, res);
 });
 
 const filterBody = (body: {

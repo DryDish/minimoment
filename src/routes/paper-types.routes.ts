@@ -1,83 +1,43 @@
 import express from "express";
 import { PaperType } from "../models/mysql/paper-type";
-import { sendErrorResponse } from "../utils/responses.utils";
+import { GenericService } from "../services/mysql/generic-model.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const paperTypeService = new GenericService(PaperType);
 
-// GET all paper_types
 router.get("/", async (_, res) => {
-  try {
-    const paperTypeList = await PaperType.findAll();
-    res.send(paperTypeList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve paper types.", 500, error);
-  }
+  const result = await paperTypeService.findAll();
+  resultHandler("Paper types", result, res);
 });
 
-// GET paper_type by paper_type_id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundPaperType = await PaperType.findByPk(id);
-    if (foundPaperType) {
-      res.status(200).send(foundPaperType);
-    } else {
-      sendErrorResponse(res, "Paper type not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve paper type.", 500, error);
-  }
+  const result = await paperTypeService.findOne(id);
+  resultHandler("Paper type", result, res);
 });
 
-// POST create a new paper_type
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-  const paperType = PaperType.build(requestObject);
 
-  try {
-    const savedPaperType = await paperType.save();
-    res.status(201).send(savedPaperType);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create paper type.", 500, error);
-  }
+  const result = await paperTypeService.create(requestObject);
+  resultHandler("Paper type", result, res);
 });
 
-// PATCH update paper_type by paper_type_id
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const paperTypeToEdit = await PaperType.findByPk(id);
-    if (paperTypeToEdit) {
-      const updatedPaperType = await paperTypeToEdit.update(requestObject);
-      res.status(201).send(updatedPaperType);
-    } else {
-      sendErrorResponse(res, "Paper type not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update paper type.", 500, error);
-  }
+  const result = await paperTypeService.update(id, requestObject);
+  resultHandler("Paper type", result, res);
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const paperTypeToDelete = await PaperType.findByPk(id);
-
-    if (paperTypeToDelete) {
-      await paperTypeToDelete.destroy();
-
-      res.status(200).send(paperTypeToDelete);
-    } else {
-      sendErrorResponse(res, "Paper type not found.", 404);
-    }
-  } catch (error) {
-
-    sendErrorResponse(res, "Unable to delete paper type.", 500, error);
-  }
+  const result = await paperTypeService.delete(id);
+  resultHandler("Paper type", result, res);
 });
 
 const filterBody = (body: {

@@ -1,95 +1,52 @@
 import express from "express";
-import { Order } from "../models/mysql/order";
-import { sendErrorResponse } from "../utils/responses.utils";
+import order from "../models/mysql/order";
+import { OrderService } from "../services/mysql/order.service";
+import { resultHandler } from "../utils/response-handler.utils";
 
 const router = express.Router();
+const orderService = new OrderService(order)
 
-// GET all Order
+
 router.get("/", async (_, res) => {
-  try {
-    const orderList = await Order.findAll();
-    res.status(200).send(orderList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve orders.", 500, error);
-  }
+  const result = await orderService.findAll();
+  resultHandler("Orders", result, res);
 });
 
-// GET by order id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const foundOrder = await Order.findByPk(id);
-    if (foundOrder) {
-      res.status(200).send(foundOrder);
-    } else {
-      sendErrorResponse(res, "Order not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve order.", 500, error);
-  }
+  const result = await orderService.findOne(id);
+  resultHandler("Order", result, res);
 });
 
 // GET order(s) by user id
 router.get("/by-user/:userId", async (req, res) => {
   const { userId } = req.params;
 
-  try {
-    const orderList = await Order.findAll({
-      where: { userId },
-    });
-    res.send(orderList);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to retrieve user orders.", 500, error);
-  }
+  const result = await orderService.findByUserId(userId);
+  resultHandler("Order", result, res);
 });
 
-// POST create new order
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-  const order = Order.build(requestObject);
 
-  try {
-    const savedOrder = await order.save();
-    res.status(201).send(savedOrder);
-  } catch (error) {
-    sendErrorResponse(res, "Unable to create order.", 500, error);
-  }
+  const result = await orderService.create(requestObject);
+  resultHandler("Order", result, res);
 });
 
-// PATCH update order
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
-  try {
-    const orderToEdit = await Order.findByPk(id);
-    if (orderToEdit) {
-      const updatedOrder = await orderToEdit.update(requestObject);
-      res.status(200).send(updatedOrder);
-    } else {
-      sendErrorResponse(res, "Order not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to update order.", 500, error);
-  }
+  const result = await orderService.update(id, requestObject);
+  resultHandler("Order", result, res);
 });
 
-// DELETE order
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const orderToDelete = await Order.findByPk(id);
-    if (orderToDelete) {
-      await orderToDelete.destroy();
-      res.status(200).send(orderToDelete);
-    } else {
-      sendErrorResponse(res, "Order not found.", 404);
-    }
-  } catch (error) {
-    sendErrorResponse(res, "Unable to delete order.", 500, error);
-  }
+  const result = await orderService.delete(id);
+  resultHandler("Order", result, res);
 });
 
 const filterBody = (body: {
