@@ -76,7 +76,7 @@ router.post("/register", async (req, res) => {
 });
 
 const getUser = async (
-  res: Response,
+  _res: Response,
   username: string
 ): Promise<User | null> => {
   try {
@@ -86,7 +86,7 @@ const getUser = async (
   }
 };
 
-const getRole = async (res: Response, role: string): Promise<Role | null> => {
+const getRole = async (_res: Response, role: string): Promise<Role | null> => {
   try {
     return await Role.findOne({ where: { name: role } });
   } catch (error) {
