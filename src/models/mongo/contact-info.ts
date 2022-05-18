@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-interface ContactInfoInterface {
+export interface ContactInfoInterface {
   phoneNumber: string;
   countryCode: string;
   city: string;
@@ -9,7 +9,7 @@ interface ContactInfoInterface {
   addressTwo: string;
 }
 
-const contactInfoSchema = new Schema<ContactInfoInterface>({
+export const contactInfoSchema = new Schema<ContactInfoInterface>({
   phoneNumber: { type: String, maxlength: 20, required: true },
   countryCode: { type: String, maxlength: 3, required: true },
   city: { type: String, maxlength: 97, required: true },

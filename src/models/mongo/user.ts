@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { Subscription } from "../mysql/subscription";
+import { ContactInfoInterface, contactInfoSchema } from "./contact-info";
 import { roleSchema, RoleInterface } from "./role";
-import { subscriptionSchema } from "./subscription";
+import { subscriptionSchema, SubscriptionInterface } from "./subscription";
 
 interface UserInterface {
   firstName: string;
@@ -10,7 +10,8 @@ interface UserInterface {
   password: string;
   autoRenew: boolean;
   role?: RoleInterface;
-  subscriptions?: Subscription[];
+  subscriptions?: SubscriptionInterface[];
+  contactInfo: ContactInfoInterface;
 }
 
 const userSchema = new Schema<UserInterface>({
@@ -21,6 +22,7 @@ const userSchema = new Schema<UserInterface>({
   autoRenew: { type: Boolean, required: false },
   role: { type: roleSchema, required: true, default: { name: "user" } },
   subscriptions: [{ type: subscriptionSchema, required: false }],
+  contactInfo: { type: contactInfoSchema, required: false },
 });
 
 export const User = model<UserInterface>("User", userSchema);
