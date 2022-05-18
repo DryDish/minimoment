@@ -12,8 +12,9 @@ interface UserInterface {
   autoRenew: boolean;
   role?: RoleInterface;
   subscriptions?: SubscriptionInterface[];
-  contactInfo: ContactInfoInterface;
-  pictureData: PictureDataInterface[];
+  contactInfo?: ContactInfoInterface;
+  pictureData?: PictureDataInterface[];
+  orderIds?: Schema.Types.ObjectId[];
 }
 
 const userSchema = new Schema<UserInterface>({
@@ -26,6 +27,7 @@ const userSchema = new Schema<UserInterface>({
   subscriptions: [{ type: subscriptionSchema, required: false }],
   contactInfo: { type: contactInfoSchema, required: false },
   pictureData: [{ type: pictureDataSchema, required: false }],
+  orderIds: [{ type: Schema.Types.ObjectId, ref: "Order", required: false }],
 });
 
 export const User = model<UserInterface>("User", userSchema);
