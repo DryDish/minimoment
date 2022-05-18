@@ -5,14 +5,14 @@ import {
 } from "../../config/constants.config";
 import { SizeInterface, sizeSchema } from "./size";
 
-interface PaperTypeInterface {
+export interface PaperTypeInterface {
   name: string;
   multiplier: number;
   discountCodeId: Schema.Types.ObjectId;
   size: SizeInterface;
 }
 
-const paperTypeSchema = new Schema<PaperTypeInterface>({
+export const paperTypeSchema = new Schema<PaperTypeInterface>({
   name: { type: String, maxlength: 45, required: true },
   multiplier: {
     type: Schema.Types.Decimal128,
