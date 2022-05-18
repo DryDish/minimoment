@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
 
-interface RoleInterface {
+export interface RoleInterface {
   name: string;
 }
 
-const roleSchema = new Schema<RoleInterface>({
+export const roleSchema = new Schema<RoleInterface>({
   name: { type: String, maxlength: 45, required: true },
 });
 
