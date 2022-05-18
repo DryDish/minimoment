@@ -3,12 +3,14 @@ import {
   DECIMAL_3_2_MAX,
   DECIMAL_3_2_MIN,
 } from "../../config/constants.config";
+import { SizeInterface, sizeSchema } from "./size";
 
 interface FrameInterface {
   name: string;
   multiplier: number;
   material: string;
   discountCodeId: Schema.Types.ObjectId;
+  size: SizeInterface;
 }
 
 const frameSchema = new Schema<FrameInterface>({
@@ -25,6 +27,7 @@ const frameSchema = new Schema<FrameInterface>({
     required: false,
   },
   discountCodeId: { type: Schema.Types.ObjectId, required: false },
+  size: { type: sizeSchema, requiured: true },
 });
 
 export const Frame = model<FrameInterface>("Frame", frameSchema);

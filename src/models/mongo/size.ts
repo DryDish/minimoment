@@ -4,14 +4,14 @@ import {
   DECIMAL_15_2_MIN,
 } from "../../config/constants.config";
 
-interface SizeInterface {
+export interface SizeInterface {
   name: string;
   widthMm: number;
   heightMm: number;
   price: number;
 }
 
-const sizeSchema = new Schema<SizeInterface>({
+export const sizeSchema = new Schema<SizeInterface>({
   name: { type: String, maxlength: 45, required: true },
   widthMm: { type: Number, required: true },
   heightMm: { type: Number, required: true },
