@@ -4,6 +4,7 @@ import {
   DECIMAL_15_2_MIN,
 } from "../../config/constants.config";
 import { ContactInfoInterface, contactInfoSchema } from "./contact-info";
+import { OrderItemInterface, orderItemSchema } from "./order-item";
 import { StatusInterface, statusSchema } from "./status";
 
 export interface OrderInterface {
@@ -13,6 +14,7 @@ export interface OrderInterface {
   discountCodeId: Schema.Types.ObjectId;
   status: StatusInterface;
   billingContactInfo: ContactInfoInterface;
+  orderItems?: OrderItemInterface[];
 }
 
 export const orderSchema = new Schema<OrderInterface>({
@@ -34,6 +36,7 @@ export const orderSchema = new Schema<OrderInterface>({
   discountCodeId: { type: Schema.Types.ObjectId, required: false },
   status: { type: statusSchema, required: true },
   billingContactInfo: { type: contactInfoSchema, required: true },
+  orderItems: [{ type: orderItemSchema, required: false }],
 });
 
 export const Order = model<OrderInterface>("Order", orderSchema);

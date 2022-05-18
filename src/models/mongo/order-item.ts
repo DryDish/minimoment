@@ -6,7 +6,7 @@ import {
 import { FrameInterface, frameSchema } from "./frame";
 import { PaperTypeInterface, paperTypeSchema } from "./paper-type";
 
-interface OrderItemInterface {
+export interface OrderItemInterface {
   orderItemPrice: number;
   priceSaved: number;
   amount: number;
@@ -14,7 +14,7 @@ interface OrderItemInterface {
   paperType: PaperTypeInterface;
 }
 
-const orderItemSchema = new Schema<OrderItemInterface>({
+export const orderItemSchema = new Schema<OrderItemInterface>({
   orderItemPrice: {
     type: Schema.Types.Decimal128,
     min: DECIMAL_15_2_MIN,
