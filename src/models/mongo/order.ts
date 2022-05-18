@@ -5,7 +5,7 @@ import {
 } from "../../config/constants.config";
 import { StatusInterface, statusSchema } from "./status";
 
-interface OrderInterface {
+export interface OrderInterface {
   orderPrice: number;
   totalPriceSaved: number;
   createdAt: Date;
@@ -13,7 +13,7 @@ interface OrderInterface {
   status: StatusInterface;
 }
 
-const orderSchema = new Schema<OrderInterface>({
+export const orderSchema = new Schema<OrderInterface>({
   orderPrice: {
     type: Schema.Types.Decimal128,
     min: DECIMAL_15_2_MIN,

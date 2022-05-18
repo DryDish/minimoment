@@ -1,11 +1,14 @@
 import { Schema, model } from "mongoose";
+import { OrderInterface, orderSchema } from "./order";
 
 interface InvoiceInterface {
   createdAt: Date;
+  order: OrderInterface;
 }
 
 const invoiceSchema = new Schema<InvoiceInterface>({
   createdAt: { type: Schema.Types.Date, required: true },
+  order: { type: orderSchema, required: true },
 });
 
 export const Invoice = model<InvoiceInterface>("Invoice", invoiceSchema);
