@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { ContactInfoInterface, contactInfoSchema } from "./contact-info";
+import { PictureDataInterface, pictureDataSchema } from "./picture-data";
 import { roleSchema, RoleInterface } from "./role";
 import { subscriptionSchema, SubscriptionInterface } from "./subscription";
 
@@ -12,6 +13,7 @@ interface UserInterface {
   role?: RoleInterface;
   subscriptions?: SubscriptionInterface[];
   contactInfo: ContactInfoInterface;
+  pictureData: PictureDataInterface[];
 }
 
 const userSchema = new Schema<UserInterface>({
@@ -23,6 +25,7 @@ const userSchema = new Schema<UserInterface>({
   role: { type: roleSchema, required: true, default: { name: "user" } },
   subscriptions: [{ type: subscriptionSchema, required: false }],
   contactInfo: { type: contactInfoSchema, required: false },
+  pictureData: [{ type: pictureDataSchema, required: false }],
 });
 
 export const User = model<UserInterface>("User", userSchema);

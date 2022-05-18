@@ -15,6 +15,7 @@ export interface OrderInterface {
   status: StatusInterface;
   billingContactInfo: ContactInfoInterface;
   orderItems?: OrderItemInterface[];
+  pictureDataId: Schema.Types.ObjectId;
 }
 
 export const orderSchema = new Schema<OrderInterface>({
@@ -37,6 +38,11 @@ export const orderSchema = new Schema<OrderInterface>({
   status: { type: statusSchema, required: true },
   billingContactInfo: { type: contactInfoSchema, required: true },
   orderItems: [{ type: orderItemSchema, required: false }],
+  pictureDataId: {
+    type: Schema.Types.ObjectId,
+    ref: "PictureData",
+    required: false,
+  },
 });
 
 export const Order = model<OrderInterface>("Order", orderSchema);
