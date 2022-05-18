@@ -20,7 +20,7 @@ const userSchema = new Schema<UserInterface>({
   password: { type: String, maxlength: 255, required: true },
   autoRenew: { type: Boolean, required: false },
   role: { type: roleSchema, required: true, default: { name: "user" } },
-  subscriptions: [{ type: subscriptionSchema }],
+  subscriptions: [{ type: subscriptionSchema, required: false }],
 });
 
 export const User = model<UserInterface>("User", userSchema);

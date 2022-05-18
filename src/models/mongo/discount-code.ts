@@ -3,6 +3,7 @@ import {
   DECIMAL_15_2_MAX,
   DECIMAL_15_2_MIN,
 } from "../../config/constants.config";
+import { DiscountTypeInterface, discountTypeSchema } from "./discount-type";
 
 interface DiscountCodeInterface {
   name: string;
@@ -10,6 +11,7 @@ interface DiscountCodeInterface {
   validFrom: Date;
   validTo: Date;
   remainingUses: number;
+  discountType: DiscountTypeInterface;
 }
 
 const discountCodeSchema = new Schema<DiscountCodeInterface>({
@@ -23,6 +25,7 @@ const discountCodeSchema = new Schema<DiscountCodeInterface>({
   validFrom: { type: Schema.Types.Date, required: true },
   validTo: { type: Schema.Types.Date, required: true },
   remainingUses: { type: Number, required: false },
+  discountType: { type: discountTypeSchema, required: true },
 });
 
 export const DiscountCode = model<DiscountCodeInterface>(

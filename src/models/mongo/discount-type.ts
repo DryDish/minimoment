@@ -5,11 +5,11 @@ enum DISCOUNT_TYPE_NAMES {
   Amount = "amount",
 }
 
-interface DiscountTypeInterface {
+export interface DiscountTypeInterface {
   name: string;
 }
 
-const discountTypeSchema = new Schema<DiscountTypeInterface>({
+export const discountTypeSchema = new Schema<DiscountTypeInterface>({
   name: {
     type: String,
     enum: DISCOUNT_TYPE_NAMES,
