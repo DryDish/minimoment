@@ -7,6 +7,7 @@ import {
 interface PaperTypeInterface {
   name: string;
   multiplier: number;
+  discountCodeId: Schema.Types.ObjectId;
 }
 
 const paperTypeSchema = new Schema<PaperTypeInterface>({
@@ -17,6 +18,10 @@ const paperTypeSchema = new Schema<PaperTypeInterface>({
     max: DECIMAL_3_2_MAX,
     required: true,
   },
+  discountCodeId: { type: Schema.Types.ObjectId, required: false },
 });
 
-export const PaperType = model<PaperTypeInterface>("PaperType", paperTypeSchema);
+export const PaperType = model<PaperTypeInterface>(
+  "PaperType",
+  paperTypeSchema
+);

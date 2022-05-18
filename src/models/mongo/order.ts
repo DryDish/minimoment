@@ -8,6 +8,7 @@ interface OrderInterface {
   orderPrice: number;
   totalPriceSaved: number;
   createdAt: Date;
+  discountCodeId: Schema.Types.ObjectId;
 }
 
 const orderSchema = new Schema<OrderInterface>({
@@ -26,6 +27,7 @@ const orderSchema = new Schema<OrderInterface>({
     default: 0,
   },
   createdAt: { type: Schema.Types.Date, required: true },
+  discountCodeId: { type: Schema.Types.ObjectId, required: false },
 });
 
 export const Order = model<OrderInterface>("Order", orderSchema);

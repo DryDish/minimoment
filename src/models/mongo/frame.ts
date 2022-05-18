@@ -8,6 +8,7 @@ interface FrameInterface {
   name: string;
   multiplier: number;
   material: string;
+  discountCodeId: Schema.Types.ObjectId;
 }
 
 const frameSchema = new Schema<FrameInterface>({
@@ -23,6 +24,7 @@ const frameSchema = new Schema<FrameInterface>({
     maxlength: 45,
     required: false,
   },
+  discountCodeId: { type: Schema.Types.ObjectId, required: false },
 });
 
 export const Frame = model<FrameInterface>("Frame", frameSchema);
