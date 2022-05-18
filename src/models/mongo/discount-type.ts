@@ -9,14 +9,17 @@ export interface DiscountTypeInterface {
   name: string;
 }
 
-export const discountTypeSchema = new Schema<DiscountTypeInterface>({
-  name: {
-    type: String,
-    enum: DISCOUNT_TYPE_NAMES,
-    unique: true,
-    required: true,
+export const discountTypeSchema = new Schema<DiscountTypeInterface>(
+  {
+    name: {
+      type: String,
+      enum: DISCOUNT_TYPE_NAMES,
+      unique: true,
+      required: true,
+    },
   },
-});
+  { autoCreate: true }
+);
 
 export const DiscountType = model<DiscountTypeInterface>(
   "DiscountType",

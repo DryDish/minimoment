@@ -11,16 +11,19 @@ export interface SizeInterface {
   price: number;
 }
 
-export const sizeSchema = new Schema<SizeInterface>({
-  name: { type: String, maxlength: 45, required: true },
-  widthMm: { type: Number, required: true },
-  heightMm: { type: Number, required: true },
-  price: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: true,
+export const sizeSchema = new Schema<SizeInterface>(
+  {
+    name: { type: String, maxlength: 45, required: true },
+    widthMm: { type: Number, required: true },
+    heightMm: { type: Number, required: true },
+    price: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: true,
+    },
   },
-});
+  { autoCreate: true }
+);
 
 export const Size = model<SizeInterface>("Size", sizeSchema);

@@ -17,17 +17,20 @@ interface UserInterface {
   orderIds?: Schema.Types.ObjectId[];
 }
 
-const userSchema = new Schema<UserInterface>({
-  firstName: { type: String, maxlength: 60, required: false },
-  lastName: { type: String, maxlength: 60, required: false },
-  username: { type: String, maxlength: 255, required: true },
-  password: { type: String, maxlength: 255, required: true },
-  autoRenew: { type: Boolean, required: false },
-  role: { type: roleSchema, required: true, default: { name: "user" } },
-  subscriptions: [{ type: subscriptionSchema, required: false }],
-  contactInfo: { type: contactInfoSchema, required: false },
-  pictureData: [{ type: pictureDataSchema, required: false }],
-  orderIds: [{ type: Schema.Types.ObjectId, ref: "Order", required: false }],
-});
+const userSchema = new Schema<UserInterface>(
+  {
+    firstName: { type: String, maxlength: 60, required: false },
+    lastName: { type: String, maxlength: 60, required: false },
+    username: { type: String, maxlength: 255, required: true },
+    password: { type: String, maxlength: 255, required: true },
+    autoRenew: { type: Boolean, required: false },
+    role: { type: roleSchema, required: true, default: { name: "user" } },
+    subscriptions: [{ type: subscriptionSchema, required: false }],
+    contactInfo: { type: contactInfoSchema, required: false },
+    pictureData: [{ type: pictureDataSchema, required: false }],
+    orderIds: [{ type: Schema.Types.ObjectId, ref: "Order", required: false }],
+  },
+  { autoCreate: true }
+);
 
 export const User = model<UserInterface>("User", userSchema);

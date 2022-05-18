@@ -12,17 +12,20 @@ export interface PaperTypeInterface {
   size: SizeInterface;
 }
 
-export const paperTypeSchema = new Schema<PaperTypeInterface>({
-  name: { type: String, maxlength: 45, required: true },
-  multiplier: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_3_2_MIN,
-    max: DECIMAL_3_2_MAX,
-    required: true,
+export const paperTypeSchema = new Schema<PaperTypeInterface>(
+  {
+    name: { type: String, maxlength: 45, required: true },
+    multiplier: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_3_2_MIN,
+      max: DECIMAL_3_2_MAX,
+      required: true,
+    },
+    discountCodeId: { type: Schema.Types.ObjectId, required: false },
+    size: { type: sizeSchema, required: true },
   },
-  discountCodeId: { type: Schema.Types.ObjectId, required: false },
-  size: { type: sizeSchema, required: true },
-});
+  { autoCreate: true }
+);
 
 export const PaperType = model<PaperTypeInterface>(
   "PaperType",

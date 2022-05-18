@@ -17,26 +17,29 @@ export interface OrderInterface {
   orderItems?: OrderItemInterface[];
 }
 
-export const orderSchema = new Schema<OrderInterface>({
-  orderPrice: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: true,
-    default: 0,
+export const orderSchema = new Schema<OrderInterface>(
+  {
+    orderPrice: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: true,
+      default: 0,
+    },
+    totalPriceSaved: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: false,
+      default: 0,
+    },
+    createdAt: { type: Schema.Types.Date, required: true },
+    discountCodeId: { type: Schema.Types.ObjectId, required: false },
+    status: { type: statusSchema, required: true },
+    billingContactInfo: { type: contactInfoSchema, required: true },
+    orderItems: [{ type: orderItemSchema, required: false }],
   },
-  totalPriceSaved: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: false,
-    default: 0,
-  },
-  createdAt: { type: Schema.Types.Date, required: true },
-  discountCodeId: { type: Schema.Types.ObjectId, required: false },
-  status: { type: statusSchema, required: true },
-  billingContactInfo: { type: contactInfoSchema, required: true },
-  orderItems: [{ type: orderItemSchema, required: false }],
-});
+  { autoCreate: true }
+);
 
 export const Order = model<OrderInterface>("Order", orderSchema);

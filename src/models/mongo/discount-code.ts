@@ -14,19 +14,22 @@ interface DiscountCodeInterface {
   discountType: DiscountTypeInterface;
 }
 
-const discountCodeSchema = new Schema<DiscountCodeInterface>({
-  name: { type: String, maxlength: 45, unique: true, required: true },
-  value: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: true,
+const discountCodeSchema = new Schema<DiscountCodeInterface>(
+  {
+    name: { type: String, maxlength: 45, unique: true, required: true },
+    value: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: true,
+    },
+    validFrom: { type: Schema.Types.Date, required: true },
+    validTo: { type: Schema.Types.Date, required: true },
+    remainingUses: { type: Number, required: false },
+    discountType: { type: discountTypeSchema, required: true },
   },
-  validFrom: { type: Schema.Types.Date, required: true },
-  validTo: { type: Schema.Types.Date, required: true },
-  remainingUses: { type: Number, required: false },
-  discountType: { type: discountTypeSchema, required: true },
-});
+  { autoCreate: true }
+);
 
 export const DiscountCode = model<DiscountCodeInterface>(
   "DiscountCode",

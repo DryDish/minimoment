@@ -15,28 +15,31 @@ export interface OrderItemInterface {
   pictureDataId: Schema.Types.ObjectId;
 }
 
-export const orderItemSchema = new Schema<OrderItemInterface>({
-  orderItemPrice: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: true,
+export const orderItemSchema = new Schema<OrderItemInterface>(
+  {
+    orderItemPrice: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: true,
+    },
+    priceSaved: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: false,
+    },
+    amount: { type: Number, required: true },
+    frame: { type: frameSchema, required: false },
+    paperType: { type: paperTypeSchema, required: false },
+    pictureDataId: {
+      type: Schema.Types.ObjectId,
+      ref: "PictureData",
+      required: false,
+    },
   },
-  priceSaved: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: false,
-  },
-  amount: { type: Number, required: true },
-  frame: { type: frameSchema, required: false },
-  paperType: { type: paperTypeSchema, required: false },
-  pictureDataId: {
-    type: Schema.Types.ObjectId,
-    ref: "PictureData",
-    required: false,
-  },
-});
+  { autoCreate: true }
+);
 
 export const OrderItem = model<OrderItemInterface>(
   "OrderItem",

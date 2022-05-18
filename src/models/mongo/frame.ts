@@ -13,21 +13,24 @@ export interface FrameInterface {
   size: SizeInterface;
 }
 
-export const frameSchema = new Schema<FrameInterface>({
-  name: { type: String, maxlength: 45, required: true },
-  multiplier: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_3_2_MIN,
-    max: DECIMAL_3_2_MAX,
-    required: true,
+export const frameSchema = new Schema<FrameInterface>(
+  {
+    name: { type: String, maxlength: 45, required: true },
+    multiplier: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_3_2_MIN,
+      max: DECIMAL_3_2_MAX,
+      required: true,
+    },
+    material: {
+      type: String,
+      maxlength: 45,
+      required: false,
+    },
+    discountCodeId: { type: Schema.Types.ObjectId, required: false },
+    size: { type: sizeSchema, requiured: true },
   },
-  material: {
-    type: String,
-    maxlength: 45,
-    required: false,
-  },
-  discountCodeId: { type: Schema.Types.ObjectId, required: false },
-  size: { type: sizeSchema, requiured: true },
-});
+  { autoCreate: true }
+);
 
 export const Frame = model<FrameInterface>("Frame", frameSchema);

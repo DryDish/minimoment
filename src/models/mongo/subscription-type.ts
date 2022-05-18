@@ -10,16 +10,19 @@ export interface SubscriptionTypeInterface {
   imageAmount: number;
 }
 
-export const subscriptionTypeSchema = new Schema<SubscriptionTypeInterface>({
-  name: { type: String, maxlength: 45, unique: true, required: true },
-  monthlyPrice: {
-    type: Schema.Types.Decimal128,
-    min: DECIMAL_15_2_MIN,
-    max: DECIMAL_15_2_MAX,
-    required: true,
+export const subscriptionTypeSchema = new Schema<SubscriptionTypeInterface>(
+  {
+    name: { type: String, maxlength: 45, unique: true, required: true },
+    monthlyPrice: {
+      type: Schema.Types.Decimal128,
+      min: DECIMAL_15_2_MIN,
+      max: DECIMAL_15_2_MAX,
+      required: true,
+    },
+    imageAmount: { type: Number, required: true },
   },
-  imageAmount: { type: Number, required: true },
-});
+  { autoCreate: true }
+);
 
 export const SubscriptionType = model<SubscriptionTypeInterface>(
   "SubscriptionType",

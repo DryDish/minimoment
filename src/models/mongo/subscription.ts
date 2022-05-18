@@ -10,11 +10,14 @@ export interface SubscriptionInterface {
   subscriptionType: SubscriptionTypeInterface;
 }
 
-export const subscriptionSchema = new Schema<SubscriptionInterface>({
-  startsAt: { type: Schema.Types.Date, required: true },
-  endsAt: { type: Schema.Types.Date, required: true },
-  subscriptionType: { type: subscriptionTypeSchema, required: true },
-});
+export const subscriptionSchema = new Schema<SubscriptionInterface>(
+  {
+    startsAt: { type: Schema.Types.Date, required: true },
+    endsAt: { type: Schema.Types.Date, required: true },
+    subscriptionType: { type: subscriptionTypeSchema, required: true },
+  },
+  { autoCreate: true }
+);
 
 export const Subscription = model<SubscriptionInterface>(
   "Subscription",
