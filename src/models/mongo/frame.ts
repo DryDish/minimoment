@@ -5,7 +5,7 @@ import {
 } from "../../config/constants.config";
 import { SizeInterface, sizeSchema } from "./size";
 
-interface FrameInterface {
+export interface FrameInterface {
   name: string;
   multiplier: number;
   material: string;
@@ -13,7 +13,7 @@ interface FrameInterface {
   size: SizeInterface;
 }
 
-const frameSchema = new Schema<FrameInterface>({
+export const frameSchema = new Schema<FrameInterface>({
   name: { type: String, maxlength: 45, required: true },
   multiplier: {
     type: Schema.Types.Decimal128,
