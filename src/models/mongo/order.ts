@@ -3,12 +3,14 @@ import {
   DECIMAL_15_2_MAX,
   DECIMAL_15_2_MIN,
 } from "../../config/constants.config";
+import { StatusInterface, statusSchema } from "./status";
 
 interface OrderInterface {
   orderPrice: number;
   totalPriceSaved: number;
   createdAt: Date;
   discountCodeId: Schema.Types.ObjectId;
+  status: StatusInterface;
 }
 
 const orderSchema = new Schema<OrderInterface>({
@@ -28,6 +30,5 @@ const orderSchema = new Schema<OrderInterface>({
   },
   createdAt: { type: Schema.Types.Date, required: true },
   discountCodeId: { type: Schema.Types.ObjectId, required: false },
+  status: { type: statusSchema, required: true },
 });
-
-export const Order = model<OrderInterface>("Order", orderSchema);

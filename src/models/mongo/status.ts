@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
 
-interface StatusInterface {
+export interface StatusInterface {
   name: string;
 }
 
-const statusSchema = new Schema<StatusInterface>({
+export const statusSchema = new Schema<StatusInterface>({
   name: { type: String, maxlength: 45, unique: true, required: true },
 });
 
