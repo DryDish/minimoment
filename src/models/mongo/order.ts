@@ -32,3 +32,5 @@ const orderSchema = new Schema<OrderInterface>({
   discountCodeId: { type: Schema.Types.ObjectId, required: false },
   status: { type: statusSchema, required: true },
 });
+
+export const Order = model<OrderInterface>("Order", orderSchema);
