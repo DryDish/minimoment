@@ -12,6 +12,7 @@ export interface OrderItemInterface {
   amount: number;
   frame: FrameInterface;
   paperType: PaperTypeInterface;
+  pictureDataId: Schema.Types.ObjectId;
 }
 
 export const orderItemSchema = new Schema<OrderItemInterface>({
@@ -30,6 +31,11 @@ export const orderItemSchema = new Schema<OrderItemInterface>({
   amount: { type: Number, required: true },
   frame: { type: frameSchema, required: false },
   paperType: { type: paperTypeSchema, required: false },
+  pictureDataId: {
+    type: Schema.Types.ObjectId,
+    ref: "PictureData",
+    required: false,
+  },
 });
 
 export const OrderItem = model<OrderItemInterface>(
