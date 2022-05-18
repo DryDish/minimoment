@@ -4,13 +4,13 @@ import {
   subscriptionTypeSchema,
 } from "./subscription-type";
 
-interface SubscriptionInterface {
+export interface SubscriptionInterface {
   startsAt: Date;
   endsAt: Date;
-  subscriptionType: SubscriptionInterface;
+  subscriptionType: SubscriptionTypeInterface;
 }
 
-const subscriptionSchema = new Schema<SubscriptionInterface>({
+export const subscriptionSchema = new Schema<SubscriptionInterface>({
   startsAt: { type: Schema.Types.Date, required: true },
   endsAt: { type: Schema.Types.Date, required: true },
   subscriptionType: { type: subscriptionTypeSchema, required: true },
