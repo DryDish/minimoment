@@ -5,7 +5,7 @@ import {
 } from "../../config/constants.config";
 import { DiscountTypeInterface, discountTypeSchema } from "./discount-type";
 
-interface DiscountCodeInterface {
+export interface DiscountCodeInterface {
   name: string;
   value: number;
   validFrom: Date;
