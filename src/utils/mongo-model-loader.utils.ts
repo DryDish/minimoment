@@ -187,6 +187,8 @@ const populateCollection = async (
       console.log(`Populating: ${collection.modelName}`);
 
       await collection.insertMany(file);
+    } else {
+      console.log(`Collection ${collection.modelName} is already populated`);
     }
   } catch (error) {
     console.error(`Error Populating: ${collection.modelName}`, error);

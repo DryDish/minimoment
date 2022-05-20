@@ -13,4 +13,4 @@ mongoose.connect(
   `mongodb://${USER}:${PASSWORD}@${HOST}:27017/${DATABASE}?authSource=${AUTH_DATABASE}`
 );
 
-export const populateMongoDB = () => populate();
+populate();
