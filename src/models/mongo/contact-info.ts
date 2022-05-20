@@ -1,4 +1,3 @@
-import { appendFile } from "fs";
 import { Schema, model } from "mongoose";
 
 export interface ContactInfoInterface {
