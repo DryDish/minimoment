@@ -10,6 +10,7 @@ const validateId = (req: Request, res: Response, next: NextFunction): void => {
       `Mongo IDs must be 24 chars long. The provided ID was of length: ${id.length}`
     );
     const name = req.baseUrl.split("/").pop();
+    console.error(`ERROR: Invalid ID detected! ${id}`);
     resultHandler(`/${name}/:id`, result, res);
   } else {
     next();
