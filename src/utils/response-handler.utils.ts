@@ -11,7 +11,7 @@ export const resultHandler = (name: string, result: CustomResult<any>, res: Resp
     case StatusCode.NoContent:
       return res.status(204).send();
     case StatusCode.BadRequest:
-      return res.status(400).send({ status: 400, message: `Unable to create a new ${name}`, body: result.entity });
+      return res.status(400).send({ status: 400, message: `Bad request for ${name}`, body: result.entity });
     case StatusCode.Unauthorized:
       return res.status(401).send({ status: 401, message: "Unauthorized."})
     case StatusCode.Forbidden:
