@@ -4,7 +4,7 @@ import {
   DECIMAL_15_2_MIN,
 } from "../../config/constants.config";
 
-interface MonthlyReportInterface {
+export interface MonthlyReportInterface {
   createdAt: Date;
   framesSold: number;
   picturesSold: number;

@@ -12,3 +12,5 @@ const AUTH_DATABASE = process.env.MONGO_DB_AUTH_DATABASE || "";
 mongoose.connect(
   `mongodb://${USER}:${PASSWORD}@${HOST}:27017/${DATABASE}?authSource=${AUTH_DATABASE}`
 );
+
+populate();

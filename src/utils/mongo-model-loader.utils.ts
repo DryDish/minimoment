@@ -48,13 +48,6 @@ const populateUsers = async (): Promise<void> => {
   );
 };
 
-const populateFrames = async (): Promise<void> => {
-  const nested
-};
-
-const populatePictureData = async (): Promise<void> => {
-  
-};
 
 const populateCollection = async (
   collection: Model<any, {}, {}, {}>,
