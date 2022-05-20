@@ -1,0 +1,27 @@
+[
+	{
+		"name": "Copper",
+		"monthlyPrice": 37.60,
+		"imageAmount": 6
+	},
+	{
+		"name": "Gold",
+		"monthlyPrice": 44.41,
+		"imageAmount": 3
+	},
+	{
+		"name": "Adamantium",
+		"monthlyPrice": 58.90,
+		"imageAmount": 4
+	},
+	{
+		"name": "Titanium",
+		"monthlyPrice": 36.47,
+		"imageAmount": 2
+	},
+	{
+		"name": "Meteorite",
+		"monthlyPrice": 37.92,
+		"imageAmount": 4
+	}
+]

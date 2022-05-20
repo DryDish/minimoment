@@ -1,0 +1,37 @@
+[
+	{
+		"createdAt": "2021-06-24",
+		"framesSold": 3,
+		"picturesSold": 0,
+		"totalProductsSold": 3,
+		"revenue": 3231.91
+	},
+	{
+		"createdAt": "2022-04-08",
+		"framesSold": 2,
+		"picturesSold": 4,
+		"totalProductsSold": 6,
+		"revenue": 5766.36
+	},
+	{
+		"createdAt": "2023-02-03",
+		"framesSold": 0,
+		"picturesSold": 5,
+		"totalProductsSold": 5,
+		"revenue": 5345.69
+	},
+	{
+		"createdAt": "2021-10-17",
+		"framesSold": 10,
+		"picturesSold": 3,
+		"totalProductsSold": 13,
+		"revenue": 8259.30
+	},
+	{
+		"createdAt": "2022-07-29",
+		"framesSold": 9,
+		"picturesSold": 10,
+		"totalProductsSold": 19,
+		"revenue": 7464.76
+	}
+]

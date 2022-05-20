@@ -1,0 +1,32 @@
+[
+	{
+		"name": "euismod",
+		"widthMm": 997,
+		"heightMm": 531,
+		"price": 10.65
+	},
+	{
+		"name": "molestie",
+		"widthMm": 572,
+		"heightMm": 195,
+		"price": 49.13
+	},
+	{
+		"name": "amet",
+		"widthMm": 114,
+		"heightMm": 472,
+		"price": 28.25
+	},
+	{
+		"name": "dui.",
+		"widthMm": 829,
+		"heightMm": 440,
+		"price": 44.51
+	},
+	{
+		"name": "feugiat",
+		"widthMm": 457,
+		"heightMm": 262,
+		"price": 47.48
+	}
+]
