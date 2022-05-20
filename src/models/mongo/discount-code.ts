@@ -28,7 +28,7 @@ const discountCodeSchema = new Schema<DiscountCodeInterface>(
     remainingUses: { type: Number, required: false },
     discountType: { type: discountTypeSchema, required: true },
   },
-  { autoCreate: true }
+  { collection: "discountCodes", autoCreate: true }
 );
 
 export const DiscountCode = model<DiscountCodeInterface>(

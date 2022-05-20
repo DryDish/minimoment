@@ -8,7 +8,7 @@ export const roleSchema = new Schema<RoleInterface>(
   {
     name: { type: String, maxlength: 45, required: true, unique: true },
   },
-  { autoCreate: true }
+  { collection: "roles", autoCreate: true }
 );
 
 export const Role = model<RoleInterface>("Role", roleSchema);

@@ -24,7 +24,7 @@ export const paperTypeSchema = new Schema<PaperTypeInterface>(
     discountCodeId: { type: Schema.Types.ObjectId, required: false },
     size: { type: sizeSchema, required: true },
   },
-  { autoCreate: true }
+  { collection: "paperTypes", autoCreate: true }
 );
 
 export const PaperType = model<PaperTypeInterface>(

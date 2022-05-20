@@ -8,7 +8,7 @@ export const statusSchema = new Schema<StatusInterface>(
   {
     name: { type: String, maxlength: 45, unique: true, required: true },
   },
-  { autoCreate: true }
+  { collection: "statuses", autoCreate: true }
 );
 
 export const Status = model<StatusInterface>("Status", statusSchema);

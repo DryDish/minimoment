@@ -17,7 +17,7 @@ export const subscriptionSchema = new Schema<SubscriptionInterface>(
     endsAt: { type: Schema.Types.Date, required: true },
     subscriptionType: { type: nestedSubscriptionTypeSchema, required: true },
   },
-  { autoCreate: false, _id: false }
+  { collection: "subscriptions", autoCreate: false, _id: false }
 );
 
 export const Subscription = model<SubscriptionInterface>(

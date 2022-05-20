@@ -10,7 +10,7 @@ export const pictureDataSchema = new Schema<PictureDataInterface>(
     imageUrl: { type: String, maxlength: 255, required: true },
     uploadedAt: { type: Schema.Types.Date, required: true },
   },
-  { autoCreate: true }
+  { collection: "pictureData", autoCreate: true }
 );
 
 export const PictureData = model<PictureDataInterface>(

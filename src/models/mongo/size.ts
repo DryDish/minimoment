@@ -23,7 +23,7 @@ export const sizeSchema = new Schema<SizeInterface>(
       required: true,
     },
   },
-  { autoCreate: false, _id: false }
+  { collection: "sizes", autoCreate: false, _id: false }
 );
 
 export const Size = model<SizeInterface>("Size", sizeSchema);

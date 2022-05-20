@@ -30,7 +30,7 @@ export const frameSchema = new Schema<FrameInterface>(
     discountCodeId: { type: Schema.Types.ObjectId, required: false },
     size: { type: sizeSchema, requiured: true },
   },
-  { autoCreate: true }
+  { collection: "frames", autoCreate: true }
 );
 
 export const Frame = model<FrameInterface>("Frame", frameSchema);

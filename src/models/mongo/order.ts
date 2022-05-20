@@ -39,7 +39,7 @@ export const orderSchema = new Schema<OrderInterface>(
     billingContactInfo: { type: contactInfoSchema, required: true },
     orderItems: [{ type: orderItemSchema, required: false }],
   },
-  { autoCreate: true }
+  { collection: "orders", autoCreate: true }
 );
 
 export const Order = model<OrderInterface>("Order", orderSchema);

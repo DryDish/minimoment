@@ -21,7 +21,7 @@ export const subscriptionTypeSchema = new Schema<SubscriptionTypeInterface>(
     },
     imageAmount: { type: Number, required: true },
   },
-  { autoCreate: true }
+  { collection: "subscriptionTypes", autoCreate: true }
 );
 
 export const nestedSubscriptionTypeSchema =
@@ -36,7 +36,7 @@ export const nestedSubscriptionTypeSchema =
       },
       imageAmount: { type: Number, required: true },
     },
-    { _id: false }
+    { autoCreate: false, _id: false }
   );
 
 export const SubscriptionType = model<SubscriptionTypeInterface>(

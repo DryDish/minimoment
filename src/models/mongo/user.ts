@@ -30,7 +30,7 @@ const userSchema = new Schema<UserInterface>(
     pictureData: [{ type: pictureDataSchema, required: false }],
     orderIds: [{ type: Schema.Types.ObjectId, ref: "Order", required: false }],
   },
-  { autoCreate: true },
+  { collection: "users", autoCreate: true },
 
 );
 

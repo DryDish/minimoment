@@ -25,7 +25,7 @@ const monthlyReportSchema = new Schema<MonthlyReportInterface>(
       required: true,
     },
   },
-  { autoCreate: true }
+  { collection: "monthlyReports", autoCreate: true }
 );
 
 export const MonthlyReport = model<MonthlyReportInterface>(

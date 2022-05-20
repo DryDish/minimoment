@@ -17,7 +17,7 @@ export const discountTypeSchema = new Schema<DiscountTypeInterface>(
       required: true,
     },
   },
-  { autoCreate: false, _id: false }
+  { collection: "discountTypes", autoCreate: false, _id: false }
 );
 
 export const DiscountType = model<DiscountTypeInterface>(
