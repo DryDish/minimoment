@@ -1,7 +1,7 @@
 import express from "express";
-import { SubscriptionType } from "../models/mysql/subscription-type";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { SubscriptionType } from "../../models/mysql/subscription-type";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const subscriptionTypeService = new GenericService(SubscriptionType);

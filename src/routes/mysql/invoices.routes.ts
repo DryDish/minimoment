@@ -1,7 +1,7 @@
 import express from "express";
-import { Invoice } from "../models/mysql/invoice";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { Invoice } from "../../models/mysql/invoice";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const InvoiceService = new GenericService(Invoice);

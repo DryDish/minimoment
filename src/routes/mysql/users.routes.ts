@@ -1,8 +1,8 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { User } from "../models/mysql/user";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { User } from "../../models/mysql/user";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const userService = new GenericService(User);

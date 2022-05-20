@@ -1,7 +1,7 @@
 import express from "express";
-import { DiscountCode } from "../models/mysql/discount-code";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { DiscountCode } from "../../models/mysql/discount-code";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 export const router = express.Router();
 const DiscountCodesService = new GenericService(DiscountCode);

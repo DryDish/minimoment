@@ -1,7 +1,7 @@
 import express from "express";
-import { Size } from "../models/mysql/size";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { Size } from "../../models/mysql/size";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const sizeService = new GenericService(Size);

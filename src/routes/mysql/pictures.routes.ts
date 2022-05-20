@@ -1,7 +1,7 @@
 import express from "express";
-import { PictureData } from "../models/mysql/picture-data";
-import { PictureDataService } from "../services/mysql/picture-data.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { PictureData } from "../../models/mysql/picture-data";
+import { PictureDataService } from "../../services/mysql/picture-data.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const pictureDataService = new PictureDataService(PictureData);

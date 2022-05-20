@@ -1,7 +1,7 @@
 import express from "express";
-import { Frame } from "../models/mysql/frame";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { Frame } from "../../models/mysql/frame";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const FrameService = new GenericService(Frame);

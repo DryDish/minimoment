@@ -1,7 +1,7 @@
 import express from "express";
-import { ContactInfo } from "../models/mysql/contact-info";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { ContactInfo } from "../../models/mysql/contact-info";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const ContactInfoService = new GenericService(ContactInfo);

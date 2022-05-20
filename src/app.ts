@@ -7,23 +7,23 @@ import "./config/mongoose.config";
 import AuthMiddleware from "./middleware/authenticate.middleware";
 
 // Import routes
-import RolesRouter from "./routes/roles.routes";
-import AuthRouter from "./routes/auth.routes";
-import DiscountCodesRouter from "./routes/discount-codes.routes";
-import DiscountTypesRouter from "./routes/discount-types.routes";
-import ContactInfoRouter from "./routes/contact-info.routes";
-import UsersRouter from "./routes/users.routes";
-import StatusesRouter from "./routes/statuses.routes";
-import SubscriptionTypesRouter from "./routes/subscription-types.routes";
-import SubscriptionsRouter from "./routes/subscriptions.routes";
-import SizesRouter from "./routes/sizes.routes";
-import AccountingRouter from "./routes/accounting.routes";
-import OrderRouter from "./routes/orders.routes";
-import OrderItemsRouter from "./routes/order-items.routes";
-import InvoicesRouter from "./routes/invoices.routes";
-import PaperTypesRouter from "./routes/paper-types.routes";
-import FramesRouter from "./routes/frames.routes";
-import PicturesRouter from "./routes/pictures.routes";
+import RolesRouter from "./routes/mysql/roles.routes";
+import AuthRouter from "./routes/mysql/auth.routes";
+import DiscountCodesRouter from "./routes/mysql/discount-codes.routes";
+import DiscountTypesRouter from "./routes/mysql/discount-types.routes";
+import ContactInfoRouter from "./routes/mysql/contact-info.routes";
+import UsersRouter from "./routes/mysql/users.routes";
+import StatusesRouter from "./routes/mysql/statuses.routes";
+import SubscriptionTypesRouter from "./routes/mysql/subscription-types.routes";
+import SubscriptionsRouter from "./routes/mysql/subscriptions.routes";
+import SizesRouter from "./routes/mysql/sizes.routes";
+import AccountingRouter from "./routes/mysql/accounting.routes";
+import OrderRouter from "./routes/mysql/orders.routes";
+import OrderItemsRouter from "./routes/mysql/order-items.routes";
+import InvoicesRouter from "./routes/mysql/invoices.routes";
+import PaperTypesRouter from "./routes/mysql/paper-types.routes";
+import FramesRouter from "./routes/mysql/frames.routes";
+import PicturesRouter from "./routes/mysql/pictures.routes";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;

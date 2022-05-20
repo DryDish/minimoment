@@ -1,7 +1,7 @@
 import express from "express";
-import { Role } from "../models/mysql/role";
-import { GenericService } from "../services/mysql/generic-model.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { Role } from "../../models/mysql/role";
+import { GenericService } from "../../services/mysql/generic-model.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const rolesService = new GenericService(Role);

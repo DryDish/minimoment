@@ -2,10 +2,10 @@ import express, { Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { User } from "../models/mysql/user";
-import { Role } from "../models/mysql/role";
-import { resultHandler } from "../utils/response-handler.utils";
-import { CustomResult, StatusCode } from "../utils/custom-result.utils";
+import { User } from "../../models/mysql/user";
+import { Role } from "../../models/mysql/role";
+import { resultHandler } from "../../utils/response-handler.utils";
+import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
 
 // Constants
 const SECRET_KEY = process.env.AUTH_SECRET_KEY || "";

@@ -1,7 +1,7 @@
 import express from "express";
-import { Subscription } from "../models/mysql/subscription";
-import { SubscriptionService } from "../services/mysql/subscription.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { Subscription } from "../../models/mysql/subscription";
+import { SubscriptionService } from "../../services/mysql/subscription.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const subscriptionService =  new SubscriptionService(Subscription);

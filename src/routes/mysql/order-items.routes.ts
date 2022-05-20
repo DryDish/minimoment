@@ -1,7 +1,7 @@
 import express from "express";
-import { OrderItem } from "../models/mysql/order-item";
-import { OrderItemService } from "../services/mysql/order-item.service";
-import { resultHandler } from "../utils/response-handler.utils";
+import { OrderItem } from "../../models/mysql/order-item";
+import { OrderItemService } from "../../services/mysql/order-item.service";
+import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
 const orderItemService = new OrderItemService(OrderItem);
