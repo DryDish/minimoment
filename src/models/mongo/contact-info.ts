@@ -19,7 +19,7 @@ export const contactInfoSchema = new Schema<ContactInfoInterface>(
     addressOne: { type: String, maxlength: 255, required: true },
     addressTwo: { type: String, maxlength: 255, required: false },
   },
-  { autoCreate: true }
+  { autoCreate: false, _id: false }
 );
 
 export const ContactInfo = model<ContactInfoInterface>(

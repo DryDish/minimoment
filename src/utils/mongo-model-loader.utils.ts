@@ -14,6 +14,8 @@ import statuses from "../models/mongo/population-data/statuses.json";
 import contactInfo from "../models/mongo/population-data/contact-info.json";
 import orderItems from "../models/mongo/population-data/order-items.json";
 import orders from "../models/mongo/population-data/orders.json";
+import invoices from "../models/mongo/population-data/invoices.json";
+import users from "../models/mongo/population-data/users.json";
 
 // Models
 import { Role } from "../models/mongo/role";
@@ -27,6 +29,8 @@ import { PictureData } from "../models/mongo/picture-data";
 import { Status } from "../models/mongo/status";
 import { OrderItemInterface } from "../models/mongo/order-item";
 import { Order, OrderInterface } from "../models/mongo/order";
+import { Invoice, InvoiceInterface } from "../models/mongo/invoice";
+import { User, UserInterface } from "../models/mongo/user";
 
 export const populate = async (): Promise<void> => {
   console.log("Population process started...");
@@ -41,6 +45,7 @@ export const populate = async (): Promise<void> => {
     await populateFrames();
     await populatePaperTypes();
     await populateOrders();
+    await populateInvoices();
     await populateUsers();
 
     console.log("Population process finished.");
@@ -68,6 +73,9 @@ const populateStatuses = async (): Promise<void> =>
   populateCollection(Status, statuses);
 
 const populateUsers = async (): Promise<void> => {
+  const ordersToReference = await Order.find();
+  const nestedPictureData = await PictureData.find();
+
   const nestedSubsctiptions = subscriptions.map(
     (subscription, index): SubscriptionInterface => {
       return {
@@ -77,6 +85,19 @@ const populateUsers = async (): Promise<void> => {
       };
     }
   );
+
+  const usersToPopulate = users.map((user, index): UserInterface => {
+    return {
+      ...user,
+      role: roles[index],
+      contactInfo: contactInfo[index],
+      subscriptions: nestedSubsctiptions,
+      pictureData: nestedPictureData.slice(0, index + 1),
+      orderIds: [ordersToReference[index]._id.toString()],
+    };
+  });
+
+  return populateCollection(User, usersToPopulate);
 };
 
 const populateOrders = async (): Promise<void> => {
@@ -108,6 +129,21 @@ const populateOrders = async (): Promise<void> => {
   });
 
   return populateCollection(Order, ordersToPopulate);
+};
+
+const populateInvoices = async (): Promise<void> => {
+  const nestedOrders = await Order.find();
+
+  const invoicesToPopulate = invoices.map(
+    (invoice, index): InvoiceInterface => {
+      return {
+        createdAt: new Date(invoice.createdAt),
+        order: nestedOrders[index],
+      };
+    }
+  );
+
+  return populateCollection(Invoice, invoicesToPopulate);
 };
 
 const populateFrames = async (): Promise<void> => {

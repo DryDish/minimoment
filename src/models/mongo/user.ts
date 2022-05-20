@@ -4,7 +4,7 @@ import { PictureDataInterface, pictureDataSchema } from "./picture-data";
 import { roleSchema, RoleInterface } from "./role";
 import { subscriptionSchema, SubscriptionInterface } from "./subscription";
 
-interface UserInterface {
+export interface UserInterface {
   firstName: string;
   lastName: string;
   username: string;
@@ -14,7 +14,7 @@ interface UserInterface {
   subscriptions?: SubscriptionInterface[];
   contactInfo?: ContactInfoInterface;
   pictureData?: PictureDataInterface[];
-  orderIds?: Schema.Types.ObjectId[];
+  orderIds?: string[];
 }
 
 const userSchema = new Schema<UserInterface>(
@@ -30,7 +30,8 @@ const userSchema = new Schema<UserInterface>(
     pictureData: [{ type: pictureDataSchema, required: false }],
     orderIds: [{ type: Schema.Types.ObjectId, ref: "Order", required: false }],
   },
-  { autoCreate: true }
+  { autoCreate: true },
+
 );
 
 export const User = model<UserInterface>("User", userSchema);

@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { OrderInterface, orderSchema } from "./order";
 
-interface InvoiceInterface {
+export interface InvoiceInterface {
   createdAt: Date;
   order: OrderInterface;
 }

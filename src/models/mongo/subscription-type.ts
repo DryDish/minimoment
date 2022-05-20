@@ -24,6 +24,21 @@ export const subscriptionTypeSchema = new Schema<SubscriptionTypeInterface>(
   { autoCreate: true }
 );
 
+export const nestedSubscriptionTypeSchema =
+  new Schema<SubscriptionTypeInterface>(
+    {
+      name: { type: String, maxlength: 45, required: true },
+      monthlyPrice: {
+        type: Schema.Types.Decimal128,
+        min: DECIMAL_15_2_MIN,
+        max: DECIMAL_15_2_MAX,
+        required: true,
+      },
+      imageAmount: { type: Number, required: true },
+    },
+    { _id: false }
+  );
+
 export const SubscriptionType = model<SubscriptionTypeInterface>(
   "SubscriptionType",
   subscriptionTypeSchema

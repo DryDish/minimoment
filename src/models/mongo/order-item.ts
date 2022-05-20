@@ -38,7 +38,7 @@ export const orderItemSchema = new Schema<OrderItemInterface>(
       required: false,
     },
   },
-  { autoCreate: true }
+  { autoCreate: false, _id: false }
 );
 
 export const OrderItem = model<OrderItemInterface>(
