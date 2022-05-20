@@ -29,7 +29,7 @@ interface MongoId {
 export class GenericService<T> {
   constructor(protected model: mongoose.Model<T, {}, {}, {}>) {}
 
-  async findAll(): Promise<CustomResult<T & MongoId[]>> {
+  async findAll(): Promise<CustomResult<(T & MongoId)[]>> {
     try {
       const foundModelList = await this.model.find();
       return new CustomResult(StatusCode.Success, foundModelList as any);

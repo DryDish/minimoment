@@ -7,12 +7,14 @@ import DiscountCodeRouter from "./mongo/discount-codes.routes";
 import PictureRouter from "./mongo/pictures.routes";
 import InvoiceRouter from "./mongo/invoices.routes";
 import StatusRouter from "./mongo/statuses.routes";
+import SubscriptionRouter from "./mongo/subscriptions.routes";
 
 const router = express.Router();
 
 router.use("/reports", AccountingRouter);
 router.use("/admin/roles", RoleRouter);
 router.use("/admin/statuses", StatusRouter);
+router.use("/subscriptions", SubscriptionRouter);
 router.use("/subscriptions/types", SubscriptionTypeRouter);
 router.use("/discounts/codes", DiscountCodeRouter);
 router.use("/pictures", PictureRouter);
