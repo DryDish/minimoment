@@ -9,7 +9,7 @@ export interface FrameInterface {
   name: string;
   multiplier: number;
   material: string;
-  discountCodeId?: Schema.Types.ObjectId;
+  discountCodeId?: string;
   size: SizeInterface;
 }
 

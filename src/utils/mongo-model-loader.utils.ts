@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
 // Population Data
 import roles from "../models/mongo/population-data/roles.json";
@@ -8,6 +8,8 @@ import subscriptionTypes from "../models/mongo/population-data/subscription-type
 import subscriptions from "../models/mongo/population-data/subscriptions.json";
 import frames from "../models/mongo/population-data/frames.json";
 import sizes from "../models/mongo/population-data/sizes.json";
+import paperTypes from "../models/mongo/population-data/paper-types.json";
+import pictureData from "../models/mongo/population-data/picture-data.json";
 
 // Models
 import { Role } from "../models/mongo/role";
@@ -15,13 +17,25 @@ import { DiscountCode } from "../models/mongo/discount-code";
 import { MonthlyReport } from "../models/mongo/monthly-report";
 import { SubscriptionType } from "../models/mongo/subscription-type";
 import { SubscriptionInterface } from "../models/mongo/subscription";
+import { Frame, FrameInterface } from "../models/mongo/frame";
+import { PaperType, PaperTypeInterface } from "../models/mongo/paper-type";
 
 export const populate = async (): Promise<void> => {
-  await populateRoles();
-  await populateDiscountCodes();
-  await populateMonthlyReports();
-  await populateSubscriptionTypes();
-  await populateUsers();
+  console.log("Population process started...");
+
+  try {
+    await populateRoles();
+    await populateDiscountCodes();
+    await populateMonthlyReports();
+    await populateSubscriptionTypes();
+    await populateUsers();
+    await populateFrames();
+    await populatePaperTypes();
+
+    console.log("Population process finished.");
+  } catch (error) {
+    console.error("Error populating the Mongo Database", error);
+  }
 };
 
 const populateRoles = async (): Promise<void> =>
@@ -48,6 +62,33 @@ const populateUsers = async (): Promise<void> => {
   );
 };
 
+const populateFrames = async (): Promise<void> => {
+  const discountCodesToReference = await DiscountCode.find();
+
+  const framesToPopulate = frames.map((frame, index): FrameInterface => {
+    return {
+      ...frame,
+      size: sizes[index],
+      discountCodeId: discountCodesToReference[index]._id.toString(),
+    };
+  });
+
+  populateCollection(Frame, framesToPopulate);
+};
+
+const populatePaperTypes = async (): Promise<void> => {
+  const discountCodesToReference = await DiscountCode.find();
+
+  const paperTypesToPopulate = paperTypes.map((paperType, index): PaperTypeInterface => {
+    return {
+      ...paperType,
+      size: sizes[index],
+      discountCodeId: discountCodesToReference[index]._id.toString(),
+    };
+  });
+
+  populateCollection(PaperType, paperTypesToPopulate);
+};
 
 const populateCollection = async (
   collection: Model<any, {}, {}, {}>,
@@ -57,9 +98,11 @@ const populateCollection = async (
     const isPopulated = (await collection.find()).length !== 0;
 
     if (!isPopulated) {
-      collection.insertMany(file);
+      console.log(`Populating: ${collection.modelName}`);
+
+      await collection.insertMany(file);
     }
   } catch (error) {
-    console.error(error);
+    console.error(`Error Populating: ${collection.modelName}`, error);
   }
 };

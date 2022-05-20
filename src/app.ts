@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import "./config/sequelize.config";
-import "./config/mongoose.config";
+import { populateMongoDB } from "./config/mongoose.config";
 
 // Import middleware
 import AuthMiddleware from "./middleware/authenticate.middleware";
@@ -13,6 +13,9 @@ import MongoRouter from "./routes/mongo-master.router"
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
+
+// Populate Databases
+populateMongoDB();
 
 const app = express();
 app.use(express.json());
