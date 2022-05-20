@@ -1,0 +1,27 @@
+[
+	{
+		"orderItemPrice": 320.24,
+		"priceSaved": 96.90,
+		"amount": 5
+	},
+	{
+		"orderItemPrice": 135.84,
+		"priceSaved": 79.99,
+		"amount": 4
+	},
+	{
+		"orderItemPrice": 432.62,
+		"priceSaved": 85.23,
+		"amount": 2
+	},
+	{
+		"orderItemPrice": 450.35,
+		"priceSaved": 95.09,
+		"amount": 2
+	},
+	{
+		"orderItemPrice": 208.79,
+		"priceSaved": 81.55,
+		"amount": 3
+	}
+]

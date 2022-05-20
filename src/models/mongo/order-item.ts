@@ -10,9 +10,9 @@ export interface OrderItemInterface {
   orderItemPrice: number;
   priceSaved: number;
   amount: number;
-  frame: FrameInterface;
-  paperType: PaperTypeInterface;
-  pictureDataId: Schema.Types.ObjectId;
+  frame?: FrameInterface;
+  paperType?: PaperTypeInterface;
+  pictureDataId: string;
 }
 
 export const orderItemSchema = new Schema<OrderItemInterface>(

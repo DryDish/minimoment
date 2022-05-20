@@ -11,7 +11,7 @@ export interface OrderInterface {
   orderPrice: number;
   totalPriceSaved: number;
   createdAt: Date;
-  discountCodeId: Schema.Types.ObjectId;
+  discountCodeId?: string;
   status: StatusInterface;
   billingContactInfo: ContactInfoInterface;
   orderItems?: OrderItemInterface[];

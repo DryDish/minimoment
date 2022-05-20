@@ -10,6 +10,10 @@ import frames from "../models/mongo/population-data/frames.json";
 import sizes from "../models/mongo/population-data/sizes.json";
 import paperTypes from "../models/mongo/population-data/paper-types.json";
 import pictureData from "../models/mongo/population-data/picture-data.json";
+import statuses from "../models/mongo/population-data/statuses.json";
+import contactInfo from "../models/mongo/population-data/contact-info.json";
+import orderItems from "../models/mongo/population-data/order-items.json";
+import orders from "../models/mongo/population-data/orders.json";
 
 // Models
 import { Role } from "../models/mongo/role";
@@ -19,6 +23,10 @@ import { SubscriptionType } from "../models/mongo/subscription-type";
 import { SubscriptionInterface } from "../models/mongo/subscription";
 import { Frame, FrameInterface } from "../models/mongo/frame";
 import { PaperType, PaperTypeInterface } from "../models/mongo/paper-type";
+import { PictureData } from "../models/mongo/picture-data";
+import { Status } from "../models/mongo/status";
+import { OrderItemInterface } from "../models/mongo/order-item";
+import { Order, OrderInterface } from "../models/mongo/order";
 
 export const populate = async (): Promise<void> => {
   console.log("Population process started...");
@@ -28,9 +36,12 @@ export const populate = async (): Promise<void> => {
     await populateDiscountCodes();
     await populateMonthlyReports();
     await populateSubscriptionTypes();
-    await populateUsers();
+    await populatePictureData();
+    await populateStatuses();
     await populateFrames();
     await populatePaperTypes();
+    await populateOrders();
+    await populateUsers();
 
     console.log("Population process finished.");
   } catch (error) {
@@ -50,6 +61,12 @@ const populateMonthlyReports = async (): Promise<void> =>
 const populateSubscriptionTypes = async (): Promise<void> =>
   populateCollection(SubscriptionType, subscriptionTypes);
 
+const populatePictureData = async (): Promise<void> =>
+  populateCollection(PictureData, pictureData);
+
+const populateStatuses = async (): Promise<void> =>
+  populateCollection(Status, statuses);
+
 const populateUsers = async (): Promise<void> => {
   const nestedSubsctiptions = subscriptions.map(
     (subscription, index): SubscriptionInterface => {
@@ -60,6 +77,37 @@ const populateUsers = async (): Promise<void> => {
       };
     }
   );
+};
+
+const populateOrders = async (): Promise<void> => {
+  const discountCodesToReference = await DiscountCode.find();
+  const pictureDataToReference = await PictureData.find();
+  const nestedFrames = await Frame.find();
+  const nestedPaperTypes = await PaperType.find();
+
+  const nestedOrderItems = orderItems.map(
+    (orderItem, index): OrderItemInterface => {
+      return {
+        ...orderItem,
+        frame: nestedFrames[index],
+        paperType: nestedPaperTypes[index],
+        pictureDataId: pictureDataToReference[index]._id.toString(),
+      };
+    }
+  );
+
+  const ordersToPopulate = orders.map((order, index): OrderInterface => {
+    return {
+      ...order,
+      createdAt: new Date(order.createdAt),
+      status: statuses[index],
+      billingContactInfo: contactInfo[index],
+      discountCodeId: discountCodesToReference[index]._id.toString(),
+      orderItems: nestedOrderItems.slice(0, index + 1),
+    };
+  });
+
+  return populateCollection(Order, ordersToPopulate);
 };
 
 const populateFrames = async (): Promise<void> => {
@@ -73,21 +121,23 @@ const populateFrames = async (): Promise<void> => {
     };
   });
 
-  populateCollection(Frame, framesToPopulate);
+  return populateCollection(Frame, framesToPopulate);
 };
 
 const populatePaperTypes = async (): Promise<void> => {
   const discountCodesToReference = await DiscountCode.find();
 
-  const paperTypesToPopulate = paperTypes.map((paperType, index): PaperTypeInterface => {
-    return {
-      ...paperType,
-      size: sizes[index],
-      discountCodeId: discountCodesToReference[index]._id.toString(),
-    };
-  });
+  const paperTypesToPopulate = paperTypes.map(
+    (paperType, index): PaperTypeInterface => {
+      return {
+        ...paperType,
+        size: sizes[index],
+        discountCodeId: discountCodesToReference[index]._id.toString(),
+      };
+    }
+  );
 
-  populateCollection(PaperType, paperTypesToPopulate);
+  return populateCollection(PaperType, paperTypesToPopulate);
 };
 
 const populateCollection = async (
