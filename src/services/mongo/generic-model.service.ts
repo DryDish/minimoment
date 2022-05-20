@@ -1,6 +1,5 @@
-import mongoose, { Model, Query} from "mongoose";
+import mongoose from "mongoose";
 import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
-
 
 // export interface MongoModel<T> {
 //   find(): Query<any[], any, {}, T>;
@@ -24,7 +23,7 @@ interface DeleteResponse {
 }
 
 interface MongoId {
-  _id: string
+  _id: string;
 }
 
 export class GenericService<T> {
