@@ -5,7 +5,7 @@ import {
 } from "../../config/constants.config";
 import { ContactInfoInterface, contactInfoSchema } from "./contact-info";
 import { OrderItemInterface, orderItemSchema } from "./order-item";
-import { StatusInterface, statusSchema } from "./status";
+import { StatusInterface, statusSchema, statusSchemaNested } from "./status";
 
 export interface OrderInterface {
   orderPrice: number;
@@ -35,7 +35,7 @@ export const orderSchema = new Schema<OrderInterface>(
     },
     createdAt: { type: Schema.Types.Date, required: true },
     discountCodeId: { type: Schema.Types.ObjectId, required: false },
-    status: { type: statusSchema, required: true },
+    status: { type: statusSchemaNested, required: true },
     billingContactInfo: { type: contactInfoSchema, required: true },
     orderItems: [{ type: orderItemSchema, required: false }],
   },

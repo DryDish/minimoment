@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
 
 // export interface MongoModel<T> {
@@ -41,6 +41,17 @@ export class GenericService<T> {
 
   async findOne(id: string): Promise<CustomResult<T & MongoId>> {
     try {
+
+      // TODO - clean up this nested try-catch
+      try {
+        if (id.length !== 24) {
+          throw Error;
+        }
+        const _ = new Types.ObjectId(id);
+      } catch (error) {
+        return new CustomResult(StatusCode.BadRequest);
+      }
+
       const foundModel = await this.model.findById(id);
 
       if (foundModel) {
@@ -70,7 +81,10 @@ export class GenericService<T> {
 
       switch (status.matchedCount) {
         case 1:
-          return new CustomResult(StatusCode.Success, status as unknown as UpdateResponse);
+          return new CustomResult(
+            StatusCode.Success,
+            status as unknown as UpdateResponse
+          );
         case 0:
           return new CustomResult(StatusCode.NotFound);
         default:

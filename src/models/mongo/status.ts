@@ -11,4 +11,11 @@ export const statusSchema = new Schema<StatusInterface>(
   { collection: "statuses", autoCreate: true }
 );
 
+export const statusSchemaNested = new Schema<StatusInterface>(
+  {
+    name: { type: String, maxlength: 45, required: true },
+  },
+  { autoCreate: false }
+);
+
 export const Status = model<StatusInterface>("Status", statusSchema);
