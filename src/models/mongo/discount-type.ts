@@ -6,7 +6,7 @@ enum DISCOUNT_TYPE_NAMES {
 }
 
 export interface DiscountTypeInterface {
-  name: string;
+  name: DISCOUNT_TYPE_NAMES;
 }
 
 export const discountTypeSchema = new Schema<DiscountTypeInterface>(

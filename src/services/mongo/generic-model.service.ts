@@ -34,6 +34,7 @@ export class GenericService<T> {
       const foundModelList = await this.model.find();
       return new CustomResult(StatusCode.Success, foundModelList as any);
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }
@@ -48,6 +49,7 @@ export class GenericService<T> {
         return new CustomResult(StatusCode.NotFound);
       }
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }
@@ -57,6 +59,7 @@ export class GenericService<T> {
       const savedModel = await this.model.create(body);
       return new CustomResult(StatusCode.Created, savedModel as any);
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }
@@ -74,6 +77,7 @@ export class GenericService<T> {
           return new CustomResult(StatusCode.ServerError);
       }
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }
@@ -91,6 +95,7 @@ export class GenericService<T> {
           return new CustomResult(StatusCode.ServerError);
       }
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }
