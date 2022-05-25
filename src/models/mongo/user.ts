@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { ContactInfoInterface, contactInfoSchema } from "./contact-info";
 import { PictureDataInterface, pictureDataSchema } from "./picture-data";
-import { roleSchema, RoleInterface } from "./role";
+import { roleSchemaNested, RoleInterface } from "./role";
 import { subscriptionSchema, SubscriptionInterface } from "./subscription";
 
 export interface UserInterface {
@@ -24,7 +24,7 @@ const userSchema = new Schema<UserInterface>(
     username: { type: String, maxlength: 255, required: true },
     password: { type: String, maxlength: 255, required: true },
     autoRenew: { type: Boolean, required: false },
-    role: { type: roleSchema, required: true, default: { name: "user" } },
+    role: { type: roleSchemaNested, required: true, default: { name: "user" } },
     subscriptions: [{ type: subscriptionSchema, required: false }],
     contactInfo: { type: contactInfoSchema, required: false },
     pictureData: [{ type: pictureDataSchema, required: false }],

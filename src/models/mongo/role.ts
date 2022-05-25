@@ -11,4 +11,11 @@ export const roleSchema = new Schema<RoleInterface>(
   { collection: "roles", autoCreate: true }
 );
 
+export const roleSchemaNested = new Schema<RoleInterface>(
+  {
+    name: { type: String, maxlength: 45, required: true },
+  },
+  { autoCreate: false }
+);
+
 export const Role = model<RoleInterface>("Role", roleSchema);

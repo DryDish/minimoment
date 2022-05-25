@@ -28,7 +28,7 @@
 
 ## Using the API with the populated users
 
-In order to easily use the `/login` endpoint, all of the populated users have a hashed password of `1234`.
+In order to easily use the `/login` endpoint, all of the populated users have a hashed password of `1234`. For the password encryption to work, the value of the `AUTH_SECRET_KEY` environment variable has to be `kea-databases`.
 This means that the `/login` route can be used with the following body:
 ```json
 {

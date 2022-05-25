@@ -12,6 +12,7 @@ import SizeRouter from "./mongo/sizes.routes";
 import FrameRouter from "./mongo/frames.routes";
 import PaperTypeRouter from "./mongo/paper-types.routes";
 import OrderItemRouter from './mongo/order-items.routes'
+import UserRouter from "./mongo/users.routes";
 
 const router = express.Router();
 
@@ -27,5 +28,6 @@ router.use("/stock/sizes", SizeRouter);
 router.use("stock/frames", FrameRouter);
 router.use("stock/paper-types", PaperTypeRouter);
 router.use("/order-items", OrderItemRouter);
+router.use("/users", UserRouter)
 
 export default router;
