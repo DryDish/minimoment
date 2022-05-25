@@ -12,7 +12,7 @@ router.get("/", async (_, res) => {
   resultHandler("Paper Types", result, res);
 });
 
-router.get("/:id", validateId, async (req, res) => {
+router.get("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await paperTypesService.findOne(id);
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
   resultHandler("Paper Type", result, res);
 });
 
-router.patch("/:id", validateId, async (req, res) => {
+router.patch("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
@@ -34,7 +34,7 @@ router.patch("/:id", validateId, async (req, res) => {
   resultHandler("Paper Type", result, res);
 });
 
-router.delete("/:id", validateId, async (req, res) => {
+router.delete("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await paperTypesService.delete(id);

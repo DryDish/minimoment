@@ -10,6 +10,7 @@ export class AccountingService {
       const result = await MonthlyReport.find();
       return new CustomResult(StatusCode.Success, result);
     } catch (error) {
+      console.error(error);
       return new CustomResult(StatusCode.ServerError);
     }
   }

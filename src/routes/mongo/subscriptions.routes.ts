@@ -32,7 +32,7 @@ router.get("/", async (_, res) => {
   }
 });
 
-router.get("/by-user/:userId", validateId, async (req, res) => {
+router.get("/by-user/:userId", validateId("userId"), async (req, res) => {
   const { userId } = req.params;
   const userResult = await usersService.findOne(userId);
 

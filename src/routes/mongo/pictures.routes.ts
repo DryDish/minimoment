@@ -10,14 +10,14 @@ const router = express.Router();
 const pictureDataService = new GenericService(PictureData);
 const userService = new GenericService(User);
 
-router.get("/:id", validateId, async (req, res) => {
+router.get("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await pictureDataService.findOne(id);
   resultHandler("Pictures", result, res);
 });
 
-router.get("/by-user/:userId", validateId, async (req, res) => {
+router.get("/by-user/:userId", validateId("userId"), async (req, res) => {
   const { userId } = req.params;
 
   const result = await userService.findOne(userId);
@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
   resultHandler("Picture", result, res);
 });
 
-router.patch("/:id", validateId, async (req, res) => {
+router.patch("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
@@ -50,7 +50,7 @@ router.patch("/:id", validateId, async (req, res) => {
   resultHandler("Picture", result, res);
 });
 
-router.delete("/:id", validateId, async (req, res) => {
+router.delete("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await pictureDataService.delete(id);

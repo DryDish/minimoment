@@ -11,6 +11,7 @@ import SubscriptionRouter from "./mongo/subscriptions.routes";
 import SizeRouter from "./mongo/sizes.routes";
 import FrameRouter from "./mongo/frames.routes";
 import PaperTypeRouter from "./mongo/paper-types.routes";
+import OrderItemRouter from './mongo/order-items.routes'
 
 const router = express.Router();
 
@@ -22,9 +23,9 @@ router.use("/subscriptions/types", SubscriptionTypeRouter);
 router.use("/discounts/codes", DiscountCodeRouter);
 router.use("/pictures", PictureRouter);
 router.use("/invoices", InvoiceRouter);
-router.use("/invoices", InvoiceRouter);
 router.use("/stock/sizes", SizeRouter);
-router.use("/stock/frames", FrameRouter);
-router.use("/stock/paper-types", PaperTypeRouter);
+router.use("stock/frames", FrameRouter);
+router.use("stock/paper-types", PaperTypeRouter);
+router.use("/order-items", OrderItemRouter);
 
 export default router;

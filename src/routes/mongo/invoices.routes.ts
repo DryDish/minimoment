@@ -15,7 +15,7 @@ router.get("/", async (_, res) => {
   resultHandler("Invoices", result, res);
 });
 
-router.get("/:id", validateId, async (req, res) => {
+router.get("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await invoiceService.findOne(id);
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.patch("/:id", validateId, async (req, res) => {
+router.patch("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
   const orderResult = await orderService.findOne(requestObject.orderId);
@@ -54,7 +54,7 @@ router.patch("/:id", validateId, async (req, res) => {
   }
 });
 
-router.delete("/:id", validateId, async (req, res) => {
+router.delete("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await invoiceService.delete(id);

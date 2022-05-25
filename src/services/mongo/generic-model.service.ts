@@ -44,9 +44,6 @@ export class GenericService<T> {
 
       // TODO - clean up this nested try-catch
       try {
-        if (id.length !== 24) {
-          throw Error;
-        }
         const _ = new Types.ObjectId(id);
       } catch (error) {
         return new CustomResult(StatusCode.BadRequest);

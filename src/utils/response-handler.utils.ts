@@ -18,7 +18,9 @@ export const resultHandler = (name: string, result: CustomResult<any>, res: Resp
       return res.status(403).send({ status: 403, message: "Forbidden."});
     case StatusCode.NotFound:
       return res.status(404).send({ status: 404, message: `${name} not found.` });
-    default:
+    case StatusCode.ServerError:
       return res.status(500).send({ status: 500, message: "Internal Server Error." });
+    default:
+      return res.status(500).send({ status: 500, message: "SOMETHING NOT IMPLEMENTED." });
   }
 };

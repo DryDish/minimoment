@@ -15,7 +15,7 @@ router.get("/", async (_, res) => {
   resultHandler("Discounts", result, res);
 });
 
-router.get("/:id", validateId, async (req, res) => {
+router.get("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await DiscountCodesService.findOne(id);
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
   resultHandler("Discount", result, res);
 });
 
-router.patch("/:id", validateId, async (req, res) => {
+router.patch("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
   const requestObject = filterBody(req.body);
 
@@ -37,7 +37,7 @@ router.patch("/:id", validateId, async (req, res) => {
   resultHandler("Discount", result, res);
 });
 
-router.delete("/:id", validateId, async (req, res) => {
+router.delete("/:id", validateId(), async (req, res) => {
   const { id } = req.params;
 
   const result = await DiscountCodesService.delete(id);
