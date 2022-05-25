@@ -8,7 +8,7 @@ import { SizeInterface, sizeSchema } from "./size";
 export interface PaperTypeInterface {
   name: string;
   multiplier: number;
-  discountCodeId: string;
+  discountCodeId?: string;
   size: SizeInterface;
 }
 

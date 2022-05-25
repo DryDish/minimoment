@@ -3,7 +3,7 @@ import { validateId } from "../../middleware/mongo-validators";
 import { Invoice, InvoiceInterface } from "../../models/mongo/invoice";
 import { Order, OrderInterface } from "../../models/mongo/order";
 import { GenericService } from "../../services/mongo/generic-model.service";
-import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
+import { StatusCode } from "../../utils/custom-result.utils";
 import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
@@ -24,8 +24,6 @@ router.get("/:id", validateId, async (req, res) => {
 
 router.post("/", async (req, res) => {
   const requestObject = filterBody(req.body);
-
-
   const orderResult = await orderService.findOne(requestObject.orderId);
 
   if (orderResult.status === StatusCode.Success) {

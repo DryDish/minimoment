@@ -28,7 +28,7 @@ export const frameSchema = new Schema<FrameInterface>(
       required: false,
     },
     discountCodeId: { type: Schema.Types.ObjectId, required: false },
-    size: { type: sizeSchema, requiured: true },
+    size: { type: sizeSchema, required: true },
   },
   { collection: "frames", autoCreate: true }
 );
