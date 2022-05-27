@@ -9,8 +9,8 @@ import AuthMiddleware from "./middleware/authenticate.middleware";
 
 // Import routes
 import AuthRouter from "./routes/mysql/auth.routes";
-import MysqlRouter from "./routes/mysql-master.router"
-import MongoRouter from "./routes/mongo-master.router"
+import MysqlRouter from "./routes/mysql-master.router";
+import MongoRouter from "./routes/mongo-master.router";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -28,7 +28,6 @@ app.use(AuthMiddleware);
 
 app.use("/mysql", MysqlRouter);
 app.use("/mongo", MongoRouter);
-
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
