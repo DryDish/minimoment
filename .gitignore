@@ -108,3 +108,4 @@ dist
 
 # User config
 *.code-workspace
+.vscode/
