@@ -20,6 +20,8 @@ import "../models/neo4j/role";
 import "../models/neo4j/user";
 import "../models/neo4j/subscription-type";
 import "../models/neo4j/subscription";
+import "../models/neo4j/status";
+import "../models/neo4j/order";
 
 const initiateSchema = async () => {
   try {
