@@ -27,6 +27,11 @@ import "../models/neo4j/picture-data";
 import "../models/neo4j/contact-info";
 import "../models/neo4j/order-item";
 import "../models/neo4j/frame";
+import "../models/neo4j/size";
+import "../models/neo4j/paper-type";
+import "../models/neo4j/discount-code";
+import "../models/neo4j/discount-type";
+import "../models/neo4j/monthly-report";
 
 const initiateSchema = async () => {
   try {
