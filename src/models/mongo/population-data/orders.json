@@ -1,0 +1,27 @@
+[
+	{
+		"orderPrice": 4946.01,
+		"totalPriceSaved": 844.01,
+		"createdAt": "2021-10-18"
+	},
+	{
+		"orderPrice": 2224.65,
+		"totalPriceSaved": 951.86,
+		"createdAt": "2022-06-26"
+	},
+	{
+		"orderPrice": 4030.01,
+		"totalPriceSaved": 885.54,
+		"createdAt": "2021-09-07"
+	},
+	{
+		"orderPrice": 4398.02,
+		"totalPriceSaved": 595.70,
+		"createdAt": "2022-08-05"
+	},
+	{
+		"orderPrice": 4982.33,
+		"totalPriceSaved": 697.58,
+		"createdAt": "2023-03-24"
+	}
+]

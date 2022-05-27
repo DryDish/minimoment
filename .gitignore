@@ -105,3 +105,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# User config
+*.code-workspace
+.vscode/

@@ -1,0 +1,27 @@
+[
+	{
+		"name": "Sharpe",
+		"multiplier": 2.43,
+		"material": "urna."
+	},
+	{
+		"name": "Nielsen",
+		"multiplier": 1.64,
+		"material": "fringilla."
+	},
+	{
+		"name": "Thornton",
+		"multiplier": 2.02,
+		"material": "sollicitudin"
+	},
+	{
+		"name": "Blair",
+		"multiplier": 2.22,
+		"material": "ipsum"
+	},
+	{
+		"name": "Chaney",
+		"multiplier": 1.97,
+		"material": "Donec"
+	}
+]

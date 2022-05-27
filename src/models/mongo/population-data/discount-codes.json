@@ -1,0 +1,42 @@
+[
+  {
+    "name": "aliquet",
+    "value": 7,
+    "validFrom": "2022-06-29",
+    "validTo": "2022-02-06",
+    "remainingUses": 7,
+    "discountType": { "name": "amount" }
+  },
+  {
+    "name": "ipsum",
+    "value": 11,
+    "validFrom": "2021-06-19",
+    "validTo": "2023-01-11",
+    "remainingUses": 1,
+    "discountType": { "name": "amount" }
+  },
+  {
+    "name": "Maecenas",
+    "value": 36,
+    "validFrom": "2022-12-15",
+    "validTo": "2022-07-22",
+    "remainingUses": 5,
+    "discountType": { "name": "percent" }
+  },
+  {
+    "name": "adipiscing",
+    "value": 96,
+    "validFrom": "2023-02-15",
+    "validTo": "2021-07-12",
+    "remainingUses": 5,
+    "discountType": { "name": "amount" }
+  },
+  {
+    "name": "aliquam",
+    "value": 28,
+    "validFrom": "2022-09-07",
+    "validTo": "2021-11-07",
+    "remainingUses": 5,
+    "discountType": { "name": "percent" }
+  }
+]

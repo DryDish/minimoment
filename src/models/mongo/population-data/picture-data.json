@@ -1,0 +1,22 @@
+[
+	{
+		"imageUrl": "http://youtube.com",
+		"uploadedAt": "2023-03-15"
+	},
+	{
+		"imageUrl": "http://wikipedia.org",
+		"uploadedAt": "2021-07-06"
+	},
+	{
+		"imageUrl": "https://naver.com",
+		"uploadedAt": "2022-06-28"
+	},
+	{
+		"imageUrl": "http://whatsapp.com",
+		"uploadedAt": "2021-11-11"
+	},
+	{
+		"imageUrl": "https://wikipedia.org",
+		"uploadedAt": "2022-04-14"
+	}
+]

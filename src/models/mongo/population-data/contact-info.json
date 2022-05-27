@@ -1,0 +1,42 @@
+[
+	{
+		"phoneNumber": "+45 7481 9366",
+		"countryCode": "RJ",
+		"city": "Motala",
+		"postalCode": "18633",
+		"addressOne": "354-7433 Adipiscing Av.",
+		"addressTwo": ""
+	},
+	{
+		"phoneNumber": "+45 2648 0669",
+		"countryCode": "NM",
+		"city": "Motala",
+		"postalCode": "05863",
+		"addressOne": "Ap #965-4026 A Avenue",
+		"addressTwo": "commodo auctor velit. Aliquam nisl. Nulla eu neque"
+	},
+	{
+		"phoneNumber": "+45 4746 6433",
+		"countryCode": "KG",
+		"city": "Motala",
+		"postalCode": "02634",
+		"addressOne": "P.O. Box 779, 4260 Ornare, Rd.",
+		"addressTwo": "vitae erat vel pede blandit congue. In scelerisque scelerisque"
+	},
+	{
+		"phoneNumber": "+45 4085 2826",
+		"countryCode": "BE",
+		"city": "Tranås",
+		"postalCode": "13801",
+		"addressOne": "569-2964 Nunc St.",
+		"addressTwo": "tortor. Integer aliquam adipiscing lacus. Ut nec urna"
+	},
+	{
+		"phoneNumber": "+45 9790 5674",
+		"countryCode": "PK",
+		"city": "Göteborg",
+		"postalCode": "37476",
+		"addressOne": "Ap #218-8425 Turpis Ave",
+		"addressTwo": "risus. Donec egestas."
+	}
+]

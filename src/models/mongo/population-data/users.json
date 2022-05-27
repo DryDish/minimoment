@@ -1,0 +1,37 @@
+[
+	{
+		"firstName": "Rooney",
+		"lastName": "Branch",
+		"username": "branch.rooney@aol.com",
+		"password": "JYH56LHT9XX",
+		"autoRenew": true
+	},
+	{
+		"firstName": "Lucy",
+		"lastName": "Bean",
+		"username": "beanlucy@protonmail.edu",
+		"password": "MYE37DAE2RJ",
+		"autoRenew": false
+	},
+	{
+		"firstName": "Mason",
+		"lastName": "Santiago",
+		"username": "s.mason5711@google.edu",
+		"password": "JUU26MWK8DI",
+		"autoRenew": true
+	},
+	{
+		"firstName": "Eric",
+		"lastName": "Cotton",
+		"username": "cottoneric@yahoo.org",
+		"password": "LJG38XNT3ES",
+		"autoRenew": false
+	},
+	{
+		"firstName": "Quail",
+		"lastName": "Guerrero",
+		"username": "guerreroquail6@aol.com",
+		"password": "KIH48QJP9UK",
+		"autoRenew": true
+	}
+]
