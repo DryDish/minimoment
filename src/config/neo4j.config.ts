@@ -22,6 +22,11 @@ import "../models/neo4j/subscription-type";
 import "../models/neo4j/subscription";
 import "../models/neo4j/status";
 import "../models/neo4j/order";
+import "../models/neo4j/invoice";
+import "../models/neo4j/picture-data";
+import "../models/neo4j/contact-info";
+import "../models/neo4j/order-item";
+import "../models/neo4j/frame";
 
 const initiateSchema = async () => {
   try {
