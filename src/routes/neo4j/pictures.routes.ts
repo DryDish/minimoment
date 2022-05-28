@@ -42,10 +42,13 @@ router.delete("/:id", async (req, res) => {
   resultHandler("Picture", result, res);
 });
 
-const filterBody = (body: { userId: any; imageUrl: any; uploadedAt: any }) => {
-  const { userId, imageUrl, uploadedAt } = body;
-  return { userId, imageUrl, uploadedAt };
+const filterBody = (body: {
+  user_id: any;
+  image_url: any;
+  uploaded_at: any;
+}) => {
+  const { user_id, image_url, uploaded_at } = body;
+  return { user_id, image_url, uploaded_at };
 };
 
 export default router;
-

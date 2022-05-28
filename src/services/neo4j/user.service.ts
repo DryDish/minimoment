@@ -1,35 +1,35 @@
-import { PaperType } from "../../models/neo4j/paper-type";
+import { User } from "../../models/neo4j/user";
 import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
 import { GenericService } from "./generic-model.service";
 import { isValidNeoId } from "../../utils/neo-validator";
-import { Size } from "../../models/neo4j/size";
-import { DiscountCode } from "../../models/neo4j/discount-code";
+import { Role } from "../../models/neo4j/role";
+import { ContactInfo } from "../../models/neo4j/contact-info";
 
-export class PaperTypeService extends GenericService<typeof PaperType> {
-  constructor(protected model: typeof PaperType) {
+export class UserService extends GenericService<typeof User> {
+  constructor(protected model: typeof User) {
     super(model);
   }
 
-  async create(body: any): Promise<CustomResult<typeof PaperType>> {
+  async create(body: any): Promise<CustomResult<typeof User>> {
     try {
-      const discountCode = await DiscountCode.find(body.discount_code_id);
-      if (!discountCode) {
+      const role = await Role.find(body.role_id);
+      if (!role) {
         return new CustomResult(StatusCode.BadRequest);
       }
 
-      const size = await Size.find(body.size_id);
-      if (!size) {
+      const contactInfo = await ContactInfo.find(body.contact_info_id);
+      if (!contactInfo) {
         return new CustomResult(StatusCode.BadRequest);
       }
 
-      const paperType = await this.model.create(body);
+      const user = await this.model.create(body);
 
-      paperType.relateTo(discountCode, "has_discount");
-      paperType.relateTo(size, "has_size");
+      user.relateTo(role, "has_role");
+      user.relateTo(contactInfo, "has_contact_info");
 
       return new CustomResult(
         StatusCode.Created,
-        paperType.properties() as typeof PaperType
+        user.properties() as typeof User
       );
     } catch (error) {
       console.error(error);
@@ -37,30 +37,30 @@ export class PaperTypeService extends GenericService<typeof PaperType> {
     }
   }
 
-  async update(id: string, body: any): Promise<CustomResult<typeof PaperType>> {
+  async update(id: string, body: any): Promise<CustomResult<typeof User>> {
     if (isValidNeoId(id)) {
       try {
-        const paperTypeToEdit = await this.model.find(id);
+        const userToEdit = await this.model.find(id);
 
-        if (paperTypeToEdit) {
-          const discountCode = await DiscountCode.find(body.discount_code_id);
-          if (!discountCode) {
+        if (userToEdit) {
+          const role = await Role.find(body.role_id);
+          if (!role) {
             return new CustomResult(StatusCode.BadRequest);
           }
 
-          const size = await Size.find(body.size_id);
-          if (!size) {
+          const contactInfo = await ContactInfo.find(body.contact_info_id);
+          if (!contactInfo) {
             return new CustomResult(StatusCode.BadRequest);
           }
 
-          const paperType = await paperTypeToEdit.update(body);
+          const user = await userToEdit.update(body);
 
-          paperType.relateTo(discountCode, "has_discount");
-          paperType.relateTo(size, "has_size");
+          user.relateTo(role, "has_role");
+          user.relateTo(contactInfo, "has_contact_info");
 
           return new CustomResult(
             StatusCode.Created,
-            paperType.properties() as typeof PaperType
+            user.properties() as typeof User
           );
         } else {
           return new CustomResult(StatusCode.NotFound);

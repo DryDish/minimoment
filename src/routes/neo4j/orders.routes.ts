@@ -1,6 +1,6 @@
 import express from "express";
-import { Order } from "../../models/mysql/order";
-import { OrderService } from "../../services/mysql/order.service";
+import { Order } from "../../models/neo4j/order";
+import { OrderService } from "../../services/neo4j/order.service";
 import { resultHandler } from "../../utils/response-handler.utils";
 
 const router = express.Router();
@@ -49,31 +49,31 @@ router.delete("/:id", async (req, res) => {
 });
 
 const filterBody = (body: {
-  discountCodeId: any;
-  userId: any;
-  billingContactInfoId: any;
-  statusId: any;
-  orderPrice: any;
-  totalPriceSaved: any;
-  createdAt: any;
+  discount_code_id: any;
+  user_id: any;
+  billing_contact_info_id: any;
+  status_id: any;
+  order_price: any;
+  total_price_saved: any;
+  created_at: any;
 }) => {
   const {
-    discountCodeId,
-    userId,
-    billingContactInfoId,
-    statusId,
-    orderPrice,
-    totalPriceSaved,
-    createdAt,
+    discount_code_id,
+    user_id,
+    billing_contact_info_id,
+    status_id,
+    order_price,
+    total_price_saved,
+    created_at,
   } = body;
   return {
-    discountCodeId,
-    userId,
-    billingContactInfoId,
-    statusId,
-    orderPrice,
-    totalPriceSaved,
-    createdAt,
+    discount_code_id,
+    user_id,
+    billing_contact_info_id,
+    status_id,
+    order_price,
+    total_price_saved,
+    created_at,
   };
 };
 

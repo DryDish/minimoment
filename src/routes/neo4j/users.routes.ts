@@ -1,11 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { User } from "../../models/mysql/user";
-import { GenericService } from "../../services/mysql/generic-model.service";
+import { User } from "../../models/neo4j/user";
 import { resultHandler } from "../../utils/response-handler.utils";
+import { UserService } from "../../services/neo4j/user.service";
 
 const router = express.Router();
-const userService = new GenericService(User);
+const userService = new UserService(User);
 
 router.get("/", async (_, res) => {
   const result = await userService.findAll();
@@ -20,16 +20,16 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const requestObject = filterBody(req.body);
-
+  const requestObject = await filterBody(req.body);
+  
   const result = await userService.create(requestObject);
   resultHandler("User", result, res);
 });
 
 router.patch("/:id", async (req, res) => {
   const { id } = req.params;
-  const requestObject = filterBody(req.body);
-
+  const requestObject = await filterBody(req.body);
+  
   const result = await userService.update(id, requestObject);
   resultHandler("User", result, res);
 });
@@ -42,33 +42,33 @@ router.delete("/:id", async (req, res) => {
 });
 
 const filterBody = async (body: {
-  firstName: any;
-  lastName: any;
+  first_name: any;
+  last_name: any;
   username: any;
   password: any;
-  autoRenew: any;
-  roleId: any;
-  contactInfoId: any;
+  auto_renew: any;
+  role_id: any;
+  contact_info_id: any;
 }) => {
   const {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     username,
     password,
-    autoRenew,
-    roleId,
-    contactInfoId,
+    auto_renew,
+    role_id,
+    contact_info_id,
   } = body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   return {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     username,
     password: hashedPassword,
-    autoRenew,
-    roleId,
-    contactInfoId,
+    auto_renew,
+    role_id,
+    contact_info_id,
   };
 };
 

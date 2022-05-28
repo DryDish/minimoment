@@ -10,6 +10,11 @@ import DiscountCodeRouter from "./neo4j/discount-codes.routes";
 import SizeRouter from "./neo4j/sizes.router";
 import FrameRouter from "./neo4j/frames.routes";
 import PaperTypeRouter from "./neo4j/paper-types.routes";
+import UserRouter from "./neo4j/users.routes";
+import OrderRouter from "./neo4j/orders.routes";
+import OrderItemRouter from "./neo4j/order-items.routes";
+import InvoiceRouter from "./neo4j/invoices.routes";
+import AccountingRouter from "./neo4j/accounting.routes";
 
 const router = express.Router();
 
@@ -24,5 +29,10 @@ router.use("/discounts/codes", DiscountCodeRouter);
 router.use("/stock/sizes", SizeRouter);
 router.use("/stock/frames", FrameRouter);
 router.use("/stock/paper-types", PaperTypeRouter);
+router.use("/users", UserRouter);
+router.use("/orders", OrderRouter);
+router.use("/order-items", OrderItemRouter);
+router.use("/invoices", InvoiceRouter);
+router.use("/reports", AccountingRouter);
 
 export default router;
