@@ -1,4 +1,4 @@
-import Neode, { Node } from "neode";
+import { Node } from "neode";
 import { PictureData } from "../../models/neo4j/picture-data";
 import { User } from "../../models/neo4j/user";
 import { CustomResult, StatusCode } from "../../utils/custom-result.utils";
@@ -33,19 +33,19 @@ export class PictureDataService extends GenericService<typeof PictureData> {
     try {
       const queryBuilder = this.model.query();
 
-      const idk = await queryBuilder.match("p", PictureData)
+      const pictureDataResult = await queryBuilder.match("p", PictureData)
         .where("p.user_id", userId)
         .return("p")
         .execute();
 
-      if (idk.records) {
+      if (pictureDataResult.records) {
         console.log("i think there are no records");
-        console.log(idk.summary);
+        console.log(pictureDataResult.summary);
         return new CustomResult(StatusCode.NotFound);
       }
-      console.log(idk);
+      console.log(pictureDataResult);
 
-      return new CustomResult(StatusCode.Success, idk.records);
+      return new CustomResult(StatusCode.Success, pictureDataResult.records);
     } catch (error) {
       return new CustomResult(StatusCode.ServerError);
     }
