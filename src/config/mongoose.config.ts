@@ -8,7 +8,7 @@ const PASSWORD = process.env.MONGO_DB_PASSWORD || "";
 const DATABASE = process.env.MONGO_DB_DATABASE || "";
 const AUTH_DATABASE = process.env.MONGO_DB_AUTH_DATABASE || "";
 const USE_ATLAS = process.env.MONGO_DB_USE_ATLAS || false;
-aasdad
+
 const getConnectionString = (): string => {
   if (USE_ATLAS) {
     return `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DATABASE}?authSource=${AUTH_DATABASE}&retryWrites=true&w=majority`;
