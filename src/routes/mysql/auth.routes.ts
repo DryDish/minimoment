@@ -21,6 +21,8 @@ router.post("/login", async (req, res) => {
   console.log("retrieved user:", user);
   
   if (!user) {
+    console.log("NOT USER");
+    
     resultHandler("", new CustomResult(StatusCode.Unauthorized), res);
     return;
   }
@@ -38,8 +40,14 @@ router.post("/login", async (req, res) => {
       { expiresIn: "24h" },
       (e: Error | null, token: string | undefined) => {
         if (e) {
+          console.log("JTW SIGN ERR", e);
+          console.log("Token?", token);
+          
+          
           resultHandler("", new CustomResult(StatusCode.ServerError), res);
         } else {
+          console.log("JWT SUCCESS", token);
+          
           const result = new CustomResult(StatusCode.Success, {
             user: { username },
             token,
