@@ -2,14 +2,16 @@ import "dotenv/config";
 import express from "express";
 import "./config/sequelize.config";
 import "./config/mongoose.config";
+import "./config/neo4j.config";
 
 // Import middleware
 import AuthMiddleware from "./middleware/authenticate.middleware";
 
 // Import routes
 import AuthRouter from "./routes/mysql/auth.routes";
-import MysqlRouter from "./routes/mysql-master.router"
-import MongoRouter from "./routes/mongo-master.router"
+import MysqlRouter from "./routes/mysql-master.router";
+import MongoRouter from "./routes/mongo-master.router";
+import NeoRouter from "./routes/neo-master.router";
 
 // Constants
 const SERVER_PORT = process.env.SERVER_PORT || 5000;
@@ -27,7 +29,7 @@ app.use(AuthMiddleware);
 
 app.use("/mysql", MysqlRouter);
 app.use("/mongo", MongoRouter);
-
+app.use("/neo", NeoRouter);
 
 app.all("*", (_, res) => {
   res.status(400).send({ error: 400, message: "Bad Request." });
