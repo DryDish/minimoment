@@ -62,26 +62,6 @@ BEGIN
 END $$
 DELIMITER ;
 
--- Usages
-
--- Pictures & Frames
--- CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, true, @test_products_amount); -- Retrieve how many frames and pictures were sold last month.
--- SELECT @test_products_amount;																-- Check out the amount.
-
--- No Pictures & Frames
--- CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, true, @test_products_amount); -- Retrieve how many frames were sold last month.
--- SELECT @test_products_amount;      															 -- Check out the amount.
-
--- Pictures & No Frames
--- CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), true, false, @test_products_amount); -- Retrieve how many and pictures were sold last month.
--- SELECT @test_products_amount;																 -- Check out the amount.
-
--- No Pictures & No Frames
--- CALL get_products_sold(NOW() - INTERVAL 1 MONTH, NOW(), false, false, @test_products_amount); 
--- SELECT @test_products_amount;																 -- Check out the amount.
-	
-
-
 
 -- -------------------------------------------------------------------------------------------------------------------------
 -- Procedure `get_order_item_price` -> Calculates the order item full price
