@@ -14,8 +14,12 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  console.log("Username: ", username, "password", password);
+  
 
   const user = await getUser(res, username);
+  console.log("retrieved user:", user);
+  
   if (!user) {
     resultHandler("", new CustomResult(StatusCode.Unauthorized), res);
     return;
@@ -23,6 +27,7 @@ router.post("/login", async (req, res) => {
 
   bcrypt.compare(password, user.getDataValue("password"), (error, same) => {
     if (error || !same) {
+      console.log(`Given: ${password}, actual ${user.getDataValue("password")}`);
       resultHandler("", new CustomResult(StatusCode.Unauthorized), res);
       return;
     }
