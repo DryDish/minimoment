@@ -14,7 +14,7 @@ import MongoRouter from "./routes/mongo-master.router";
 import NeoRouter from "./routes/neo-master.router";
 
 // Constants
-const SERVER_PORT = process.env.SERVER_PORT || 5000;
+const SERVER_PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
