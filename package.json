@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "start": "npx tsc && node build/app.js",
+    "start": "node build/app.js",
+    "postinstall": "tsc",
+    "start-BAK": "npx tsc && node build/app.js",
     "dev": "nodemon ./src/app.ts"
   },
   "devDependencies": {
